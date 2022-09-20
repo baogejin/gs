@@ -3,7 +3,7 @@ package gateway
 import (
 	"fmt"
 	"gs/define"
-	myrpc "gs/lib/myRpc"
+	myrpc "gs/lib/rpc"
 	"net/http"
 
 	"golang.org/x/net/websocket"

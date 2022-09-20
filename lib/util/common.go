@@ -15,7 +15,7 @@ func GetLocalIP() string {
 			addrs, _ := netInterfaces[i].Addrs()
 
 			for _, address := range addrs {
-				if ipnet, ok := address.(*net.IPNet); ok && !ipnet.IP.IsLoopback() {
+				if ipnet, ok := address.(*net.IPNet); ok && ipnet.IP.IsGlobalUnicast() {
 					if ipnet.IP.To4() != nil {
 						return ipnet.IP.String()
 					}

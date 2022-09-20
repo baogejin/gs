@@ -4,8 +4,8 @@ import (
 	"encoding/binary"
 	"fmt"
 	"gs/define"
-	myrpc "gs/lib/myRpc"
-	rpclogic "gs/serverNode/logic/rpc"
+	myrpc "gs/lib/rpc"
+	rpclogic "gs/server_node/logic/rpc"
 	"io"
 
 	"golang.org/x/net/websocket"

@@ -1,7 +1,7 @@
 package main
 
 import (
-	"gs/serverNode/gateway"
+	"gs/server_node/gateway"
 	"log"
 	"time"
 

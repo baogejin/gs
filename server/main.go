@@ -3,7 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
-	servernode "gs/serverNode"
+	"gs/server_node"
 	"os"
 	"os/signal"
 	"syscall"
@@ -16,7 +16,7 @@ func main() {
 	flag.StringVar(&nodeName, "node", "gateway", "server node")
 	flag.Parse()
 
-	server := servernode.GetServerNode(nodeName)
+	server := server_node.GetServerNode(nodeName)
 	if server == nil {
 		fmt.Println("get server node is nil")
 		return

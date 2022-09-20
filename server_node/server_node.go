@@ -1,9 +1,9 @@
-package servernode
+package server_node
 
 import (
 	"gs/define"
-	gateway "gs/serverNode/gateway"
-	logic "gs/serverNode/logic"
+	gateway "gs/server_node/gateway"
+	logic "gs/server_node/logic"
 )
 
 type MyServerNode interface {
