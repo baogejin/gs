@@ -1,4 +1,4 @@
-package rpclogic
+package rpc_logic
 
 import (
 	"context"

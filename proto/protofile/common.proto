@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+package myproto;
+
+option go_package = "./myproto";
+
+message TestMsg {
+    int32 aaa = 1;
+}

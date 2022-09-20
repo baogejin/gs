@@ -3,7 +3,7 @@ package gateway
 import (
 	"fmt"
 	"gs/define"
-	myrpc "gs/lib/rpc"
+	"gs/lib/myrpc"
 	"net/http"
 
 	"golang.org/x/net/websocket"
@@ -32,7 +32,7 @@ func (this *GatewayServer) Run() {
 			panic("ListenAndServer: " + err.Error())
 		}
 	}()
-	myrpc.Get().SetName(define.NodeGateway)
+	myrpc.Get().Init(define.NodeGateway, []string{"127.0.0.1:8500"})
 	myrpc.Get().NewRpcClient("logic", "RpcLogic", nil, nil)
 }
 

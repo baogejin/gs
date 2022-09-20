@@ -4,8 +4,8 @@ import (
 	"encoding/binary"
 	"fmt"
 	"gs/define"
-	myrpc "gs/lib/rpc"
-	rpclogic "gs/server_node/logic/rpc"
+	"gs/lib/myrpc"
+	rpc_logic "gs/server_node/logic/rpc"
 	"io"
 
 	"golang.org/x/net/websocket"
@@ -64,13 +64,13 @@ func (this *ClientConn) ProcessMsg(msgId uint32, data []byte) {
 		Node:      define.NodeLogic,
 		RpcModule: "RpcLogic",
 		Fn:        "Logic",
-		Arg:       &rpclogic.LogicReq{MsgId: msgId, Data: data},
-		Reply:     &rpclogic.LogicAck{},
+		Arg:       &rpc_logic.LogicReq{MsgId: msgId, Data: data},
+		Reply:     &rpc_logic.LogicAck{},
 	})
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
-	ack := ret.(*rpclogic.LogicAck)
+	ack := ret.(*rpc_logic.LogicAck)
 	fmt.Printf("ack:%d,%s\n", ack.MsgId, ack.Data)
 }
