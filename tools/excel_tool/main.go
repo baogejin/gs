@@ -32,6 +32,9 @@ func getExcelList(path string) ([]string, error) {
 	}
 	for _, fileInfo := range fileInfoList {
 		name := fileInfo.Name()
+		if strings.HasPrefix(name, "~") {
+			continue
+		}
 		strSlc := strings.Split(name, ".")
 		if len(strSlc) != 2 || strSlc[1] != "xlsx" {
 			continue
