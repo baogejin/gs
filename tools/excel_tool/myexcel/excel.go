@@ -1,8 +1,6 @@
 package myexcel
 
 import (
-	"bytes"
-	"encoding/json"
 	"errors"
 	"fmt"
 	"os"
@@ -18,7 +16,7 @@ type ExcelInfo struct {
 
 type SheetInfo struct {
 	Name     string
-	Types    []string
+	Types    []*TypeInfo
 	Varnames []string
 	Descs    []string
 	Content  [][]string
@@ -65,7 +63,12 @@ func (this *ExcelInfo) Load(path, name string) error {
 			if !needExport[i] {
 				continue
 			}
-			sheetInfo.Types = append(sheetInfo.Types, t)
+			typeInfo, err := getTypeInfoByStr(strings.ToLower(t))
+			if err != nil {
+				return err
+			}
+			typeInfo.FixType()
+			sheetInfo.Types = append(sheetInfo.Types, typeInfo)
 		}
 		if len(sheetInfo.Types) != len(needExport) {
 			return errors.New("类型不能为空:" + name + ".xlsz" + " sheet")
@@ -103,8 +106,6 @@ func (this *ExcelInfo) GenJson(path string) error {
 	if err != nil {
 		return err
 	}
-	var out bytes.Buffer
-	err = json.Indent(&out, []byte(jsonStr), "", "    ")
 	filePath := path + "/" + this.Name + ".json"
 	fmt.Println(filePath)
 	file, err := os.OpenFile(filePath, os.O_RDWR|os.O_TRUNC|os.O_CREATE, os.ModePerm)
@@ -112,7 +113,7 @@ func (this *ExcelInfo) GenJson(path string) error {
 		return errors.New("open json file failed " + this.Name + ".json")
 	}
 	defer file.Close()
-	file.WriteString(out.String())
+	file.WriteString(jsonStr)
 	fmt.Println("gen json " + this.Name + ".xlsx success")
 	return nil
 }
@@ -127,19 +128,25 @@ func (this *ExcelInfo) ToJson() (string, error) {
 		if i != 0 {
 			ret += ","
 		}
+		ret += "\n"
 		ret += str
 	}
-	ret += "}"
+	ret += "\n}"
 	return ret, nil
 }
 
 func (this *SheetInfo) ToJson() (string, error) {
-	ret := "\"" + this.Name + "\":["
+	ret := "    \"" + this.Name + "\":["
 
 	for i, row := range this.Content {
 		rowStr := "{"
 		for j, cell := range row {
-			cellStr := "\"" + this.Varnames[j] + "\":" + "\"" + cell + "\""
+			cellStr := "\"" + this.Varnames[j] + "\":"
+			vStr, err := this.Types[j].ParseToJson(cell)
+			if err != nil {
+				return "", err
+			}
+			cellStr += vStr
 			if j != 0 {
 				rowStr += ","
 			}
@@ -149,8 +156,8 @@ func (this *SheetInfo) ToJson() (string, error) {
 		if i != 0 {
 			ret += ","
 		}
-		ret += rowStr
+		ret += "\n        " + rowStr
 	}
-	ret += "]"
+	ret += "\n    ]"
 	return ret, nil
 }
