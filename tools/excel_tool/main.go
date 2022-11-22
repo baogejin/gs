@@ -58,7 +58,7 @@ func getExcelList(path string) ([]string, error) {
 
 func loadExcels(path string, files []string) []*myexcel.ExcelInfo {
 	ret := []*myexcel.ExcelInfo{}
-	for _, file := range files {
+	for i, file := range files {
 		excel := &myexcel.ExcelInfo{}
 		excel.Name = file
 		err := excel.Load(path, file)
@@ -66,24 +66,33 @@ func loadExcels(path string, files []string) []*myexcel.ExcelInfo {
 			panic("load " + file + ".xlsx failed," + err.Error())
 		}
 		ret = append(ret, excel)
-		fmt.Println("load", file+".xlsx success")
+		fmt.Printf("[%d/%d]load %s.xlsx success\n", i+1, len(files), file)
 	}
 	return ret
 }
 
 func genJson(path string, excels []*myexcel.ExcelInfo) {
-	for _, excel := range excels {
+	for i, excel := range excels {
 		if err := excel.GenJson(path); err != nil {
 			panic("gen json failed:" + excel.Name + ".xlsx " + err.Error())
 		}
+		fmt.Printf("[%d/%d]gen json %s.xlsx success\n", i+1, len(excels), excel.Name)
 	}
 }
 
 func genGoCode(path string, excels []*myexcel.ExcelInfo) {
-	for _, excel := range excels {
+	for i, excel := range excels {
+		if excel.Name == "Global" {
+			if err := excel.GenGlobalKey(path); err != nil {
+				panic("gen global key failed " + err.Error())
+			}
+			fmt.Printf("[%d/%d]gen global key %s.xlsx success\n", i+1, len(excels), excel.Name)
+			continue
+		}
 		if err := excel.GenCode(path); err != nil {
 			panic("gen code failed:" + excel.Name + ".xlsx " + err.Error())
 		}
+		fmt.Printf("[%d/%d]gen code %s.xlsx success\n", i+1, len(excels), excel.Name)
 	}
 	cmd := exec.Command("gofmt", "-w", path)
 	err := cmd.Run()

@@ -2,7 +2,6 @@ package myexcel
 
 import (
 	"errors"
-	"fmt"
 	"os"
 	"strings"
 
@@ -113,7 +112,6 @@ func (this *ExcelInfo) GenJson(path string) error {
 	}
 	defer file.Close()
 	file.WriteString(jsonStr)
-	fmt.Println("gen json " + this.Name + ".xlsx success")
 	return nil
 }
 
@@ -138,6 +136,9 @@ func (this *SheetInfo) ToJson() (string, error) {
 	ret := "    \"" + this.Name + "\":["
 	repeatCheck := make(map[string]bool)
 	needCheck := false
+	if this.Name == "Global" {
+		needCheck = true
+	}
 	if this.Varnames[0] == "ID" {
 		if this.Types[0].CType != CellTypeSimple || this.Types[0].ValueType1 != "int32" {
 			return "", errors.New("ID type err in sheet " + this.Name)
@@ -154,7 +155,7 @@ func (this *SheetInfo) ToJson() (string, error) {
 			}
 			if needCheck && j == 0 {
 				if repeatCheck[vStr] {
-					return "", errors.New("ID repeat in sheet " + this.Name)
+					return "", errors.New(this.Varnames[0] + " repeat in sheet " + this.Name)
 				}
 				repeatCheck[vStr] = true
 			}
@@ -179,6 +180,7 @@ func (this *ExcelInfo) GenCode(path string) error {
 	ret += "package gencode\n\n"
 	ret += "import (\n"
 	ret += "	\"encoding/json\"\n"
+	ret += "	\"gs/define\"\n"
 	ret += "	\"io/ioutil\"\n"
 	ret += "	\"os\"\n"
 	ret += "	\"sync\"\n"
@@ -200,14 +202,15 @@ func (this *ExcelInfo) GenCode(path string) error {
 		ret += "type " + s.Name + "Info struct {\n"
 		for i := range s.Varnames {
 			if s.Types[i].CType == CellTypeSimple {
-				ret += "	" + s.Varnames[i] + "   " + s.Types[i].ValueType1 + "\n"
+				ret += "	" + s.Varnames[i] + "   " + s.Types[i].ValueType1
 			} else if s.Types[i].CType == CellTypeSlc {
-				ret += "	" + s.Varnames[i] + "   []" + s.Types[i].ValueType1 + "\n"
+				ret += "	" + s.Varnames[i] + "   []" + s.Types[i].ValueType1
 			} else if s.Types[i].CType == CellTypeDoubleSlc {
-				ret += "	" + s.Varnames[i] + "   [][]" + s.Types[i].ValueType1 + "\n"
+				ret += "	" + s.Varnames[i] + "   [][]" + s.Types[i].ValueType1
 			} else if s.Types[i].CType == CellTypeMap {
-				ret += "	" + s.Varnames[i] + "   map[" + s.Types[i].ValueType1 + "]" + s.Types[i].ValueType2 + "\n"
+				ret += "	" + s.Varnames[i] + "   map[" + s.Types[i].ValueType1 + "]" + s.Types[i].ValueType2
 			}
+			ret += "// " + s.Descs[i] + "\n"
 		}
 		ret += "}\n\n"
 	}
@@ -226,7 +229,8 @@ func (this *ExcelInfo) GenCode(path string) error {
 			ret += "this." + s.Name + "Map = make(map[int32]*" + s.Name + "Info)\n"
 		}
 	}
-	ret += "	filePtr, err := os.Open(\"D:/gs/data/json/" + this.Name + ".json\")\n"
+	ret += "	rootPath := os.Getenv(define.EnvName)\n"
+	ret += "	filePtr, err := os.Open(rootPath + \"/data/json/" + this.Name + ".json\")\n"
 	ret += "	if err != nil {\n"
 	ret += "		panic(err)\n"
 	ret += "	}\n"
@@ -264,6 +268,32 @@ func (this *ExcelInfo) GenCode(path string) error {
 	}
 	defer file.Close()
 	file.WriteString(ret)
-	fmt.Println("gen code " + this.Name + ".xlsx success")
+	return nil
+}
+
+func (this *ExcelInfo) GenGlobalKey(path string) error {
+	if this.Name != "Global" {
+		return errors.New("this is not Global.xlsx")
+	}
+	if len(this.Sheets) != 1 || this.Sheets[0].Name != "Global" {
+		return errors.New("Global sheet error")
+	}
+	if this.Sheets[0].Types[0].CType != CellTypeSimple || this.Sheets[0].Types[0].ValueType1 != "string" {
+		return errors.New("Global key type error")
+	}
+	ret := ""
+	ret += "package gencode\n\n"
+	ret += "const (\n"
+	for _, v := range this.Sheets[0].Content {
+		ret += v[0] + "=\"" + v[0] + "\"\n"
+	}
+	ret += ")\n\n"
+	filePath := path + "/GlobalKey.go"
+	file, err := os.OpenFile(filePath, os.O_RDWR|os.O_TRUNC|os.O_CREATE, os.ModePerm)
+	if nil != err {
+		return errors.New("open code file failed GlobalKey.go")
+	}
+	defer file.Close()
+	file.WriteString(ret)
 	return nil
 }

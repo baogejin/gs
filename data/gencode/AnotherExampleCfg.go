@@ -2,6 +2,7 @@ package gencode
 
 import (
 	"encoding/json"
+	"gs/define"
 	"io/ioutil"
 	"os"
 	"sync"
@@ -13,9 +14,9 @@ type AnotherExampleCfg struct {
 }
 
 type AnotherInfo struct {
-	ID   int32
-	Name string
-	Age  int32
+	ID   int32  // ID
+	Name string // 姓名
+	Age  int32  // 年龄
 }
 
 var anotherexampleCfg *AnotherExampleCfg
@@ -31,7 +32,8 @@ func GetAnotherExampleCfg() *AnotherExampleCfg {
 
 func (this *AnotherExampleCfg) init() {
 	this.AnotherMap = make(map[int32]*AnotherInfo)
-	filePtr, err := os.Open("D:/gs/data/json/AnotherExample.json")
+	rootPath := os.Getenv(define.EnvName)
+	filePtr, err := os.Open(rootPath + "/data/json/AnotherExample.json")
 	if err != nil {
 		panic(err)
 	}

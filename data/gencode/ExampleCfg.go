@@ -2,6 +2,7 @@ package gencode
 
 import (
 	"encoding/json"
+	"gs/define"
 	"io/ioutil"
 	"os"
 	"sync"
@@ -15,20 +16,20 @@ type ExampleCfg struct {
 }
 
 type ExampleInfo struct {
-	ID         int32
-	Name       string
-	Slc1       []int32
-	Slc2       []float32
-	DoubleSlc1 [][]int32
-	DoubleSlc2 [][]string
-	IsBool     bool
-	Map1       map[int32]int32
-	Map2       map[int32]string
+	ID         int32            // 数字
+	Name       string           // 字符串
+	Slc1       []int32          // 数组
+	Slc2       []float32        // 数组
+	DoubleSlc1 [][]int32        // 二维数组
+	DoubleSlc2 [][]string       // 二维数组
+	IsBool     bool             // 布尔
+	Map1       map[int32]int32  // map类型
+	Map2       map[int32]string // map类型
 }
 
 type AbbInfo struct {
-	ID  int32
-	Sth string
+	ID  int32  // ID
+	Sth string // 参数1
 }
 
 var exampleCfg *ExampleCfg
@@ -45,7 +46,8 @@ func GetExampleCfg() *ExampleCfg {
 func (this *ExampleCfg) init() {
 	this.ExampleMap = make(map[int32]*ExampleInfo)
 	this.AbbMap = make(map[int32]*AbbInfo)
-	filePtr, err := os.Open("D:/gs/data/json/Example.json")
+	rootPath := os.Getenv(define.EnvName)
+	filePtr, err := os.Open(rootPath + "/data/json/Example.json")
 	if err != nil {
 		panic(err)
 	}
