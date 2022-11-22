@@ -42,7 +42,7 @@ func (this *ExcelInfo) Load(path, name string) error {
 			return err
 		}
 		if len(rows) < 4 {
-			return errors.New("表结构不足4行:" + name + ".xlsz" + " sheet")
+			return errors.New("表结构不足4行:" + name + ".xlsx" + " sheet")
 		}
 		needExport := make(map[int]bool)
 		for i, v := range rows[0] {
@@ -57,7 +57,7 @@ func (this *ExcelInfo) Load(path, name string) error {
 			sheetInfo.Varnames = append(sheetInfo.Varnames, vname)
 		}
 		if len(sheetInfo.Varnames) != len(needExport) {
-			return errors.New("字段名不能为空:" + name + ".xlsz" + " sheet")
+			return errors.New("字段名不能为空:" + name + ".xlsx" + " sheet")
 		}
 		for i, t := range rows[2] {
 			if !needExport[i] {
@@ -136,7 +136,14 @@ func (this *ExcelInfo) ToJson() (string, error) {
 
 func (this *SheetInfo) ToJson() (string, error) {
 	ret := "    \"" + this.Name + "\":["
-
+	repeatCheck := make(map[string]bool)
+	needCheck := false
+	if this.Varnames[0] == "ID" {
+		if this.Types[0].CType != CellTypeSimple || this.Types[0].ValueType1 != "int32" {
+			return "", errors.New("ID type err in sheet " + this.Name)
+		}
+		needCheck = true
+	}
 	for i, row := range this.Content {
 		rowStr := "{"
 		for j, cell := range row {
@@ -144,6 +151,12 @@ func (this *SheetInfo) ToJson() (string, error) {
 			vStr, err := this.Types[j].ParseToJson(cell)
 			if err != nil {
 				return "", err
+			}
+			if needCheck && j == 0 {
+				if repeatCheck[vStr] {
+					return "", errors.New("ID repeat in sheet " + this.Name)
+				}
+				repeatCheck[vStr] = true
 			}
 			cellStr += vStr
 			if j != 0 {

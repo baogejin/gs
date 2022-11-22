@@ -42,7 +42,7 @@ func getExcelList(path string) ([]string, error) {
 			continue
 		}
 		if len([]byte(name)) != len([]rune(name)) {
-			fmt.Println("文件名请不要用英文数字以外的字符:", name)
+			fmt.Println("文件名请不要用英文数字以外的字符:", name, "该文件已被忽略")
 			continue
 		}
 		ret = append(ret, strSlc[0])
@@ -57,8 +57,7 @@ func loadExcels(path string, files []string) []*myexcel.ExcelInfo {
 		excel.Name = file
 		err := excel.Load(path, file)
 		if err != nil {
-			fmt.Println("load ", file, ".xlsx failed,", err)
-			continue
+			panic("load " + file + ".xlsx failed," + err.Error())
 		}
 		ret = append(ret, excel)
 		fmt.Println("load", file+".xlsx success")
@@ -69,7 +68,7 @@ func loadExcels(path string, files []string) []*myexcel.ExcelInfo {
 func genJson(path string, excels []*myexcel.ExcelInfo) {
 	for _, excel := range excels {
 		if err := excel.GenJson(path); err != nil {
-			fmt.Println("gen json failed:"+excel.Name+".xlsx", err)
+			panic("gen json failed:" + excel.Name + ".xlsx " + err.Error())
 		}
 	}
 }
@@ -77,7 +76,7 @@ func genJson(path string, excels []*myexcel.ExcelInfo) {
 func genGoCode(path string, excels []*myexcel.ExcelInfo) {
 	for _, excel := range excels {
 		if err := excel.GenCode(path); err != nil {
-			fmt.Println("gen code failed:"+excel.Name+".xlsx", err)
+			panic("gen code failed:" + excel.Name + ".xlsx " + err.Error())
 		}
 	}
 	cmd := exec.Command("gofmt", "-w", path)
