@@ -2,16 +2,22 @@ package main
 
 import (
 	"fmt"
+	"gs/define"
 	"gs/tools/excel_tool/myexcel"
 	"io/ioutil"
+	"os"
 	"os/exec"
 	"strings"
 )
 
 func main() {
-	excelPath := "D:/gs/data/excel"
-	jsonPath := "D:/gs/data/json"
-	codePath := "D:/gs/data/gencode"
+	rootPath := os.Getenv(define.EnvName)
+	if rootPath == "" {
+		panic("gs环境变量没有设置，可以先运行bin下的set_env.bat")
+	}
+	excelPath := rootPath + "/data/excel"
+	jsonPath := rootPath + "/data/json"
+	codePath := rootPath + "/data/gencode"
 	fileList, err := getExcelList(excelPath)
 	if err != nil {
 		fmt.Println(err)
