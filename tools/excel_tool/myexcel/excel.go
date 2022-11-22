@@ -107,7 +107,6 @@ func (this *ExcelInfo) GenJson(path string) error {
 		return err
 	}
 	filePath := path + "/" + this.Name + ".json"
-	fmt.Println(filePath)
 	file, err := os.OpenFile(filePath, os.O_RDWR|os.O_TRUNC|os.O_CREATE, os.ModePerm)
 	if nil != err {
 		return errors.New("open json file failed " + this.Name + ".json")
@@ -160,4 +159,98 @@ func (this *SheetInfo) ToJson() (string, error) {
 	}
 	ret += "\n    ]"
 	return ret, nil
+}
+
+func (this *ExcelInfo) GenCode(path string) error {
+	ret := ""
+	ret += "package gencode\n\n"
+	ret += "import (\n"
+	ret += "	\"encoding/json\"\n"
+	ret += "	\"io/ioutil\"\n"
+	ret += "	\"os\"\n"
+	ret += "	\"sync\"\n"
+	ret += ")\n\n"
+	ret += "type " + this.Name + "Cfg struct {\n"
+	needMap := make(map[string]bool)
+	for _, s := range this.Sheets {
+		if len(s.Varnames) == 0 {
+			continue
+		}
+		ret += "	" + s.Name + "Slc []*" + s.Name + "Info `json:\"" + s.Name + "\"`\n"
+		if s.Varnames[0] == "ID" && s.Types[0].CType == CellTypeSimple && s.Types[0].ValueType1 == "int32" {
+			needMap[s.Name] = true
+			ret += "	" + s.Name + "Map map[int32]*" + s.Name + "Info\n"
+		}
+	}
+	ret += "}\n\n"
+	for _, s := range this.Sheets {
+		ret += "type " + s.Name + "Info struct {\n"
+		for i := range s.Varnames {
+			if s.Types[i].CType == CellTypeSimple {
+				ret += "	" + s.Varnames[i] + "   " + s.Types[i].ValueType1 + "\n"
+			} else if s.Types[i].CType == CellTypeSlc {
+				ret += "	" + s.Varnames[i] + "   []" + s.Types[i].ValueType1 + "\n"
+			} else if s.Types[i].CType == CellTypeDoubleSlc {
+				ret += "	" + s.Varnames[i] + "   [][]" + s.Types[i].ValueType1 + "\n"
+			} else if s.Types[i].CType == CellTypeMap {
+				ret += "	" + s.Varnames[i] + "   map[" + s.Types[i].ValueType1 + "]" + s.Types[i].ValueType2 + "\n"
+			}
+		}
+		ret += "}\n\n"
+	}
+	ret += "var " + strings.ToLower(this.Name) + "Cfg *" + this.Name + "Cfg\n"
+	ret += "var " + strings.ToLower(this.Name) + "Once sync.Once\n\n"
+	ret += "func Get" + this.Name + "Cfg() *" + this.Name + "Cfg {\n"
+	ret += "	" + strings.ToLower(this.Name) + "Once.Do(func() {\n"
+	ret += "		" + strings.ToLower(this.Name) + "Cfg = new(" + this.Name + "Cfg)\n"
+	ret += "		" + strings.ToLower(this.Name) + "Cfg.init()\n"
+	ret += "	})\n"
+	ret += "	return " + strings.ToLower(this.Name) + "Cfg\n"
+	ret += "}\n\n"
+	ret += "func (this *" + this.Name + "Cfg) init() {\n"
+	for _, s := range this.Sheets {
+		if needMap[s.Name] {
+			ret += "this." + s.Name + "Map = make(map[int32]*" + s.Name + "Info)\n"
+		}
+	}
+	ret += "	filePtr, err := os.Open(\"D:/gs/data/json/" + this.Name + ".json\")\n"
+	ret += "	if err != nil {\n"
+	ret += "		panic(err)\n"
+	ret += "	}\n"
+	ret += "	defer filePtr.Close()\n"
+	ret += "	data, err := ioutil.ReadAll(filePtr)\n"
+	ret += "	if err != nil {\n"
+	ret += "		panic(err)\n"
+	ret += "	}\n"
+	ret += "	err = json.Unmarshal(data, this)\n"
+	ret += "	if err != nil {\n"
+	ret += "		panic(err)\n"
+	ret += "	}\n"
+	for _, s := range this.Sheets {
+		if needMap[s.Name] {
+			ret += "	for _, v := range this." + s.Name + "Slc {\n"
+			ret += "		this." + s.Name + "Map[v.ID] = v\n"
+			ret += "	}\n"
+		}
+	}
+	ret += "}\n\n"
+	for _, s := range this.Sheets {
+		if needMap[s.Name] {
+			ret += "func (this *" + this.Name + "Cfg) Get" + s.Name + "ById(id int32) (*" + s.Name + "Info, bool) {\n"
+			ret += "	if ret, ok := this." + s.Name + "Map[id]; ok {\n"
+			ret += "		return ret, ok\n"
+			ret += "	}\n"
+			ret += "	return nil, false\n"
+			ret += "}\n\n"
+		}
+	}
+	filePath := path + "/" + this.Name + "Cfg.go"
+	file, err := os.OpenFile(filePath, os.O_RDWR|os.O_TRUNC|os.O_CREATE, os.ModePerm)
+	if nil != err {
+		return errors.New("open code file failed " + this.Name + "Cfg.go")
+	}
+	defer file.Close()
+	file.WriteString(ret)
+	fmt.Println("gen code " + this.Name + ".xlsx success")
+	return nil
 }

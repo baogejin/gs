@@ -4,12 +4,14 @@ import (
 	"fmt"
 	"gs/tools/excel_tool/myexcel"
 	"io/ioutil"
+	"os/exec"
 	"strings"
 )
 
 func main() {
 	excelPath := "D:/gs/data/excel"
 	jsonPath := "D:/gs/data/json"
+	codePath := "D:/gs/data/gencode"
 	fileList, err := getExcelList(excelPath)
 	if err != nil {
 		fmt.Println(err)
@@ -20,7 +22,7 @@ func main() {
 	//生成json
 	genJson(jsonPath, excels)
 	//生成go代码
-	genGoCode(excels)
+	genGoCode(codePath, excels)
 
 }
 
@@ -72,6 +74,15 @@ func genJson(path string, excels []*myexcel.ExcelInfo) {
 	}
 }
 
-func genGoCode(excels []*myexcel.ExcelInfo) {
-	//todo
+func genGoCode(path string, excels []*myexcel.ExcelInfo) {
+	for _, excel := range excels {
+		if err := excel.GenCode(path); err != nil {
+			fmt.Println("gen code failed:"+excel.Name+".xlsx", err)
+		}
+	}
+	cmd := exec.Command("gofmt", "-w", path)
+	err := cmd.Run()
+	if nil != err {
+		fmt.Println(err)
+	}
 }
