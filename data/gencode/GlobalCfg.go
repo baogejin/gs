@@ -14,9 +14,10 @@ type GlobalCfg struct {
 }
 
 type GlobalInfo struct {
-	Key    string    // 键值
-	Value  int32     // 数据1
-	Value2 [][]int32 // 数据2，二维数组
+	Key      string    // 键值
+	Value    int32     // 数据1
+	SlcValue [][]int32 // 数据2，二维数组
+	StrValue string    // 字符串数据
 }
 
 var globalCfg *GlobalCfg

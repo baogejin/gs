@@ -1,18 +1,13 @@
 package main
 
 import (
-	"fmt"
 	"gs/data/gencode"
+	"gs/lib/mylog"
 )
 
 func main() {
-	if e, ok := gencode.GetExampleCfg().GetExampleById(1); ok {
-		fmt.Println(e.Name)
-	}
-	if a, ok := gencode.GetAnotherExampleCfg().GetAnotherById(1); ok {
-		fmt.Println(a.Name, a.Age)
-	}
-	if g, ok := gencode.GetGlobalCfg().GetGlobalInfoByKey("TestKey"); ok {
-		fmt.Println(g.Value, g.Value2)
+
+	if c, ok := gencode.GetGlobalCfg().GetGlobalInfoByKey(gencode.TestKey2); ok {
+		mylog.Error(c.StrValue)
 	}
 }
