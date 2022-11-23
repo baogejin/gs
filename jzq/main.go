@@ -2,12 +2,15 @@ package main
 
 import (
 	"fmt"
+	"gs/define"
 	"gs/lib/eventbus"
 )
 
 func main() {
-	eventbus.GetInstance().Subscribe("1", testfun)
-	eventbus.GetInstance().Publish("1")
+	eventbus.GetInstance().Subscribe(define.EventTest, testfun)
+	eventbus.GetInstance().Publish(define.EventTest)
+	eventbus.GetInstance().Unsubscribe(define.EventTest, testfun)
+	eventbus.GetInstance().Publish(define.EventTest)
 }
 
 func testfun() {
