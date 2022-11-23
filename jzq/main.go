@@ -1,20 +1,15 @@
 package main
 
 import (
-	"gs/data/gencode"
-	"gs/lib/mylog"
+	"fmt"
+	"gs/lib/eventbus"
 )
 
 func main() {
+	eventbus.GetInstance().Subscribe("1", testfun)
+	eventbus.GetInstance().Publish("1")
+}
 
-	if c, ok := gencode.GetGlobalCfg().GetGlobalInfoByKey(gencode.TestKey2); ok {
-		mylog.Debug(c.StrValue)
-		mylog.Info(c.StrValue)
-		mylog.Notice(c.StrValue)
-		mylog.Warning(c.StrValue)
-		mylog.Error(c.StrValue)
-		mylog.Alert(c.StrValue)
-		mylog.Critical(c.StrValue)
-		mylog.Emergency(c.StrValue)
-	}
+func testfun() {
+	fmt.Println("111111")
 }
