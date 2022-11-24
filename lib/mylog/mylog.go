@@ -49,9 +49,14 @@ func getLogger() *go_logger.Logger {
 		if path == "" {
 			path = "."
 		}
+		path += "/log/"
+		_, err := os.Stat(path)
+		if err != nil && os.IsNotExist(err) {
+			os.Mkdir(path, os.ModePerm)
+		}
 		// 文件输出配置
 		fileConfig := &go_logger.FileConfig{
-			Filename: path + "/log/" + name + "_" + fmt.Sprintf("%d", os.Getpid()) + ".log", // 日志输出文件名，不自动存在
+			Filename: path + name + "_" + fmt.Sprintf("%d", os.Getpid()) + ".log", // 日志输出文件名，不自动存在
 			// 如果要将单独的日志分离为文件，请配置LealFrimeNem参数。
 			// LevelFileName: map[int]string{
 			// 	logger.LoggerLevel("error"): "./error.log", // Error 级别日志被写入 error .log 文件

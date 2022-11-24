@@ -1,9 +1,9 @@
 package main
 
 import (
-	"fmt"
 	"gs/define"
 	"gs/lib/eventbus"
+	"gs/lib/mylog"
 )
 
 func main() {
@@ -15,5 +15,5 @@ func main() {
 }
 
 func testfun() {
-	fmt.Println("111111")
+	mylog.Warning("111111")
 }
