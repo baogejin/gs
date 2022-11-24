@@ -7,9 +7,10 @@ import (
 )
 
 func main() {
-	eventbus.GetInstance().Subscribe(define.EventTest, testfun)
+	eventbus.GetInstance().SubscribeWithTag(define.EventTest, testfun, "1")
+	eventbus.GetInstance().SubscribeWithTag(define.EventTest, testfun, "2")
 	eventbus.GetInstance().Publish(define.EventTest)
-	eventbus.GetInstance().Unsubscribe(define.EventTest, testfun)
+	eventbus.GetInstance().UnsubscribeByTag(define.EventTest, "1")
 	eventbus.GetInstance().Publish(define.EventTest)
 }
 

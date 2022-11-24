@@ -55,6 +55,7 @@ type eventHandler struct {
 	flagOnce      bool
 	async         bool
 	transactional bool
+	tag           string
 	sync.Mutex    // lock for an event handler - useful for running async callbacks serially
 }
 
@@ -83,7 +84,7 @@ func (bus *EventBus) doSubscribe(topic string, fn interface{}, handler *eventHan
 // Returns error if `fn` is not a function.
 func (bus *EventBus) Subscribe(topic string, fn interface{}) error {
 	return bus.doSubscribe(topic, fn, &eventHandler{
-		reflect.ValueOf(fn), false, false, false, sync.Mutex{},
+		reflect.ValueOf(fn), false, false, false, "", sync.Mutex{},
 	})
 }
 
@@ -93,7 +94,7 @@ func (bus *EventBus) Subscribe(topic string, fn interface{}) error {
 // Returns error if `fn` is not a function.
 func (bus *EventBus) SubscribeAsync(topic string, fn interface{}, transactional bool) error {
 	return bus.doSubscribe(topic, fn, &eventHandler{
-		reflect.ValueOf(fn), false, true, transactional, sync.Mutex{},
+		reflect.ValueOf(fn), false, true, transactional, "", sync.Mutex{},
 	})
 }
 
@@ -101,7 +102,7 @@ func (bus *EventBus) SubscribeAsync(topic string, fn interface{}, transactional 
 // Returns error if `fn` is not a function.
 func (bus *EventBus) SubscribeOnce(topic string, fn interface{}) error {
 	return bus.doSubscribe(topic, fn, &eventHandler{
-		reflect.ValueOf(fn), true, false, false, sync.Mutex{},
+		reflect.ValueOf(fn), true, false, false, "", sync.Mutex{},
 	})
 }
 
@@ -110,7 +111,13 @@ func (bus *EventBus) SubscribeOnce(topic string, fn interface{}) error {
 // Returns error if `fn` is not a function.
 func (bus *EventBus) SubscribeOnceAsync(topic string, fn interface{}) error {
 	return bus.doSubscribe(topic, fn, &eventHandler{
-		reflect.ValueOf(fn), true, true, false, sync.Mutex{},
+		reflect.ValueOf(fn), true, true, false, "", sync.Mutex{},
+	})
+}
+
+func (bus *EventBus) SubscribeWithTag(topic string, fn interface{}, tag string) error {
+	return bus.doSubscribe(topic, fn, &eventHandler{
+		reflect.ValueOf(fn), false, false, false, tag, sync.Mutex{},
 	})
 }
 
@@ -132,6 +139,25 @@ func (bus *EventBus) Unsubscribe(topic string, handler interface{}) error {
 	defer bus.lock.Unlock()
 	if _, ok := bus.handlers[topic]; ok && len(bus.handlers[topic]) > 0 {
 		bus.removeHandler(topic, bus.findHandlerIdx(topic, reflect.ValueOf(handler)))
+		return nil
+	}
+	return fmt.Errorf("topic %s doesn't exist", topic)
+}
+
+func (bus *EventBus) UnsubscribeByTag(topic string, tag string) error {
+	if tag == "" {
+		return nil
+	}
+	bus.lock.Lock()
+	defer bus.lock.Unlock()
+	if _, ok := bus.handlers[topic]; ok {
+		newHandlers := []*eventHandler{}
+		for _, handler := range bus.handlers[topic] {
+			if handler.tag != tag {
+				newHandlers = append(newHandlers, handler)
+			}
+		}
+		bus.handlers[topic] = newHandlers
 		return nil
 	}
 	return fmt.Errorf("topic %s doesn't exist", topic)
