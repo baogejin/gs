@@ -3,6 +3,7 @@ package gencode
 import (
 	"encoding/json"
 	"gs/define"
+	"gs/lib/mylog"
 	"io/ioutil"
 	"os"
 	"sync"
@@ -35,16 +36,19 @@ func (this *AnotherExampleCfg) init() {
 	rootPath := os.Getenv(define.EnvName)
 	filePtr, err := os.Open(rootPath + "/data/json/AnotherExample.json")
 	if err != nil {
-		panic(err)
+		mylog.Error("load AnotherExampleCfg failed", err)
+		return
 	}
 	defer filePtr.Close()
 	data, err := ioutil.ReadAll(filePtr)
 	if err != nil {
-		panic(err)
+		mylog.Error("load AnotherExampleCfg failed", err)
+		return
 	}
 	err = json.Unmarshal(data, this)
 	if err != nil {
-		panic(err)
+		mylog.Error("load AnotherExampleCfg failed", err)
+		return
 	}
 	for _, v := range this.AnotherSlc {
 		this.AnotherMap[v.ID] = v

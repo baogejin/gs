@@ -76,7 +76,8 @@ func getLogger() *go_logger.Logger {
 }
 
 //log emergency level
-func Emergency(msg string) {
+func Emergency(a ...interface{}) {
+	msg := fmt.Sprint(a...)
 	getLogger().Writer(go_logger.LOGGER_LEVEL_EMERGENCY, msg)
 }
 
@@ -87,7 +88,8 @@ func Emergencyf(format string, a ...interface{}) {
 }
 
 //log alert level
-func Alert(msg string) {
+func Alert(a ...interface{}) {
+	msg := fmt.Sprint(a...)
 	getLogger().Writer(go_logger.LOGGER_LEVEL_ALERT, msg)
 }
 
@@ -98,7 +100,8 @@ func Alertf(format string, a ...interface{}) {
 }
 
 //log critical level
-func Critical(msg string) {
+func Critical(a ...interface{}) {
+	msg := fmt.Sprint(a...)
 	getLogger().Writer(go_logger.LOGGER_LEVEL_CRITICAL, msg)
 }
 
@@ -109,7 +112,8 @@ func Criticalf(format string, a ...interface{}) {
 }
 
 //log error level
-func Error(msg string) {
+func Error(a ...interface{}) {
+	msg := fmt.Sprint(a...)
 	getLogger().Writer(go_logger.LOGGER_LEVEL_ERROR, msg)
 }
 
@@ -120,7 +124,8 @@ func Errorf(format string, a ...interface{}) {
 }
 
 //log warning level
-func Warning(msg string) {
+func Warning(a ...interface{}) {
+	msg := fmt.Sprint(a...)
 	getLogger().Writer(go_logger.LOGGER_LEVEL_WARNING, msg)
 }
 
@@ -131,7 +136,8 @@ func Warningf(format string, a ...interface{}) {
 }
 
 //log notice level
-func Notice(msg string) {
+func Notice(a ...interface{}) {
+	msg := fmt.Sprint(a...)
 	getLogger().Writer(go_logger.LOGGER_LEVEL_NOTICE, msg)
 }
 
@@ -142,7 +148,8 @@ func Noticef(format string, a ...interface{}) {
 }
 
 //log info level
-func Info(msg string) {
+func Info(a ...interface{}) {
+	msg := fmt.Sprint(a...)
 	getLogger().Writer(go_logger.LOGGER_LEVEL_INFO, msg)
 }
 
@@ -153,7 +160,8 @@ func Infof(format string, a ...interface{}) {
 }
 
 //log debug level
-func Debug(msg string) {
+func Debug(a ...interface{}) {
+	msg := fmt.Sprint(a...)
 	getLogger().Writer(go_logger.LOGGER_LEVEL_DEBUG, msg)
 }
 

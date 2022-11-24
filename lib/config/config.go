@@ -10,7 +10,8 @@ import (
 )
 
 type ConfigInfo struct {
-	LogLevel string
+	LogLevel     string
+	RedisAddress string
 }
 
 var cfg *ConfigInfo

@@ -1,4 +1,4 @@
 {
-    "?LogLevel":"日志级别Debug,Info,Notice,Warning,Error,Critical,Alert,Emergency",
-    "LogLevel":"Debug"
+    "LogLevel":"Debug",
+    "RedisAddress":"127.0.0.1:6379"
 }

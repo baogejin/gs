@@ -340,7 +340,8 @@ func loggerMessageFormat(format string, loggerMsg *loggerMessage) string {
 }
 
 //log emergency level
-func (logger *Logger) Emergency(msg string) {
+func (logger *Logger) Emergency(a ...interface{}) {
+	msg := fmt.Sprint(a...)
 	logger.Writer(LOGGER_LEVEL_EMERGENCY, msg)
 }
 
@@ -351,7 +352,8 @@ func (logger *Logger) Emergencyf(format string, a ...interface{}) {
 }
 
 //log alert level
-func (logger *Logger) Alert(msg string) {
+func (logger *Logger) Alert(a ...interface{}) {
+	msg := fmt.Sprint(a...)
 	logger.Writer(LOGGER_LEVEL_ALERT, msg)
 }
 
@@ -362,7 +364,8 @@ func (logger *Logger) Alertf(format string, a ...interface{}) {
 }
 
 //log critical level
-func (logger *Logger) Critical(msg string) {
+func (logger *Logger) Critical(a ...interface{}) {
+	msg := fmt.Sprint(a...)
 	logger.Writer(LOGGER_LEVEL_CRITICAL, msg)
 }
 
@@ -373,7 +376,8 @@ func (logger *Logger) Criticalf(format string, a ...interface{}) {
 }
 
 //log error level
-func (logger *Logger) Error(msg string) {
+func (logger *Logger) Error(a ...interface{}) {
+	msg := fmt.Sprint(a...)
 	logger.Writer(LOGGER_LEVEL_ERROR, msg)
 }
 
@@ -384,7 +388,8 @@ func (logger *Logger) Errorf(format string, a ...interface{}) {
 }
 
 //log warning level
-func (logger *Logger) Warning(msg string) {
+func (logger *Logger) Warning(a ...interface{}) {
+	msg := fmt.Sprint(a...)
 	logger.Writer(LOGGER_LEVEL_WARNING, msg)
 }
 
@@ -395,7 +400,8 @@ func (logger *Logger) Warningf(format string, a ...interface{}) {
 }
 
 //log notice level
-func (logger *Logger) Notice(msg string) {
+func (logger *Logger) Notice(a ...interface{}) {
+	msg := fmt.Sprint(a...)
 	logger.Writer(LOGGER_LEVEL_NOTICE, msg)
 }
 
@@ -406,7 +412,8 @@ func (logger *Logger) Noticef(format string, a ...interface{}) {
 }
 
 //log info level
-func (logger *Logger) Info(msg string) {
+func (logger *Logger) Info(a ...interface{}) {
+	msg := fmt.Sprint(a...)
 	logger.Writer(LOGGER_LEVEL_INFO, msg)
 }
 
@@ -417,7 +424,8 @@ func (logger *Logger) Infof(format string, a ...interface{}) {
 }
 
 //log debug level
-func (logger *Logger) Debug(msg string) {
+func (logger *Logger) Debug(a ...interface{}) {
+	msg := fmt.Sprint(a...)
 	logger.Writer(LOGGER_LEVEL_DEBUG, msg)
 }
 

@@ -1,19 +1,13 @@
 package main
 
 import (
-	"gs/define"
-	"gs/lib/eventbus"
 	"gs/lib/mylog"
+	"gs/lib/myredis"
 )
 
 func main() {
-	eventbus.GetInstance().SubscribeWithTag(define.EventTest, testfun, "1")
-	eventbus.GetInstance().SubscribeWithTag(define.EventTest, testfun, "2")
-	eventbus.GetInstance().Publish(define.EventTest)
-	eventbus.GetInstance().UnsubscribeByTag(define.EventTest, "1")
-	eventbus.GetInstance().Publish(define.EventTest)
-}
-
-func testfun() {
-	mylog.Warning("111111")
+	myredis.GetInstance().HMSet("testhash", "1", "2", "2", "3")
+	mylog.Info(myredis.GetInstance().HGet("testhash", "1"))
+	mylog.Info(myredis.GetInstance().HSetNX("testhash", "3", "2"))
+	mylog.Info(myredis.GetInstance().HGetAll("testhash"))
 }
