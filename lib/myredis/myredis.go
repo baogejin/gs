@@ -8,7 +8,6 @@ import (
 	"time"
 
 	"github.com/go-redis/redis/v8"
-	"github.com/smallnest/rpcx/log"
 )
 
 type MyRedis struct {
@@ -50,7 +49,7 @@ func (this *MyRedis) Del(key string) bool {
 func (this *MyRedis) Expire(key string, expiration time.Duration) bool {
 	err := this.client.Expire(context.Background(), key, expiration).Err()
 	if err != nil {
-		log.Error(err)
+		mylog.Error(err)
 		return false
 	}
 	return true
