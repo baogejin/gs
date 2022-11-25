@@ -3,9 +3,6 @@ package gateway
 import (
 	"encoding/binary"
 	"fmt"
-	"gs/define"
-	"gs/lib/myrpc"
-	rpc_logic "gs/server_node/logic/rpc"
 	"io"
 
 	"golang.org/x/net/websocket"
@@ -60,17 +57,4 @@ func (this *ClientConn) Start() {
 
 func (this *ClientConn) ProcessMsg(msgId uint32, data []byte) {
 	fmt.Printf("%d,%s\n", msgId, data)
-	ret, err := myrpc.Get().RpcRun(&myrpc.RpcParm{
-		Node:      define.NodeLogic,
-		RpcModule: "RpcLogic",
-		Fn:        "Logic",
-		Arg:       &rpc_logic.LogicReq{MsgId: msgId, Data: data},
-		Reply:     &rpc_logic.LogicAck{},
-	})
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-	ack := ret.(*rpc_logic.LogicAck)
-	fmt.Printf("ack:%d,%s\n", ack.MsgId, ack.Data)
 }
