@@ -1,1 +1,0 @@
-start ./_consul.exe agent -ui  -server  -dev  -bind=127.0.0.1 -client=0.0.0.0 
