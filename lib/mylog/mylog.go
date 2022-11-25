@@ -3,11 +3,11 @@ package mylog
 import (
 	"fmt"
 	"gs/define"
-	"gs/lib/config"
 	"os"
 	"strings"
 	"sync"
 
+	"gs/lib/myconfig"
 	go_logger "gs/lib/mylog/go-logger"
 )
 
@@ -25,7 +25,7 @@ func getLogger() *go_logger.Logger {
 		//"millisecond_format":"2022-11-23 11:01:50.595","level":3,"level_string":"Error","body":"this is a error format log!",
 		//"file":"main.go","line":44,"function":"main.main"}
 
-		levleStr := strings.ToLower(config.Get().LogLevel)
+		levleStr := strings.ToLower(myconfig.Get().LogLevel)
 		logLevel := logger.LoggerLevel(levleStr)
 		// 命令行输出配置
 		consoleConfig := &go_logger.ConsoleConfig{

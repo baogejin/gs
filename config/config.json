@@ -1,4 +1,5 @@
 {
     "LogLevel":"Debug",
-    "RedisAddress":"127.0.0.1:6379"
+    "RedisAddress":"127.0.0.1:6379",
+    "RpcPortStart":13000
 }

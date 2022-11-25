@@ -3,11 +3,29 @@ package main
 import (
 	"flag"
 	"fmt"
-	"gs/server_node"
+	"gs/define"
+	"gs/server/gateway"
+	"gs/server/logic"
 	"os"
 	"os/signal"
 	"syscall"
 )
+
+type MyServerNode interface {
+	Init()
+	Run()
+	Destory()
+}
+
+func GetServerNode(name string) MyServerNode {
+	switch name {
+	case define.NodeGateway:
+		return new(gateway.GatewayServer)
+	case define.NodeLogic:
+		return new(logic.LogicServer)
+	}
+	return nil
+}
 
 func main() {
 	var (
@@ -16,7 +34,7 @@ func main() {
 	flag.StringVar(&nodeName, "node", "gateway", "server node")
 	flag.Parse()
 
-	server := server_node.GetServerNode(nodeName)
+	server := GetServerNode(nodeName)
 	if server == nil {
 		fmt.Println("get server node is nil")
 		return

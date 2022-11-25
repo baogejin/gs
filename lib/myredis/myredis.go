@@ -2,7 +2,7 @@ package myredis
 
 import (
 	"context"
-	"gs/lib/config"
+	"gs/lib/myconfig"
 	"gs/lib/mylog"
 	"sync"
 	"time"
@@ -27,14 +27,14 @@ func GetInstance() *MyRedis {
 
 func (this *MyRedis) init() {
 	this.client = redis.NewClient(&redis.Options{
-		Addr: config.Get().RedisAddress,
+		Addr: myconfig.Get().RedisAddress,
 	})
 	_, err := this.client.Ping(context.Background()).Result()
 	if err != nil {
-		mylog.Error("redis connect faild " + config.Get().RedisAddress + err.Error())
+		mylog.Error("redis connect faild " + myconfig.Get().RedisAddress + err.Error())
 		return
 	}
-	mylog.Debug("redis connect success " + config.Get().RedisAddress)
+	mylog.Debug("redis connect success " + myconfig.Get().RedisAddress)
 }
 
 func (this *MyRedis) Del(key string) bool {
