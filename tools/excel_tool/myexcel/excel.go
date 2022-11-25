@@ -122,6 +122,9 @@ func (this *ExcelInfo) ToJson() (string, error) {
 		if err != nil {
 			return "", err
 		}
+		if str == "" {
+			continue
+		}
 		if i != 0 {
 			ret += ","
 		}
@@ -133,6 +136,9 @@ func (this *ExcelInfo) ToJson() (string, error) {
 }
 
 func (this *SheetInfo) ToJson() (string, error) {
+	if len(this.Varnames) == 0 {
+		return "", nil
+	}
 	ret := "    \"" + this.Name + "\":["
 	repeatCheck := make(map[string]bool)
 	needCheck := false
@@ -211,7 +217,7 @@ func (this *ExcelInfo) GenCode(path string) error {
 			} else if s.Types[i].CType == CellTypeMap {
 				ret += "	" + s.Varnames[i] + "   map[" + s.Types[i].ValueType1 + "]" + s.Types[i].ValueType2
 			}
-			ret += "// " + s.Descs[i] + "\n"
+			ret += "// " + strings.Replace(s.Descs[i], "\n", " ", -1) + "\n"
 		}
 		ret += "}\n\n"
 	}
