@@ -3,7 +3,6 @@ package go_logger
 import (
 	"fmt"
 	"os"
-	"path"
 	"runtime"
 	"strconv"
 	"strings"
@@ -214,7 +213,6 @@ func (logger *Logger) Writer(level int, msg string) error {
 	} else {
 		funcName = runtime.FuncForPC(pc).Name()
 	}
-	_, filename := path.Split(file)
 
 	if levelStringMapping[level] == "" {
 		printError("logger: level " + strconv.Itoa(level) + " is illegal!")
@@ -228,7 +226,7 @@ func (logger *Logger) Writer(level int, msg string) error {
 		Level:             level,
 		LevelString:       levelStringMapping[level],
 		Body:              msg,
-		File:              filename,
+		File:              file,
 		Line:              line,
 		Function:          funcName,
 	}

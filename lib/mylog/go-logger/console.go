@@ -18,9 +18,9 @@ var levelColors = map[int]color.Attribute{
 	LOGGER_LEVEL_ALERT:     color.FgRed,
 	LOGGER_LEVEL_ERROR:     color.FgRed,
 	LOGGER_LEVEL_WARNING:   color.FgYellow,
-	LOGGER_LEVEL_NOTICE:    color.FgGreen,
-	LOGGER_LEVEL_INFO:      color.FgWhite,
-	LOGGER_LEVEL_DEBUG:     color.FgBlue,
+	LOGGER_LEVEL_NOTICE:    color.FgBlue,
+	LOGGER_LEVEL_INFO:      color.FgGreen,
+	LOGGER_LEVEL_DEBUG:     color.FgWhite,
 }
 
 // adapter console
