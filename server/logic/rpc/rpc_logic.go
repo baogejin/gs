@@ -4,7 +4,7 @@ import (
 	"fmt"
 )
 
-type RpcLogic struct{}
+type RpcLogic int
 
 type LogicReq struct {
 	MsgId uint32

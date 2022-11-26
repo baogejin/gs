@@ -19,7 +19,7 @@ func getLogger() *go_logger.Logger {
 		logger = go_logger.NewLogger()
 		logger.Detach("console")
 
-		format := "[%millisecond_format%][%level_string%][%file%:%line%]%body%"
+		format := "[%level_string%][%millisecond_format%][%file%:%line%]%body%"
 		//格式字段参考:
 		//{"timestamp":1669172510,"timestamp_format":"2022-11-23 11:01:50","millisecond":1669172510595,
 		//"millisecond_format":"2022-11-23 11:01:50.595","level":3,"level_string":"Error","body":"this is a error format log!",

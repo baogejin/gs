@@ -1,7 +1,6 @@
 package logic
 
 import (
-	"fmt"
 	"gs/define"
 	"gs/lib/mylog"
 	"gs/lib/myrpc"
@@ -16,12 +15,12 @@ func (this *LogicServer) Init() {
 }
 
 func (this *LogicServer) Run() {
-	fmt.Println("logic server run")
-	port := myrpc.GetInstance().NewRpcServer(define.NodeLogic)
-	mylog.Info("rpc server port:", port)
-	myrpc.GetInstance().Register(new(rpc_logic.RpcLogic))
+	mylog.Info("logic server run")
+	myrpc.GetInstance().NewRpcServer(define.NodeLogic)
+	myrpc.GetInstance().RegisterFunc(new(rpc_logic.RpcLogic))
+	myrpc.GetInstance().RegisterServerToRedis()
 }
 
 func (this *LogicServer) Destory() {
-
+	myrpc.GetInstance().Destory()
 }
