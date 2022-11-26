@@ -2,6 +2,7 @@ package myrpc
 
 import (
 	"math/rand"
+	"sync"
 )
 
 type Selector interface {
@@ -16,9 +17,12 @@ type ServerInfo struct {
 
 type RandSelector struct {
 	servers []*ServerInfo
+	lock    sync.RWMutex
 }
 
 func (this *RandSelector) Select(req interface{}) string {
+	this.lock.RLock()
+	defer this.lock.RUnlock()
 	if len(this.servers) == 0 {
 		return ""
 	}
@@ -27,6 +31,8 @@ func (this *RandSelector) Select(req interface{}) string {
 }
 
 func (this *RandSelector) UpdateServer(servers map[string]string) {
+	this.lock.Lock()
+	defer this.lock.Unlock()
 	this.servers = this.servers[:0]
 	for k, v := range servers {
 		this.servers = append(this.servers, &ServerInfo{Address: k, Info: v})
@@ -36,9 +42,12 @@ func (this *RandSelector) UpdateServer(servers map[string]string) {
 type RoundSelector struct {
 	servers []*ServerInfo
 	round   int
+	lock    sync.RWMutex
 }
 
 func (this *RoundSelector) Select(req interface{}) string {
+	this.lock.RLock()
+	defer this.lock.RUnlock()
 	if len(this.servers) == 0 {
 		return ""
 	}
@@ -48,6 +57,8 @@ func (this *RoundSelector) Select(req interface{}) string {
 }
 
 func (this *RoundSelector) UpdateServer(servers map[string]string) {
+	this.lock.Lock()
+	defer this.lock.Unlock()
 	this.servers = this.servers[:0]
 	for k, v := range servers {
 		this.servers = append(this.servers, &ServerInfo{Address: k, Info: v})

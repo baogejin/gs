@@ -48,9 +48,10 @@ func (this *ClientMgr) Call(param *RpcParam) (interface{}, error) {
 	if param == nil {
 		return nil, errors.New("param is nil")
 	}
-	this.lock.Lock()
-	defer this.lock.Unlock()
 	if this.needUpdate {
+		this.lock.Lock()
+		this.needUpdate = false
+		this.lock.Unlock()
 		servers := myredis.GetInstance().HGetAll(this.node)
 		needDelete := []string{}
 		this.clients.Range(func(key, value any) bool {
@@ -66,7 +67,6 @@ func (this *ClientMgr) Call(param *RpcParam) (interface{}, error) {
 			this.clients.Delete(v)
 		}
 		this.selector.UpdateServer(servers)
-		this.needUpdate = false
 	}
 	addr := this.selector.Select(param.Req)
 	if addr == "" {
