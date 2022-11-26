@@ -33,7 +33,11 @@ func (s *Server) Serve(lis net.Listener) {
 		if err != nil {
 			continue
 		}
-		mylog.Info("new conn ", conn.RemoteAddr())
-		go s.Server.ServeConn(conn)
+		addr := conn.RemoteAddr()
+		mylog.Debug("new conn ", addr)
+		go func() {
+			s.Server.ServeConn(conn)
+			mylog.Debug("conn close ", addr)
+		}()
 	}
 }

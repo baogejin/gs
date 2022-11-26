@@ -18,6 +18,7 @@ func (this *LogicServer) Run() {
 	mylog.Info("logic server run")
 	myrpc.GetInstance().NewRpcServer(define.NodeLogic)
 	myrpc.GetInstance().RegisterFunc(new(rpc_logic.RpcLogic))
+	myrpc.GetInstance().RegisterClient(define.NodeGateway, nil) //todo delete
 	myrpc.GetInstance().RegisterServerToRedis()
 }
 
