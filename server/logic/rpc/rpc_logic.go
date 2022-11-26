@@ -1,7 +1,7 @@
 package rpc_logic
 
 import (
-	"fmt"
+	"gs/lib/mylog"
 )
 
 type RpcLogic int
@@ -19,6 +19,6 @@ type LogicAck struct {
 func (this *RpcLogic) Logic(arg *LogicReq, reply *LogicAck) (err error) {
 	reply.MsgId = arg.MsgId
 	reply.Data = arg.Data
-	fmt.Printf("%s\n", arg.Data)
+	mylog.Infof("%s", arg.Data)
 	return
 }

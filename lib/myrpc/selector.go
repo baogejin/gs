@@ -1,15 +1,12 @@
 package myrpc
 
 import (
-	"gs/lib/myredis"
 	"math/rand"
-	"sync"
-	"time"
 )
 
 type Selector interface {
-	SetNode(node string)
 	Select(req interface{}) string
+	UpdateServer(servers map[string]string)
 }
 
 type ServerInfo struct {
@@ -17,21 +14,11 @@ type ServerInfo struct {
 	Info    string
 }
 
-type DefaultSelector struct {
-	node     string
-	servers  []*ServerInfo
-	updateAt int64
-	lock     sync.RWMutex
+type RandSelector struct {
+	servers []*ServerInfo
 }
 
-func (this *DefaultSelector) SetNode(node string) {
-	this.node = node
-}
-
-func (this *DefaultSelector) Select(req interface{}) string {
-	if len(this.servers) == 0 || time.Now().Unix()-this.updateAt > 10 {
-		this.updateServers()
-	}
+func (this *RandSelector) Select(req interface{}) string {
 	if len(this.servers) == 0 {
 		return ""
 	}
@@ -39,11 +26,30 @@ func (this *DefaultSelector) Select(req interface{}) string {
 	return this.servers[idx].Address
 }
 
-func (this *DefaultSelector) updateServers() {
+func (this *RandSelector) UpdateServer(servers map[string]string) {
 	this.servers = this.servers[:0]
-	servers := myredis.GetInstance().HGetAll(this.node)
 	for k, v := range servers {
 		this.servers = append(this.servers, &ServerInfo{Address: k, Info: v})
 	}
-	this.updateAt = time.Now().Unix()
+}
+
+type RoundSelector struct {
+	servers []*ServerInfo
+	round   int
+}
+
+func (this *RoundSelector) Select(req interface{}) string {
+	if len(this.servers) == 0 {
+		return ""
+	}
+	this.round++
+	this.round = this.round % len(this.servers)
+	return this.servers[this.round].Address
+}
+
+func (this *RoundSelector) UpdateServer(servers map[string]string) {
+	this.servers = this.servers[:0]
+	for k, v := range servers {
+		this.servers = append(this.servers, &ServerInfo{Address: k, Info: v})
+	}
 }

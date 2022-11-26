@@ -13,11 +13,10 @@ import (
 )
 
 type MyRpc struct {
-	server    *Server
-	clients   sync.Map
-	name      string
-	address   string
-	selectors map[string]Selector
+	name    string
+	address string
+	server  *Server
+	cliMgrs sync.Map
 }
 
 type RpcParam struct {
@@ -40,7 +39,6 @@ func GetInstance() *MyRpc {
 }
 
 func (this *MyRpc) init() {
-	this.selectors = make(map[string]Selector)
 }
 
 func (this *MyRpc) NewRpcServer(name string) string {
@@ -76,15 +74,12 @@ func (this *MyRpc) RegisterFunc(rcvr interface{}) error {
 }
 
 func (this *MyRpc) RegisterClient(node string, selector Selector) {
-	if _, ok := this.selectors[node]; ok {
+	if _, ok := this.cliMgrs.Load(node); ok {
 		mylog.Warning("node ", node, " client already register")
 		return
 	}
-	if selector == nil {
-		selector = &DefaultSelector{}
-	}
-	selector.SetNode(node)
-	this.selectors[node] = selector
+	cliMgr := NewClientMgr(node, selector)
+	this.cliMgrs.Store(node, cliMgr)
 }
 
 func (this *MyRpc) RegisterServerToRedis() {
@@ -101,41 +96,20 @@ func (this *MyRpc) RegisterServerToRedis() {
 		return
 	}
 	myredis.GetInstance().HSet(this.name, this.address, time.Now().Unix())
+	myredis.GetInstance().Publish(this.name, nil)
 }
 
 func (this *MyRpc) Destory() {
 	if this.server != nil {
 		myredis.GetInstance().HDel(this.name, this.address)
+		myredis.GetInstance().Publish(this.name, nil)
 	}
 }
 
 func (this *MyRpc) Call(param *RpcParam) (interface{}, error) {
-	if param == nil {
-		return nil, errors.New("param is nil")
+	if cliMgr, ok := this.cliMgrs.Load(param.Node); ok {
+		c := cliMgr.(*ClientMgr)
+		return c.Call(param)
 	}
-	selector := this.selectors[param.Node]
-	if selector == nil {
-		return nil, errors.New("can not find selector " + param.Node)
-	}
-	addr := selector.Select(param.Req)
-	if addr == "" {
-		return nil, errors.New("select rpc addr is empty")
-	}
-	var c *Client
-	if cli, ok := this.clients.Load(addr); ok {
-		c = cli.(*Client)
-	} else {
-		conn, err := net.Dial("tcp", addr)
-		if err != nil {
-			mylog.Error(err)
-			return nil, err
-		}
-		c = NewClient(conn)
-		this.clients.Store(addr, c)
-	}
-	err := c.Call(fmt.Sprintf("%s.%s", param.Module, param.Fn), param.Req, param.Ack)
-	if err != nil {
-		return nil, err
-	}
-	return param.Ack, nil
+	return nil, errors.New("node " + param.Node + " not found,need register client")
 }

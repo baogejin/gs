@@ -55,6 +55,17 @@ func (this *MyRedis) Expire(key string, expiration time.Duration) bool {
 	return true
 }
 
+func (this *MyRedis) Subscribe(channels ...string) *redis.PubSub {
+	return this.client.Subscribe(context.Background(), channels...)
+}
+
+func (this *MyRedis) Publish(channel string, msg interface{}) {
+	err := this.client.Publish(context.Background(), channel, msg).Err()
+	if err != nil {
+		mylog.Error(err)
+	}
+}
+
 //string-------------
 func (this *MyRedis) Get(key string) string {
 	ret, err := this.client.Get(context.Background(), key).Result()
