@@ -1,7 +1,7 @@
 package gateway
 
 import (
-	"fmt"
+	"gs/lib/mylog"
 	"net/http"
 
 	"golang.org/x/net/websocket"
@@ -17,11 +17,12 @@ func OnNewConn(ws *websocket.Conn) {
 	client := &ClientConn{
 		ws: ws,
 	}
+	mylog.Info("new client ", ws.RemoteAddr())
 	client.Start()
 }
 
 func (this *GatewayServer) Run() {
-	fmt.Println("gateway server run")
+	mylog.Info("gateway server run")
 	//对外websocket
 	go func() {
 		http.Handle("/", websocket.Handler(OnNewConn))
