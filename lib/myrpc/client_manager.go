@@ -115,6 +115,7 @@ func (this *ClientMgr) Call(param *RpcParam) (interface{}, error) {
 		c = NewClient(conn)
 		this.clients.Store(addr, c)
 	}
+	param.Req.SetAddr(this.address)
 
 	err := c.Call(fmt.Sprintf("%s.%s", param.Module, param.Fn), param.Req, param.Ack)
 	if err != nil {

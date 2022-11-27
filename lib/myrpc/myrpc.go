@@ -23,8 +23,19 @@ type RpcParam struct {
 	Node   string
 	Module string
 	Fn     string
-	Req    interface{}
+	Req    RpcReq
 	Ack    interface{}
+}
+
+type RpcReq interface {
+	SetAddr(string)
+}
+type RpcBaseReq struct {
+	Addr string
+}
+
+func (this *RpcBaseReq) SetAddr(addr string) {
+	this.Addr = addr
 }
 
 var myRpc *MyRpc
@@ -73,7 +84,7 @@ func (this *MyRpc) RegisterFunc(rcvr interface{}) error {
 	return this.server.Register(rcvr)
 }
 
-func (this *MyRpc) RegisterClient(node string, selector Selector) {
+func (this *MyRpc) RegisterClient(node string, selector Selector, notifyFn func(p *RpcPacket)) {
 	if _, ok := this.cliMgrs.Load(node); ok {
 		mylog.Warning("node ", node, " client already register")
 		return
