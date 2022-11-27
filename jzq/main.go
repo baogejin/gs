@@ -9,24 +9,26 @@ import (
 )
 
 func main() {
-	myrpc.GetInstance().RegisterClient(define.NodeLogic, nil, nil)
-
-	// for {
-	ret, err := myrpc.GetInstance().Call(&myrpc.RpcParam{
-		Node:   define.NodeLogic,
-		Module: "RpcLogic",
-		Fn:     "Logic",
-		Req:    &rpc_logic.LogicReq{MsgId: 1, Data: []byte("hello world")},
-		Ack:    &rpc_logic.LogicAck{},
+	myrpc.GetInstance().RegisterClient(define.NodeLogic, nil, func(p *myrpc.RpcPacket) {
+		mylog.Warning(string(p.Data))
 	})
-	if err != nil {
-		mylog.Error(err)
-	} else {
-		ack := ret.(*rpc_logic.LogicAck)
-		mylog.Info(string(ack.Data))
+
+	for {
+		ret, err := myrpc.GetInstance().Call(&myrpc.RpcParam{
+			Node:   define.NodeLogic,
+			Module: "RpcLogic",
+			Fn:     "Logic",
+			Req:    &rpc_logic.LogicReq{MsgId: 1, Data: []byte("hello world")},
+			Ack:    &rpc_logic.LogicAck{},
+		})
+		if err != nil {
+			mylog.Error(err)
+		} else {
+			ack := ret.(*rpc_logic.LogicAck)
+			mylog.Info(string(ack.Data))
+		}
+		time.Sleep(time.Second * 3)
 	}
-	time.Sleep(time.Second * 3)
-	// }
 
 	// option := xtcp.NewOpts(&myrpc.RpcHandler{}, &myrpc.RpcProtocol{})
 	// option.SendBufListLen = 4096

@@ -22,13 +22,15 @@ type ClientMgr struct {
 	lock       sync.RWMutex
 	xtcpServer *xtcp.Server
 	address    string
+	notifyFn   func(p *RpcPacket)
 }
 
-func NewClientMgr(node string, selector Selector) *ClientMgr {
+func NewClientMgr(node string, selector Selector, notifyFn func(p *RpcPacket)) *ClientMgr {
 	if selector == nil {
 		selector = &RoundSelector{}
 	}
-	option := xtcp.NewOpts(&RpcHandler{}, &RpcProtocol{})
+	handler := NewRpcHandler(notifyFn)
+	option := xtcp.NewOpts(handler, &RpcProtocol{})
 	option.SendBufListLen = 4096
 	s := xtcp.NewServer(option)
 	mgr := &ClientMgr{
@@ -36,6 +38,7 @@ func NewClientMgr(node string, selector Selector) *ClientMgr {
 		selector:   selector,
 		needUpdate: true,
 		xtcpServer: s,
+		notifyFn:   notifyFn,
 	}
 	mgr.init()
 	return mgr

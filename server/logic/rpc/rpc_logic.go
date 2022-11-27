@@ -30,7 +30,6 @@ func (this *RpcLogic) Logic(arg *LogicReq, reply *LogicAck) (err error) {
 	option.SendBufListLen = 4096
 	client := xtcp.NewConn(option)
 	go client.DialAndServe(arg.Addr)
-	client.SendPacket(&myrpc.RpcPacket{Data: "hello rpc"})
-
+	client.SendPacket(&myrpc.RpcPacket{Data: []byte("hello rpc")})
 	return
 }

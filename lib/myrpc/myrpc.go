@@ -89,7 +89,7 @@ func (this *MyRpc) RegisterClient(node string, selector Selector, notifyFn func(
 		mylog.Warning("node ", node, " client already register")
 		return
 	}
-	cliMgr := NewClientMgr(node, selector)
+	cliMgr := NewClientMgr(node, selector, notifyFn)
 	this.cliMgrs.Store(node, cliMgr)
 }
 
