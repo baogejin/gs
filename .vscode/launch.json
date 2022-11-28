@@ -28,5 +28,13 @@
             "args": [],
             "program": "${workspaceFolder}/jzq/main.go",
         },
+        {
+            "name": "client",
+            "type": "go",
+            "request": "launch",
+            "mode": "debug",
+            "args": [],
+            "program": "${workspaceFolder}/client/main.go",
+        },
     ]
 }

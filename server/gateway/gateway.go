@@ -1,7 +1,9 @@
 package gateway
 
 import (
+	"gs/define"
 	"gs/lib/mylog"
+	"gs/lib/myrpc"
 	"net/http"
 
 	"golang.org/x/net/websocket"
@@ -23,6 +25,7 @@ func OnNewConn(ws *websocket.Conn) {
 
 func (this *GatewayServer) Run() {
 	mylog.Info("gateway server run")
+	myrpc.GetInstance().RegisterClient(define.NodeLogic, nil, nil)
 	//对外websocket
 	go func() {
 		http.Handle("/", websocket.Handler(OnNewConn))

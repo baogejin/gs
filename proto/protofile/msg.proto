@@ -1,0 +1,61 @@
+syntax = "proto3";
+
+package myproto;
+
+option go_package = "./myproto";
+
+enum MsgId{
+    Msg_None=0;
+    Msg_RegisterREQ=1;
+    Msg_RegisterACK=2;
+    Msg_LoginREQ=3;
+    Msg_LoginACK=4;
+    Msg_CreateRoleREQ=5;
+    Msg_CreateRoleACK=6;
+
+}
+
+enum ResultCode{
+    Success=0;
+    MsgErr=1;
+    AccountExist=101;
+    AccountNotExist=102;
+    NickNameExist=103;
+    PasswordErr=104;
+    AlreadyLogin=105;
+    AccountEmpty=106;
+    PasswordEmpty=107;
+}
+
+message RegisterREQ{
+    string Account=1;
+    string Password=2;
+}
+
+message RegisterACK{
+    ResultCode Ret=1;
+}
+
+message LoginREQ{
+    string Account=1;
+    string Password=2;
+}
+
+message LoginACK{
+    ResultCode Ret=1;
+    uint64 Uid=2;
+}
+
+message PlayerInfo{
+    uint64 Uid=1;
+    string NickName=2;
+}
+
+message CreateRoleREQ{
+    string NickName=1;
+}
+
+message CreateRoleACK{
+    ResultCode Ret=1;
+    uint64 Uid=2;
+}

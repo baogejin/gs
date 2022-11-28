@@ -1,7 +1,9 @@
 package main
 
 import (
-	"gs/server_node/gateway"
+	"fmt"
+	"gs/proto/myproto"
+	"gs/server/gateway"
 	"log"
 	"time"
 
@@ -15,20 +17,25 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	msgByte := gateway.PackMsg(0, []byte("hello world"))
+	req := &myproto.RegisterREQ{Account: "jzq", Password: "123"}
+	data, _ := req.Marshal()
+	msgByte := gateway.PackMsg(uint32(myproto.MsgId_Msg_RegisterREQ), data)
 	if _, err := ws.Write(msgByte); err != nil {
 		log.Fatal(err)
 	}
-	time.Sleep(time.Second * 10)
-	if _, err := ws.Write(msgByte); err != nil {
+	time.Sleep(time.Second * 1)
+	var buf = make([]byte, 512)
+	var n int
+	if n, err = ws.Read(buf); err != nil {
 		log.Fatal(err)
 	}
+	if n > 0 {
+		pack := gateway.UnpackMsg(buf[4:])
+		ack := &myproto.RegisterACK{}
+		ack.Unmarshal(pack.Data)
+		fmt.Println(ack.Ret)
+	}
+
 	ws.Close()
 
-	// var msg = make([]byte, 512)
-	// var n int
-	// if n, err = ws.Read(msg); err != nil {
-	// 	log.Fatal(err)
-	// }
-	// fmt.Printf("Received: %s.\n", msg[:n])
 }
