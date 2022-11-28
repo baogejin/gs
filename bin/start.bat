@@ -1,3 +1,3 @@
 go build ../server
-start /min server.exe -node=gateway
-start /min server.exe -node=logic
+start /min node_gateway.lnk
+start /min node_logic.lnk
