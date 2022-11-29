@@ -1,20 +1,10 @@
-package rpc_logic
+package logic_handler
 
 import (
-	"gs/lib/mylog"
+	"gs/data/gencode"
 	"gs/lib/myredis"
 	"gs/proto/myproto"
 )
-
-func processMsg(uid uint64, msgId uint32, data []byte) (myproto.MsgId, myproto.MyMsg) {
-	switch myproto.MsgId(msgId) {
-	case myproto.MsgId_Msg_RegisterREQ:
-		return myproto.MsgId_Msg_RegisterACK, handleRegister(uid, data)
-	default:
-		mylog.Error("msg id ", msgId, " not handle")
-	}
-	return 0, nil
-}
 
 func handleRegister(uid uint64, data []byte) *myproto.RegisterACK {
 	if uid > 0 {
@@ -31,9 +21,21 @@ func handleRegister(uid uint64, data []byte) *myproto.RegisterACK {
 	if req.Password == "" {
 		return &myproto.RegisterACK{Ret: myproto.ResultCode_PasswordEmpty}
 	}
+	if info, ok := gencode.GetGlobalCfg().GetGlobalInfoByKey(gencode.AccountMaxLen); ok {
+		if len(req.Account) > int(info.Value) {
+			return &myproto.RegisterACK{Ret: myproto.ResultCode_AccountErr}
+		}
+	}
+	if len(req.Account) != len([]rune(req.Account)) {
+		return &myproto.RegisterACK{Ret: myproto.ResultCode_AccountErr}
+	}
 	ok := myredis.GetInstance().HSetNX(myredis.Account, req.Account, req.Password)
 	if !ok {
 		return &myproto.RegisterACK{Ret: myproto.ResultCode_AccountExist}
 	}
 	return &myproto.RegisterACK{}
+}
+
+func handleLogin(uid uint64, data []byte) *myproto.LoginACK {
+	return &myproto.LoginACK{}
 }

@@ -12,7 +12,7 @@ import (
 	"golang.org/x/net/websocket"
 )
 
-type ClientConn struct {
+type Client struct {
 	ws     *websocket.Conn
 	buf    []byte
 	bufLen uint32
@@ -20,7 +20,7 @@ type ClientConn struct {
 	uid    uint64
 }
 
-func (this *ClientConn) Start() {
+func (this *Client) Start() {
 	defer func() {
 		mylog.Info("ws conn close")
 		this.ws.Close()
@@ -58,7 +58,7 @@ func (this *ClientConn) Start() {
 	}
 }
 
-func (this *ClientConn) ProcessMsg(msgId uint32, data []byte) {
+func (this *Client) ProcessMsg(msgId uint32, data []byte) {
 	if this.uid == 0 && msgId != uint32(myproto.MsgId_Msg_RegisterREQ) && msgId != uint32(myproto.MsgId_Msg_LoginREQ) {
 		//需要先登录
 	} else {

@@ -1,6 +1,5 @@
 {
     "Global":[
-        {"Key":"TestKey1","Value":1,"SlcValue":[[1,1,1],[2,2,2]],"StrValue":""},
-        {"Key":"TestKey2","Value":0,"SlcValue":[[]],"StrValue":"测试"}
+        {"Key":"AccountMaxLen","Value":20,"SlcValue":[[]],"StrValue":""}
     ]
 }

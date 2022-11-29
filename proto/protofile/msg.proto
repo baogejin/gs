@@ -25,6 +25,7 @@ enum ResultCode{
     AlreadyLogin=105;
     AccountEmpty=106;
     PasswordEmpty=107;
+    AccountErr=108;
 }
 
 message RegisterREQ{

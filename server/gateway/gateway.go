@@ -16,7 +16,7 @@ func (this *GatewayServer) Init() {
 }
 
 func OnNewConn(ws *websocket.Conn) {
-	client := &ClientConn{
+	client := &Client{
 		ws: ws,
 	}
 	mylog.Info("new client ", ws.RemoteAddr())

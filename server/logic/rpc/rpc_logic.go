@@ -3,6 +3,7 @@ package rpc_logic
 import (
 	"gs/lib/mylog"
 	"gs/lib/myrpc"
+	logic_handler "gs/server/logic/handler"
 )
 
 type RpcLogic int
@@ -20,7 +21,7 @@ type LogicAck struct {
 }
 
 func (this *RpcLogic) Logic(arg *LogicReq, reply *LogicAck) (err error) {
-	msgId, msg := processMsg(arg.Uid, arg.MsgId, arg.Data)
+	msgId, msg := logic_handler.ProcessMsg(arg.Uid, arg.MsgId, arg.Data)
 	reply.MsgId = uint32(msgId)
 	if msg != nil {
 		mylog.Debug(msg)
