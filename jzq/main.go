@@ -6,6 +6,6 @@ import (
 )
 
 func main() {
-	ok := myredis.GetInstance().HSetNX(myredis.Account, "jzq", "234")
-	fmt.Println(ok)
+	pwd := myredis.GetInstance().HGet(myredis.Account, "sssss")
+	fmt.Println(pwd)
 }

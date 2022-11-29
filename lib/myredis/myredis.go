@@ -73,6 +73,7 @@ func (this *MyRedis) Get(key string) string {
 		if err != redis.Nil {
 			mylog.Error(err)
 		}
+		return ""
 	}
 	return ret
 }
@@ -116,7 +117,9 @@ func (this *MyRedis) ClearLock(key string) {
 func (this *MyRedis) HGet(key, field string) string {
 	ret, err := this.client.HGet(context.Background(), key, field).Result()
 	if err != nil {
-		mylog.Error(err)
+		if err != redis.Nil {
+			mylog.Error(err)
+		}
 		return ""
 	}
 	return ret
