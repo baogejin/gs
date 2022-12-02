@@ -46,6 +46,15 @@ func (this *MyRedis) Del(key string) bool {
 	return true
 }
 
+func (this *MyRedis) Exist(key string) bool {
+	ret, err := this.client.Exists(context.Background(), key).Result()
+	if err != nil {
+		mylog.Error(err)
+		return false
+	}
+	return ret != 0
+}
+
 func (this *MyRedis) Expire(key string, expiration time.Duration) bool {
 	err := this.client.Expire(context.Background(), key, expiration).Err()
 	if err != nil {

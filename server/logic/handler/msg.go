@@ -4,6 +4,7 @@ import (
 	"gs/data/gencode"
 	"gs/lib/myredis"
 	"gs/proto/myproto"
+	"strconv"
 )
 
 func handleRegister(uid uint64, data []byte) *myproto.RegisterACK {
@@ -37,5 +38,26 @@ func handleRegister(uid uint64, data []byte) *myproto.RegisterACK {
 }
 
 func handleLogin(uid uint64, data []byte) *myproto.LoginACK {
-	return &myproto.LoginACK{}
+	if uid > 0 {
+		return &myproto.LoginACK{Ret: myproto.ResultCode_AlreadyLogin}
+	}
+	req := &myproto.RegisterREQ{}
+	err := req.Unmarshal(data)
+	if err != nil {
+		return &myproto.LoginACK{Ret: myproto.ResultCode_MsgErr}
+	}
+	pwd := myredis.GetInstance().HGet(myredis.Account, req.Account)
+	if pwd == "" {
+		return &myproto.LoginACK{Ret: myproto.ResultCode_AccountNotExist}
+	}
+	if pwd != req.Password {
+		return &myproto.LoginACK{Ret: myproto.ResultCode_PasswordErr}
+	}
+	uidStr := myredis.GetInstance().HGet(myredis.AccountUid, req.Account)
+	uid, err = strconv.ParseUint(uidStr, 10, 64)
+	if err != nil || uid == 0 {
+		uid = uint64(myredis.GetInstance().Incr(myredis.CurUid))
+	}
+	ok := myredis.GetInstance().Exist(myredis.GetRoleKey(uid))
+	return &myproto.LoginACK{Uid: uid, HasRole: ok}
 }

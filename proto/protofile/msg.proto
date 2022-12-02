@@ -45,6 +45,7 @@ message LoginREQ{
 message LoginACK{
     ResultCode Ret=1;
     uint64 Uid=2;
+    bool HasRole=3;
 }
 
 message PlayerInfo{

@@ -80,8 +80,10 @@ func (this *Client) ProcessMsg(msgId uint32, data []byte) {
 			if ack.MsgId == uint32(myproto.MsgId_Msg_LoginACK) {
 				msg := &myproto.LoginACK{}
 				if err := msg.Unmarshal(ack.Data); err == nil {
-					if msg.Ret == myproto.ResultCode_Success && this.uid == 0 {
-						this.uid = msg.Uid
+					if msg.Ret == myproto.ResultCode_Success {
+						if this.uid == 0 && msg.Uid > 0 {
+							this.uid = msg.Uid
+						}
 					}
 				}
 			}
