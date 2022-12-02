@@ -22,6 +22,7 @@ type Client struct {
 
 func (this *Client) Start() {
 	defer func() {
+		//todo 通知logic下线
 		mylog.Info("ws conn close")
 		this.ws.Close()
 	}()
@@ -50,7 +51,9 @@ func (this *Client) Start() {
 				if this.seq != msg.Seq {
 					//TODO 序列不对
 				}
-				this.ProcessMsg(msg.MsgId, msg.Data)
+				if !this.ProcessMsg(msg.MsgId, msg.Data) {
+					return
+				}
 				this.buf = this.buf[needLen:]
 				this.bufLen -= needLen
 			}
@@ -58,9 +61,10 @@ func (this *Client) Start() {
 	}
 }
 
-func (this *Client) ProcessMsg(msgId uint32, data []byte) {
+func (this *Client) ProcessMsg(msgId uint32, data []byte) bool {
 	if this.uid == 0 && msgId != uint32(myproto.MsgId_Msg_RegisterREQ) && msgId != uint32(myproto.MsgId_Msg_LoginREQ) {
 		//需要先登录
+		return false
 	} else {
 		reply, err := myrpc.GetInstance().Call(&myrpc.RpcParam{
 			Node:   define.NodeLogic,
@@ -75,6 +79,8 @@ func (this *Client) ProcessMsg(msgId uint32, data []byte) {
 		})
 		if err != nil {
 			//rpc 错误
+			mylog.Error(this.uid, " ", err)
+			return false
 		} else {
 			ack := reply.(*rpc_logic.LogicAck)
 			if ack.MsgId == uint32(myproto.MsgId_Msg_LoginACK) {
@@ -90,4 +96,5 @@ func (this *Client) ProcessMsg(msgId uint32, data []byte) {
 			this.ws.Write(PackMsg(ack.MsgId, ack.Data))
 		}
 	}
+	return true
 }

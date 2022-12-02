@@ -1,11 +1,18 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
-	"gs/lib/myredis"
+	"gs/server/logic/player"
+	"time"
 )
 
 func main() {
-	pwd := myredis.GetInstance().HGet(myredis.Account, "sssss")
-	fmt.Println(pwd)
+	player := &player.Player{
+		Uid:      1,
+		Name:     "dasdasd",
+		CreateAt: time.Now().Unix(),
+	}
+	jsonData, _ := json.Marshal(player)
+	fmt.Println(string(jsonData))
 }

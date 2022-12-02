@@ -20,12 +20,16 @@ enum ResultCode{
     MsgErr=1;
     AccountExist=101;
     AccountNotExist=102;
-    NickNameExist=103;
+    RoleNameExist=103;
     PasswordErr=104;
     AlreadyLogin=105;
     AccountEmpty=106;
     PasswordEmpty=107;
     AccountErr=108;
+    AlreadyHasRole=109;
+    NeedLogin=110;
+    RoleNameIllegal=111;
+    CreateRoleFaild=112;
 }
 
 message RegisterREQ{
@@ -50,14 +54,13 @@ message LoginACK{
 
 message PlayerInfo{
     uint64 Uid=1;
-    string NickName=2;
+    string Name=2;
 }
 
 message CreateRoleREQ{
-    string NickName=1;
+    string Name=1;
 }
 
 message CreateRoleACK{
     ResultCode Ret=1;
-    uint64 Uid=2;
 }

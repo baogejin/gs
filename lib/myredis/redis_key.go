@@ -7,6 +7,7 @@ const (
 	AccountUid = "AccountUid"
 	CurUid     = "CurUid"
 	Role       = "Role"
+	RoleName   = "RoleName"
 )
 
 func GetRoleKey(uid uint64) string {

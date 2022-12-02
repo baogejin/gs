@@ -21,13 +21,13 @@ type LogicAck struct {
 }
 
 func (this *RpcLogic) Logic(arg *LogicReq, reply *LogicAck) (err error) {
-	msgId, msg := logic_handler.ProcessMsg(arg.Uid, arg.MsgId, arg.Data)
+	msgId, msg := logic_handler.ProcessMsg(arg.Uid, arg.MsgId, arg.Data, arg.Addr)
 	reply.MsgId = uint32(msgId)
 	if msg != nil {
-		mylog.Debug(msg)
 		if data, err := msg.Marshal(); err == nil {
-			mylog.Debug("msg Marshal success")
 			reply.Data = data
+		} else {
+			mylog.Error(err)
 		}
 	}
 	//test

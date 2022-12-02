@@ -1,5 +1,7 @@
 package gencode
 
 const (
-	AccountMaxLen = "AccountMaxLen"
+	AccountMaxLen  = "AccountMaxLen"
+	RoleNameMinLen = "RoleNameMinLen"
+	RoleNameMaxLen = "RoleNameMaxLen"
 )
