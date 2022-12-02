@@ -2,6 +2,7 @@ package gateway
 
 import (
 	"encoding/binary"
+	"fmt"
 	"gs/define"
 	"gs/lib/mylog"
 	"gs/lib/myrpc"
@@ -16,7 +17,7 @@ type Client struct {
 	ws     *websocket.Conn
 	buf    []byte
 	bufLen uint32
-	seq    uint64
+	seq    uint32
 	uid    uint64
 }
 
@@ -45,6 +46,7 @@ func (this *Client) Start() {
 		this.bufLen += uint32(length)
 		if this.bufLen > 4 {
 			needLen := binary.LittleEndian.Uint32(this.buf)
+			fmt.Println("need", needLen, "len", this.bufLen)
 			if this.bufLen >= needLen {
 				msg := UnpackMsg(this.buf[4:needLen])
 				this.seq++
