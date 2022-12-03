@@ -10,7 +10,11 @@ enum MsgId{
     Msg_LoginACK=4;
     Msg_CreateRoleREQ=5;
     Msg_CreateRoleACK=6;
-
+    Msg_EnterGameREQ=7;
+    Msg_EnterGameACK=8;
+    Msg_LogoutREQ=9;
+    Msg_LogoutACK=10;
+    Msg_KickPUSH=11;
 }
 
 enum ResultCode{
@@ -28,6 +32,7 @@ enum ResultCode{
     NeedLogin=110;
     RoleNameIllegal=111;
     CreateRoleFaild=112;
+    EnterGameFailed=113;
 }
 
 message RegisterREQ{
@@ -61,4 +66,25 @@ message CreateRoleREQ{
 
 message CreateRoleACK{
     ResultCode Ret=1;
+}
+
+message EnterGameREQ{
+
+}
+
+message EnterGameACK{
+    ResultCode Ret=1;
+    PlayerInfo Info=2;
+}
+
+message LogoutREQ{
+    
+}
+
+message LogoutACK{
+    ResultCode Ret=1;
+}
+
+message KickPUSH{
+    
 }

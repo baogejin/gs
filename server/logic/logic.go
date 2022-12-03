@@ -4,6 +4,7 @@ import (
 	"gs/define"
 	"gs/lib/mylog"
 	"gs/lib/myrpc"
+	"gs/server/logic/player_manager"
 	rpc_logic "gs/server/logic/rpc"
 )
 
@@ -22,5 +23,6 @@ func (this *LogicServer) Run() {
 }
 
 func (this *LogicServer) Destory() {
+	player_manager.GetMgr().Destory()
 	myrpc.GetInstance().Destory()
 }

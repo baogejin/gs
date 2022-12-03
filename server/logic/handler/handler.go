@@ -13,6 +13,10 @@ func ProcessMsg(uid uint64, msgId uint32, data []byte, notifyAddr string) (mypro
 		return myproto.MsgId_Msg_LoginACK, handleLogin(uid, data)
 	case myproto.MsgId_Msg_CreateRoleREQ:
 		return myproto.MsgId_Msg_CreateRoleACK, handCreateRole(uid, data)
+	case myproto.MsgId_Msg_EnterGameREQ:
+		return myproto.MsgId_Msg_EnterGameACK, handEnterGame(uid, notifyAddr)
+	case myproto.MsgId_Msg_LogoutREQ:
+		return myproto.MsgId_Msg_LogoutACK, handleLogout(uid)
 	default:
 		mylog.Error("msg id ", msgId, " not handle")
 	}

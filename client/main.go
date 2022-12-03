@@ -53,6 +53,17 @@ func main() {
 		fmt.Println(ack)
 	}
 
+	time.Sleep(time.Second * 10)
+	if n, err = ws.Read(buf); err != nil {
+		log.Fatal(err)
+	}
+	if n > 0 {
+		pack := gateway.UnpackMsg(buf[4:])
+		ack := &myproto.KickPUSH{}
+		ack.Unmarshal(pack.Data)
+		fmt.Println(ack)
+	}
+
 	// req2 := &myproto.CreateRoleREQ{Name: "jzq"}
 	// data, _ := req2.Marshal()
 	// msgByte := gateway.PackMsg(uint32(myproto.MsgId_Msg_CreateRoleREQ), data)

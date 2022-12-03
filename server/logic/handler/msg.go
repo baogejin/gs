@@ -3,10 +3,12 @@ package logic_handler
 import (
 	"encoding/json"
 	"gs/data/gencode"
+	"gs/game/player_info"
+	"gs/lib/mylog"
 	"gs/lib/myredis"
 	"gs/lib/myutil"
 	"gs/proto/myproto"
-	"gs/server/logic/player"
+	"gs/server/logic/player_manager"
 	"strconv"
 	"time"
 )
@@ -94,17 +96,44 @@ func handCreateRole(uid uint64, data []byte) *myproto.CreateRoleACK {
 	if !ok {
 		return &myproto.CreateRoleACK{Ret: myproto.ResultCode_RoleNameExist}
 	}
-	player := &player.Player{
+	player := &player_info.Player{
 		Uid:      uid,
 		Name:     req.Name,
 		CreateAt: time.Now().Unix(),
 	}
-	jsonData, err := json.Marshal(player)
-	if err != nil {
-		return &myproto.CreateRoleACK{Ret: myproto.ResultCode_CreateRoleFaild}
-	}
-	if ok = myredis.GetInstance().Set(myredis.GetRoleKey(uid), jsonData, 0); !ok {
+	ok = player.Save()
+	if !ok {
 		return &myproto.CreateRoleACK{Ret: myproto.ResultCode_CreateRoleFaild}
 	}
 	return &myproto.CreateRoleACK{}
+}
+
+func handEnterGame(uid uint64, notifyAddr string) *myproto.EnterGameACK {
+	player := player_manager.GetMgr().GetPlayer(uid)
+	if player == nil {
+		player = &player_info.Player{}
+		jsonData := myredis.GetInstance().Get(myredis.GetRoleKey(uid))
+		if len(jsonData) == 0 {
+			return &myproto.EnterGameACK{Ret: myproto.ResultCode_EnterGameFailed}
+		}
+		err := json.Unmarshal([]byte(jsonData), player)
+		if err != nil {
+			mylog.Error(err)
+			return &myproto.EnterGameACK{Ret: myproto.ResultCode_EnterGameFailed}
+		}
+	} else {
+		player.SetNotifyAddr(notifyAddr)
+	}
+	return &myproto.EnterGameACK{Info: player.Proto()}
+}
+
+func handleLogout(uid uint64) *myproto.LogoutACK {
+	player := player_manager.GetMgr().GetPlayer(uid)
+	if player != nil {
+		//todo 其他下线处理
+		if player.Save() {
+			player_manager.GetMgr().DelPlayer(uid)
+		}
+	}
+	return &myproto.LogoutACK{}
 }

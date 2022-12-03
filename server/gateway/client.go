@@ -23,7 +23,10 @@ type Client struct {
 
 func (this *Client) Start() {
 	defer func() {
-		//todo 通知logic下线
+		//通知logic下线
+		if this.uid > 0 {
+			this.ProcessMsg(uint32(myproto.MsgId_Msg_LogoutREQ), []byte{})
+		}
 		mylog.Info("ws conn close")
 		this.ws.Close()
 	}()
@@ -91,6 +94,7 @@ func (this *Client) ProcessMsg(msgId uint32, data []byte) bool {
 					if msg.Ret == myproto.ResultCode_Success {
 						if this.uid == 0 && msg.Uid > 0 {
 							this.uid = msg.Uid
+							GetClinetMgr().AddClient(this.uid, this)
 						}
 					}
 				}
@@ -99,4 +103,10 @@ func (this *Client) ProcessMsg(msgId uint32, data []byte) bool {
 		}
 	}
 	return true
+}
+
+func (this *Client) Kick() {
+	this.ws.Write(PackMsg(uint32(myproto.MsgId_Msg_KickPUSH), []byte{}))
+	this.uid = 0
+	this.ws.Close()
 }
