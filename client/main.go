@@ -17,45 +17,28 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	// req := &myproto.RegisterREQ{Account: "jzq", Password: "123"}
-	// data, _ := req.Marshal()
-	// msgByte := gateway.PackMsg(uint32(myproto.MsgId_Msg_RegisterREQ), data)
-	// if _, err := ws.Write(msgByte); err != nil {
-	// 	log.Fatal(err)
-	// }
-	// time.Sleep(time.Second * 1)
+	req := &myproto.RegisterREQ{Account: "jzq", Password: "123"}
+	data, _ := req.Marshal()
+	msgByte := gateway.PackMsg(uint32(myproto.MsgId_Msg_RegisterREQ), data)
+	if _, err := ws.Write(msgByte); err != nil {
+		log.Fatal(err)
+	}
+	time.Sleep(time.Second * 1)
 	var buf = make([]byte, 512)
 	var n int
-	// if n, err = ws.Read(buf); err != nil {
-	// 	log.Fatal(err)
-	// }
-	// if n > 0 {
-	// 	pack := gateway.UnpackMsg(buf[4:])
-	// 	ack := &myproto.RegisterACK{}
-	// 	ack.Unmarshal(pack.Data)
-	// 	fmt.Println(ack.Ret)
-	// }
+	if n, err = ws.Read(buf); err != nil {
+		log.Fatal(err)
+	}
+	if n > 0 {
+		pack := gateway.UnpackMsg(buf[4:])
+		ack := &myproto.RegisterACK{}
+		ack.Unmarshal(pack.Data)
+		fmt.Println(ack.Ret)
+	}
 
-	// req1 := &myproto.LoginREQ{Account: "jzq", Password: "123"}
-	// data, _ = req1.Marshal()
-	// msgByte = gateway.PackMsg(uint32(myproto.MsgId_Msg_LoginREQ), data)
-	// if _, err := ws.Write(msgByte); err != nil {
-	// 	log.Fatal(err)
-	// }
-	// time.Sleep(time.Second * 1)
-	// if n, err = ws.Read(buf); err != nil {
-	// 	log.Fatal(err)
-	// }
-	// if n > 0 {
-	// 	pack := gateway.UnpackMsg(buf[4:])
-	// 	ack := &myproto.LoginACK{}
-	// 	ack.Unmarshal(pack.Data)
-	// 	fmt.Println(ack)
-	// }
-
-	req2 := &myproto.CreateRoleREQ{Name: "jzq"}
-	data, _ := req2.Marshal()
-	msgByte := gateway.PackMsg(uint32(myproto.MsgId_Msg_CreateRoleREQ), data)
+	req1 := &myproto.LoginREQ{Account: "jzq", Password: "123"}
+	data, _ = req1.Marshal()
+	msgByte = gateway.PackMsg(uint32(myproto.MsgId_Msg_LoginREQ), data)
 	if _, err := ws.Write(msgByte); err != nil {
 		log.Fatal(err)
 	}
@@ -65,10 +48,27 @@ func main() {
 	}
 	if n > 0 {
 		pack := gateway.UnpackMsg(buf[4:])
-		ack := &myproto.CreateRoleACK{}
+		ack := &myproto.LoginACK{}
 		ack.Unmarshal(pack.Data)
 		fmt.Println(ack)
 	}
+
+	// req2 := &myproto.CreateRoleREQ{Name: "jzq"}
+	// data, _ := req2.Marshal()
+	// msgByte := gateway.PackMsg(uint32(myproto.MsgId_Msg_CreateRoleREQ), data)
+	// if _, err := ws.Write(msgByte); err != nil {
+	// 	log.Fatal(err)
+	// }
+	// time.Sleep(time.Second * 1)
+	// if n, err = ws.Read(buf); err != nil {
+	// 	log.Fatal(err)
+	// }
+	// if n > 0 {
+	// 	pack := gateway.UnpackMsg(buf[4:])
+	// 	ack := &myproto.CreateRoleACK{}
+	// 	ack.Unmarshal(pack.Data)
+	// 	fmt.Println(ack)
+	// }
 
 	ws.Close()
 

@@ -17,7 +17,7 @@ type Client struct {
 	ws     *websocket.Conn
 	buf    []byte
 	bufLen uint32
-	seq    uint32
+	seq    uint64
 	uid    uint64
 }
 
