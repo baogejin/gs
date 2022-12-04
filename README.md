@@ -1,2 +1,2 @@
 # gs
-TODO
+game server
