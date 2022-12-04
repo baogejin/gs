@@ -1,5 +1,7 @@
 syntax = "proto3";
 
+package myproto;
+
 option go_package = "./myproto";
 
 enum MsgId{
