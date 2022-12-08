@@ -2,12 +2,17 @@ package main
 
 import (
 	"fmt"
-	"gs/proto/myproto"
+	"gs/lib/myticker"
+	"time"
 )
 
 func main() {
-	req := &myproto.LogoutREQ{}
-	data, _ := req.Marshal()
-	fmt.Println(data)
+	myticker.GetInstance().AddTicker(time.Second, test)
+	time.Sleep(time.Second * 5)
+	myticker.GetInstance().Destory()
+	time.Sleep(time.Hour)
+}
 
+func test() {
+	fmt.Println("1")
 }
