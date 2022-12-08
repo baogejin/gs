@@ -26,6 +26,7 @@ func (this *Client) Start() {
 		//通知logic下线
 		if this.uid > 0 {
 			this.ProcessMsg(uint32(myproto.MsgId_Msg_LogoutREQ), []byte{})
+			GetClinetMgr().DelClient(this.uid)
 		}
 		mylog.Info("ws conn close")
 		this.ws.Close()
@@ -109,4 +110,8 @@ func (this *Client) Kick() {
 	this.ws.Write(PackMsg(uint32(myproto.MsgId_Msg_KickPUSH), []byte{}))
 	this.uid = 0
 	this.ws.Close()
+}
+
+func (this *Client) SendMsg(msgid uint32, data []byte) {
+	this.ws.Write(PackMsg(msgid, data))
 }

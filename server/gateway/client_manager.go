@@ -30,3 +30,15 @@ func (this *ClientMgr) AddClient(uid uint64, cli *Client) {
 	}
 	this.clients.Store(uid, cli)
 }
+
+func (this *ClientMgr) GetClient(uid uint64) *Client {
+	c, ok := this.clients.Load(uid)
+	if ok {
+		return c.(*Client)
+	}
+	return nil
+}
+
+func (this *ClientMgr) DelClient(uid uint64) {
+	this.clients.Delete(uid)
+}

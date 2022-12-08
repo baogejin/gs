@@ -2,6 +2,7 @@ package player_manager
 
 import (
 	"gs/game/player_info"
+	"gs/proto/myproto"
 	"sync"
 )
 
@@ -43,6 +44,14 @@ func (this *PlayerMgr) Destory() {
 	this.players.Range(func(key, value any) bool {
 		player := value.(*player_info.Player)
 		player.Save()
+		return true
+	})
+}
+
+func (this *PlayerMgr) Broadcast(msgid myproto.MsgId, msg myproto.MyMsg) {
+	this.players.Range(func(key, value any) bool {
+		player := value.(*player_info.Player)
+		player.SendMsg(msgid, msg)
 		return true
 	})
 }

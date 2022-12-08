@@ -121,9 +121,10 @@ func handEnterGame(uid uint64, notifyAddr string) *myproto.EnterGameACK {
 			mylog.Error(err)
 			return &myproto.EnterGameACK{Ret: myproto.ResultCode_EnterGameFailed}
 		}
-	} else {
-		player.SetNotifyAddr(notifyAddr)
+		player_manager.GetMgr().SetPlayer(uid, player)
 	}
+	player.SetNotifyAddr(notifyAddr)
+	// player.SendMsg(myproto.MsgId_Msg_EnterGameACK, &myproto.EnterGameACK{}) //notify test
 	return &myproto.EnterGameACK{Info: player.Proto()}
 }
 
@@ -136,4 +137,23 @@ func handleLogout(uid uint64) *myproto.LogoutACK {
 		}
 	}
 	return &myproto.LogoutACK{}
+}
+
+func handChat(uid uint64, data []byte) *myproto.ChatACK {
+	player := player_manager.GetMgr().GetPlayer(uid)
+	if player == nil {
+		return &myproto.ChatACK{Ret: myproto.ResultCode_PlayerNotFound}
+	}
+	req := &myproto.ChatREQ{}
+	err := req.Unmarshal(data)
+	if err != nil {
+		return &myproto.ChatACK{Ret: myproto.ResultCode_MsgErr}
+	}
+	push := &myproto.ChatPUSH{
+		Uid:  player.Uid,
+		Name: player.Name,
+		Msg:  req.Msg,
+	}
+	player_manager.GetMgr().Broadcast(myproto.MsgId_Msg_ChatPUSH, push)
+	return &myproto.ChatACK{}
 }

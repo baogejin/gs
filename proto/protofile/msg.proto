@@ -17,6 +17,9 @@ enum MsgId{
     Msg_LogoutREQ=9;
     Msg_LogoutACK=10;
     Msg_KickPUSH=11;
+    Msg_ChatREQ=12;
+    Msg_ChatACK=13;
+    Msg_ChatPUSH=14;
 }
 
 enum ResultCode{
@@ -35,6 +38,7 @@ enum ResultCode{
     RoleNameIllegal=111;
     CreateRoleFaild=112;
     EnterGameFailed=113;
+    PlayerNotFound=114;
 }
 
 message RegisterREQ{
@@ -89,4 +93,18 @@ message LogoutACK{
 
 message KickPUSH{
     
+}
+
+message ChatREQ{
+    string Msg=1;
+}
+
+message ChatACK{
+    ResultCode Ret=1;
+}
+
+message ChatPUSH{
+    uint64 Uid=1;
+    string Name=2;
+    string Msg=3;
 }

@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"gs/lib/mylog"
 	"gs/lib/myredis"
+	"gs/lib/myrpc"
 	"gs/proto/myproto"
 	"sync"
 )
@@ -40,4 +41,16 @@ func (this *Player) Save() bool {
 		return false
 	}
 	return true
+}
+
+func (this *Player) SendMsg(msgid myproto.MsgId, msg myproto.MyMsg) {
+	if this.NotifyAddr == "" {
+		return
+	}
+	data, err := msg.Marshal()
+	if err != nil {
+		mylog.Error("msg marshal err,msgid ", msgid, ",err:", err)
+		return
+	}
+	myrpc.GetInstance().SendMsg(this.NotifyAddr, this.Uid, msgid, data)
 }
