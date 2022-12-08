@@ -41,7 +41,7 @@ func (this *ExcelInfo) Load(path, name string) error {
 			return err
 		}
 		if len(rows) < 4 {
-			return errors.New("表结构不足4行:" + name + ".xlsx" + " sheet")
+			return errors.New("表结构不足4行:" + name + ".xlsx" + " sheet:" + sheet)
 		}
 		needExport := make(map[int]bool)
 		for i, v := range rows[0] {
@@ -56,7 +56,7 @@ func (this *ExcelInfo) Load(path, name string) error {
 			sheetInfo.Varnames = append(sheetInfo.Varnames, vname)
 		}
 		if len(sheetInfo.Varnames) != len(needExport) {
-			return errors.New("字段名不能为空:" + name + ".xlsx" + " sheet")
+			return errors.New("字段名不能为空:" + name + ".xlsx" + " sheet:" + sheet)
 		}
 		for i, t := range rows[2] {
 			if !needExport[i] {
@@ -70,7 +70,7 @@ func (this *ExcelInfo) Load(path, name string) error {
 			sheetInfo.Types = append(sheetInfo.Types, typeInfo)
 		}
 		if len(sheetInfo.Types) != len(needExport) {
-			return errors.New("类型不能为空:" + name + ".xlsz" + " sheet")
+			return errors.New("类型不能为空:" + name + ".xlsx" + " sheet:" + sheet)
 		}
 		for i, desc := range rows[3] {
 			if !needExport[i] {
