@@ -3,6 +3,7 @@ package player_manager
 import (
 	"fmt"
 	"gs/game/player_info"
+	"gs/lib/mylog"
 	"gs/lib/myredis"
 	"gs/lib/myrpc"
 	"gs/proto/myproto"
@@ -53,10 +54,15 @@ func (this *PlayerMgr) Destory() {
 	})
 }
 
-func (this *PlayerMgr) Broadcast(msgid myproto.MsgId, msg myproto.MyMsg) {
-	this.players.Range(func(key, value any) bool {
-		player := value.(*player_info.Player)
-		player.SendMsg(msgid, msg)
-		return true
-	})
+func (this *PlayerMgr) NotifyAllPlayers(msgid myproto.MsgId, msg myproto.MyMsg) {
+	//因为分布式服务器，不止这一个logic节点，所以这边是通知所有gateway，让每个geteway再通知所有玩家
+	data, err := msg.Marshal()
+	if err != nil {
+		mylog.Error(err)
+		return
+	}
+	gateways := myredis.GetInstance().HGetAll("notify_gateway")
+	for k, _ := range gateways {
+		myrpc.GetInstance().SendMsg(k, 0, msgid, data)
+	}
 }

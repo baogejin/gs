@@ -43,8 +43,14 @@ func (this *GatewayServer) Destory() {
 }
 
 func (this *GatewayServer) handleNotify(p *myrpc.RpcPacket) {
-	c := GetClinetMgr().GetClient(p.Uid)
-	if c != nil {
-		c.SendMsg(p.MsgId, p.Data)
+	if p.Uid > 0 {
+		//通知单个玩家的消息
+		c := GetClinetMgr().GetClient(p.Uid)
+		if c != nil {
+			c.SendMsg(p.MsgId, p.Data)
+		}
+	} else {
+		//通知所有玩家的消息
+		GetClinetMgr().NotifyAllClients(p.MsgId, p.Data)
 	}
 }

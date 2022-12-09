@@ -92,6 +92,7 @@ func main() {
 		log.Fatal(err)
 	}
 	if n > 0 {
+		fmt.Println(n)
 		pack := gateway.UnpackMsg(buf[4:])
 		ack := &myproto.EnterGameACK{}
 		ack.Unmarshal(pack.Data)
@@ -101,6 +102,7 @@ func main() {
 		log.Fatal(err)
 	}
 	if n > 0 {
+		fmt.Println(n)
 		pack := gateway.UnpackMsg(buf[4:])
 		ack := &myproto.EnterGameACK{}
 		ack.Unmarshal(pack.Data)

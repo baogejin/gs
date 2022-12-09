@@ -42,3 +42,11 @@ func (this *ClientMgr) GetClient(uid uint64) *Client {
 func (this *ClientMgr) DelClient(uid uint64) {
 	this.clients.Delete(uid)
 }
+
+func (this *ClientMgr) NotifyAllClients(msgid uint32, data []byte) {
+	this.clients.Range(func(key, value any) bool {
+		c := value.(*Client)
+		c.SendMsg(msgid, data)
+		return true
+	})
+}

@@ -125,6 +125,7 @@ func handEnterGame(uid uint64, notifyAddr string) *myproto.EnterGameACK {
 	}
 	player.SetNotifyAddr(notifyAddr)
 	// player.SendMsg(myproto.MsgId_Msg_EnterGameACK, &myproto.EnterGameACK{}) //notify test
+	// player_manager.GetMgr().BroadcastAllPlayer(myproto.MsgId_Msg_EnterGameACK, &myproto.EnterGameACK{Info: &myproto.PlayerInfo{Uid: 11111, Name: "2222"}})
 	return &myproto.EnterGameACK{Info: player.Proto()}
 }
 
@@ -154,6 +155,6 @@ func handChat(uid uint64, data []byte) *myproto.ChatACK {
 		Name: player.Name,
 		Msg:  req.Msg,
 	}
-	player_manager.GetMgr().Broadcast(myproto.MsgId_Msg_ChatPUSH, push)
+	player_manager.GetMgr().NotifyAllPlayers(myproto.MsgId_Msg_ChatPUSH, push)
 	return &myproto.ChatACK{}
 }
