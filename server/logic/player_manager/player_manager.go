@@ -1,7 +1,10 @@
 package player_manager
 
 import (
+	"fmt"
 	"gs/game/player_info"
+	"gs/lib/myredis"
+	"gs/lib/myrpc"
 	"gs/proto/myproto"
 	"sync"
 )
@@ -34,10 +37,12 @@ func (this *PlayerMgr) GetPlayer(uid uint64) *player_info.Player {
 
 func (this *PlayerMgr) SetPlayer(uid uint64, player *player_info.Player) {
 	this.players.Store(uid, player)
+	myredis.GetInstance().HSet(myredis.NotifyPlayer, fmt.Sprintf("%d", uid), myrpc.GetInstance().GetNotifyAddr())
 }
 
 func (this *PlayerMgr) DelPlayer(uid uint64) {
 	this.players.Delete(uid)
+	myredis.GetInstance().HDel(myredis.NotifyPlayer, fmt.Sprintf("%d", uid))
 }
 
 func (this *PlayerMgr) Destory() {

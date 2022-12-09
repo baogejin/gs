@@ -3,15 +3,10 @@ package myrpc
 import (
 	"errors"
 	"fmt"
-	"gs/lib/myconfig"
 	"gs/lib/mylog"
 	"gs/lib/myredis"
-	"gs/lib/myutil"
 	"net"
 	"sync"
-	"time"
-
-	"github.com/xfxdev/xtcp"
 )
 
 type ClientMgr struct {
@@ -20,51 +15,22 @@ type ClientMgr struct {
 	clients    sync.Map
 	needUpdate bool
 	lock       sync.RWMutex
-	xtcpServer *xtcp.Server
-	address    string
-	notifyFn   func(p *RpcPacket)
 }
 
-func NewClientMgr(node string, selector Selector, notifyFn func(p *RpcPacket)) *ClientMgr {
+func NewClientMgr(node string, selector Selector) *ClientMgr {
 	if selector == nil {
 		selector = &RoundSelector{}
 	}
-	handler := NewRpcHandler(notifyFn)
-	option := xtcp.NewOpts(handler, &RpcProtocol{})
-	option.SendBufListLen = 4096
-	s := xtcp.NewServer(option)
 	mgr := &ClientMgr{
 		node:       node,
 		selector:   selector,
 		needUpdate: true,
-		xtcpServer: s,
-		notifyFn:   notifyFn,
 	}
 	mgr.init()
 	return mgr
 }
 
 func (this *ClientMgr) init() {
-	port := myconfig.Get().RpcPortStart
-	wait := make(chan bool, 1)
-	go func() {
-		for {
-			address := fmt.Sprintf("%s:%d", myutil.GetLocalIP(), port)
-			ln, err := net.Listen("tcp", address)
-			if err != nil {
-				port++
-				time.Sleep(10 * time.Millisecond)
-				continue
-			}
-			this.address = address
-			wait <- true
-			this.xtcpServer.Serve(ln)
-			return
-		}
-	}()
-	<-wait
-	mylog.Info("rpc xtcp address ", this.address)
-
 	ch := myredis.GetInstance().Subscribe(this.node).Channel()
 	go func() {
 		for {
@@ -118,7 +84,6 @@ func (this *ClientMgr) Call(param *RpcParam) (interface{}, error) {
 		c = NewClient(conn)
 		this.clients.Store(addr, c)
 	}
-	param.Req.SetAddr(this.address)
 
 	err := c.Call(fmt.Sprintf("%s.%s", param.Module, param.Fn), param.Req, param.Ack)
 	if err != nil {

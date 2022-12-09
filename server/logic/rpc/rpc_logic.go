@@ -21,7 +21,7 @@ type LogicAck struct {
 }
 
 func (this *RpcLogic) Logic(arg *LogicReq, reply *LogicAck) (err error) {
-	msgId, msg := logic_handler.ProcessMsg(arg.Uid, arg.MsgId, arg.Data, arg.Addr)
+	msgId, msg := logic_handler.ProcessMsg(arg.Uid, arg.MsgId, arg.Data, arg.NotifyAddr)
 	reply.MsgId = uint32(msgId)
 	if msg != nil {
 		if data, err := msg.Marshal(); err == nil {

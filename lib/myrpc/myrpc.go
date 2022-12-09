@@ -16,11 +16,13 @@ import (
 )
 
 type MyRpc struct {
-	name    string
-	address string
-	server  *Server
-	cliMgrs sync.Map
-	notifys sync.Map
+	name       string
+	address    string
+	server     *Server
+	cliMgrs    sync.Map
+	notifys    sync.Map
+	notifySvr  *xtcp.Server
+	notifyAddr string
 }
 
 type RpcParam struct {
@@ -32,14 +34,14 @@ type RpcParam struct {
 }
 
 type RpcReq interface {
-	SetAddr(string)
+	SetNotifyAddr(string)
 }
 type RpcBaseReq struct {
-	Addr string
+	NotifyAddr string
 }
 
-func (this *RpcBaseReq) SetAddr(addr string) {
-	this.Addr = addr
+func (this *RpcBaseReq) SetNotifyAddr(addr string) {
+	this.NotifyAddr = addr
 }
 
 var myRpc *MyRpc
@@ -56,8 +58,11 @@ func GetInstance() *MyRpc {
 func (this *MyRpc) init() {
 }
 
-func (this *MyRpc) NewRpcServer(name string) string {
+func (this *MyRpc) SetNodeName(name string) {
 	this.name = name
+}
+
+func (this *MyRpc) NewRpcServer() string {
 	this.server = NewServer()
 	wait := make(chan bool, 1)
 	port := myconfig.Get().RpcPortStart
@@ -81,23 +86,55 @@ func (this *MyRpc) NewRpcServer(name string) string {
 	return this.address
 }
 
+func (this *MyRpc) SetNotifyHandler(fn func(p *RpcPacket)) {
+	handler := NewRpcHandler(fn)
+	option := xtcp.NewOpts(handler, &RpcProtocol{})
+	option.SendBufListLen = 4096
+	this.notifySvr = xtcp.NewServer(option)
+	port := myconfig.Get().RpcPortStart
+	wait := make(chan bool, 1)
+	go func() {
+		for {
+			address := fmt.Sprintf("%s:%d", myutil.GetLocalIP(), port)
+			ln, err := net.Listen("tcp", address)
+			if err != nil {
+				port++
+				time.Sleep(10 * time.Millisecond)
+				continue
+			}
+			this.notifyAddr = address
+			wait <- true
+			this.notifySvr.Serve(ln)
+			return
+		}
+	}()
+	<-wait
+	mylog.Info("rpc notify address ", this.notifyAddr)
+	myredis.GetInstance().HSet("notify_"+this.name, this.notifyAddr, time.Now().Unix())
+}
+
+func (this *MyRpc) GetNotifyAddr() string {
+	return this.notifyAddr
+}
+
 func (this *MyRpc) RegisterFunc(rcvr interface{}) error {
 	if this.server == nil {
+		mylog.Warning("server is nil,need NewRpcServer first")
 		return errors.New("server is nil,need NewRpcServer first")
 	}
 	return this.server.Register(rcvr)
 }
 
-func (this *MyRpc) RegisterClient(node string, selector Selector, notifyFn func(p *RpcPacket)) {
+func (this *MyRpc) RegisterClient(node string, selector Selector) {
 	if _, ok := this.cliMgrs.Load(node); ok {
 		mylog.Warning("node ", node, " client already register")
 		return
 	}
-	cliMgr := NewClientMgr(node, selector, notifyFn)
+	cliMgr := NewClientMgr(node, selector)
 	this.cliMgrs.Store(node, cliMgr)
 }
 
-func (this *MyRpc) RegisterServerToRedis() {
+func (this *MyRpc) RegisterRpcServerToRedis() {
 	if this.server == nil {
 		mylog.Warning("rpc server is nil,register to redis failed")
 		return
@@ -119,11 +156,15 @@ func (this *MyRpc) Destory() {
 		myredis.GetInstance().HDel(this.name, this.address)
 		myredis.GetInstance().Publish(this.name, nil)
 	}
+	if this.notifySvr != nil {
+		myredis.GetInstance().HDel("notify_"+this.name, this.notifyAddr)
+	}
 }
 
 func (this *MyRpc) Call(param *RpcParam) (interface{}, error) {
 	if cliMgr, ok := this.cliMgrs.Load(param.Node); ok {
 		c := cliMgr.(*ClientMgr)
+		param.Req.SetNotifyAddr(this.notifyAddr)
 		return c.Call(param)
 	}
 	return nil, errors.New("node " + param.Node + " not found,need register client")
