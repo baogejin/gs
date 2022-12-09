@@ -27,7 +27,7 @@ func (this *GatewayServer) Run() {
 	mylog.Info("gateway server run")
 	myrpc.GetInstance().SetNodeName(define.NodeGateway)
 	myrpc.GetInstance().SetNotifyHandler(this.handleNotify)
-	myrpc.GetInstance().RegisterClient(define.NodeLogic, nil)
+	myrpc.GetInstance().RegisterClient(define.NodeLogic, NewLogicSelector())
 	//对外websocket
 	go func() {
 		http.Handle("/", websocket.Handler(OnNewConn))

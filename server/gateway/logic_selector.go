@@ -14,6 +14,13 @@ type LogicSelector struct {
 	lock    sync.RWMutex
 }
 
+func NewLogicSelector() *LogicSelector {
+	return &LogicSelector{
+		addrMap: make(map[string]bool),
+		records: make(map[uint64]string),
+	}
+}
+
 func (this *LogicSelector) Select(req interface{}) string {
 	this.lock.RLock()
 	defer this.lock.RUnlock()
