@@ -2,17 +2,15 @@ package main
 
 import (
 	"fmt"
-	"gs/lib/myticker"
-	"time"
+	"gs/lib/mychooser"
 )
 
 func main() {
-	myticker.GetInstance().AddTicker(time.Second, test)
-	time.Sleep(time.Second * 5)
-	myticker.GetInstance().Destory()
-	time.Sleep(time.Hour)
-}
-
-func test() {
-	fmt.Println("1")
+	c := &mychooser.MyChooser{}
+	c.Add(1, 1)
+	c.Add(2, 1)
+	c.Add(3, 1)
+	for i := 1; i < 10; i++ {
+		fmt.Println(c.Pick())
+	}
 }

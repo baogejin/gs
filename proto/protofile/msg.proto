@@ -108,3 +108,25 @@ message ChatPUSH{
     string Name=2;
     string Msg=3;
 }
+
+enum UnitType {
+    UnitMonster=0;
+    UnitPlayer=1;
+}
+
+enum TargetType {
+    TargetNone=0;
+    EnemySingle=1;
+    EnemySingleFront=2;
+    EnemySingleBehind=3;
+    EnemyAll=4;
+    EnemyFrontAll=5;
+    EnemyBehindAll=6;
+    TargetSelf=10;
+    AllySingle=11;
+    AllySingleFront=12;
+    AllySingleBehind=13;
+    AllyAll=14;
+    AllyFrontAll=15;
+    AllyBehindAll=16;
+}
