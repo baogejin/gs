@@ -20,9 +20,11 @@ type SkillInfo struct {
 	Level         int32  // 技能等级
 	BeforeTime    int32  // 前摇时间ms
 	AfterTime     int32  // 后摇时间ms
-	IsWeaponSkill bool   // 是否为武器平A技能
+	IsWeaponSkill bool   // 是否为武器技能
 	CoolDown      int32  // 冷却时间ms
 	TargetType    int32  // 目标选择类型
+	Attack        int32  // 伤害量
+	Heal          int32  // 治疗量
 }
 
 var skillCfg *SkillCfg

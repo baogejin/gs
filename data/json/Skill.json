@@ -1,7 +1,8 @@
 {
     "Skill":[
-        {"ID":1,"Name":"平砍","Level":0,"BeforeTime":500,"AfterTime":200,"IsWeaponSkill":true,"CoolDown":0,"TargetType":2},
-        {"ID":2,"Name":"平射","Level":0,"BeforeTime":500,"AfterTime":200,"IsWeaponSkill":true,"CoolDown":0,"TargetType":1},
-        {"ID":3,"Name":"平射","Level":0,"BeforeTime":500,"AfterTime":200,"IsWeaponSkill":true,"CoolDown":0,"TargetType":1}
+        {"ID":1,"Name":"近战攻击","Level":0,"BeforeTime":500,"AfterTime":200,"IsWeaponSkill":true,"CoolDown":2400,"TargetType":2,"Attack":10,"Heal":0},
+        {"ID":2,"Name":"远程攻击","Level":0,"BeforeTime":500,"AfterTime":200,"IsWeaponSkill":true,"CoolDown":2800,"TargetType":1,"Attack":12,"Heal":0},
+        {"ID":3,"Name":"魔法攻击","Level":0,"BeforeTime":500,"AfterTime":200,"IsWeaponSkill":true,"CoolDown":3000,"TargetType":1,"Attack":13,"Heal":0},
+        {"ID":4,"Name":"普通治疗","Level":0,"BeforeTime":500,"AfterTime":200,"IsWeaponSkill":true,"CoolDown":3200,"TargetType":11,"Attack":0,"Heal":20}
     ]
 }

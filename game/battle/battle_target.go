@@ -84,6 +84,9 @@ func (this *Battle) GetEnemy(team int32) ([]*Unit, []*Unit) {
 		if v.Team == team {
 			continue
 		}
+		if v.IsDead() {
+			continue
+		}
 		if v.IsFront() {
 			front = append(front, v)
 		} else {
@@ -98,6 +101,9 @@ func (this *Battle) GetAlly(team int32) ([]*Unit, []*Unit) {
 	behind := make([]*Unit, 0)
 	for _, v := range this.Units {
 		if v.Team != team {
+			continue
+		}
+		if v.IsDead() {
 			continue
 		}
 		if v.IsFront() {
