@@ -2,11 +2,13 @@ package player_info
 
 import (
 	"encoding/json"
+	"gs/game/player_info/bag"
 	"gs/lib/mylog"
 	"gs/lib/myredis"
 	"gs/lib/myrpc"
 	"gs/proto/myproto"
 	"sync"
+	"time"
 )
 
 type Player struct {
@@ -15,6 +17,16 @@ type Player struct {
 	CreateAt   int64
 	NotifyAddr string
 	lock       sync.RWMutex
+	Bag        *bag.Bag
+}
+
+func NewPlayer(uid uint64, name string) *Player {
+	return &Player{
+		Uid:      uid,
+		Name:     name,
+		CreateAt: time.Now().Unix(),
+		Bag:      bag.NewBag(),
+	}
 }
 
 func (this *Player) Proto() *myproto.PlayerInfo {

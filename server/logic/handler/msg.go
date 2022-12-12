@@ -10,7 +10,6 @@ import (
 	"gs/proto/myproto"
 	"gs/server/logic/player_manager"
 	"strconv"
-	"time"
 )
 
 func handleRegister(uid uint64, data []byte) *myproto.RegisterACK {
@@ -96,11 +95,7 @@ func handCreateRole(uid uint64, data []byte) *myproto.CreateRoleACK {
 	if !ok {
 		return &myproto.CreateRoleACK{Ret: myproto.ResultCode_RoleNameExist}
 	}
-	player := &player_info.Player{
-		Uid:      uid,
-		Name:     req.Name,
-		CreateAt: time.Now().Unix(),
-	}
+	player := player_info.NewPlayer(uid, req.Name)
 	ok = player.Save()
 	if !ok {
 		return &myproto.CreateRoleACK{Ret: myproto.ResultCode_CreateRoleFaild}

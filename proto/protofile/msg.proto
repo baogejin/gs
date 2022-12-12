@@ -130,3 +130,9 @@ enum TargetType {
     AllyFrontAll=15;
     AllyBehindAll=16;
 }
+
+message Item{
+    uint64 Id=1;
+    int32 ItemId=2;
+    int64 Num=3;
+}
