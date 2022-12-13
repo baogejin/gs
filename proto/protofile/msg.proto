@@ -136,3 +136,20 @@ message Item{
     int32 ItemId=2;
     int64 Num=3;
 }
+
+enum ItemType {
+    ItemTypeNone=0;
+    UnoccupiedItem=1;
+    StackItem=2;
+    UnstackItem=3;
+    EquipItem=4;
+}
+
+enum Quality{
+    QualityNone=0;
+    QualityWhite=1;
+    QualityGreen=2;
+    QualityBlue=3;
+    QualityPurple=4;
+    QualityOrange=5;
+}
