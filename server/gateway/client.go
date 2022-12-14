@@ -1,6 +1,7 @@
 package gateway
 
 import (
+	"bytes"
 	"encoding/binary"
 	"fmt"
 	"gs/define"
@@ -14,11 +15,9 @@ import (
 )
 
 type Client struct {
-	ws     *websocket.Conn
-	buf    []byte
-	bufLen uint32
-	seq    uint64
-	uid    uint64
+	ws  *websocket.Conn
+	seq uint64
+	uid uint64
 }
 
 func (this *Client) Start() {
@@ -31,11 +30,11 @@ func (this *Client) Start() {
 		mylog.Info("ws conn close")
 		this.ws.Close()
 	}()
-	this.buf = make([]byte, 2048)
-	this.bufLen = 0
+	buf := make([]byte, 2048)
+	recvBuf := bytes.NewBuffer(make([]byte, 0, 2048))
 	this.seq = 0
 	for {
-		length, err := this.ws.Read(this.buf[this.bufLen:])
+		length, err := this.ws.Read(buf)
 		if err == io.EOF {
 			return
 		}
@@ -47,12 +46,12 @@ func (this *Client) Start() {
 			mylog.Info("消息超过了缓冲长度")
 			return
 		}
-		this.bufLen += uint32(length)
-		if this.bufLen > 4 {
-			needLen := binary.LittleEndian.Uint32(this.buf)
-			fmt.Println("need", needLen, "len", this.bufLen)
-			if this.bufLen >= needLen {
-				msg := UnpackMsg(this.buf[4:needLen])
+		recvBuf.Write(buf[:length])
+		if recvBuf.Len() > 4 {
+			needLen := binary.LittleEndian.Uint32(recvBuf.Bytes())
+			fmt.Println("need", needLen, "len", recvBuf.Len())
+			if recvBuf.Len() >= int(needLen) {
+				msg := UnpackMsg(recvBuf.Bytes()[4:])
 				this.seq++
 				if this.seq != msg.Seq {
 					//TODO 序列不对
@@ -60,8 +59,7 @@ func (this *Client) Start() {
 				if !this.ProcessMsg(msg.MsgId, msg.Data) {
 					return
 				}
-				this.buf = this.buf[needLen:]
-				this.bufLen -= needLen
+				recvBuf.Next(int(needLen))
 			}
 		}
 	}
