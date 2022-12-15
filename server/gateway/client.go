@@ -47,7 +47,7 @@ func (this *Client) Start() {
 			return
 		}
 		recvBuf.Write(buf[:length])
-		if recvBuf.Len() > 4 {
+		for recvBuf.Len() > 4 {
 			needLen := binary.LittleEndian.Uint32(recvBuf.Bytes())
 			fmt.Println("need", needLen, "len", recvBuf.Len())
 			if recvBuf.Len() >= int(needLen) {
@@ -60,6 +60,8 @@ func (this *Client) Start() {
 					return
 				}
 				recvBuf.Next(int(needLen))
+			} else {
+				break
 			}
 		}
 	}
