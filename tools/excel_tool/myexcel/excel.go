@@ -307,3 +307,88 @@ func (this *ExcelInfo) GenGlobalKey(path string) error {
 	file.WriteString(ret)
 	return nil
 }
+
+func (this *ExcelInfo) GenTsCode(path string) error {
+	ret := ""
+	ret += "import Res from \"../../common/util/Res\"\n\n"
+	needMap := make(map[string]bool)
+	for _, s := range this.Sheets {
+		if len(s.Varnames) == 0 {
+			continue
+		}
+		if s.Varnames[0] == "ID" && s.Types[0].CType == CellTypeSimple && s.Types[0].ValueType1 == "int32" {
+			needMap[s.Name] = true
+		}
+		ret += "export class " + s.Name + "Info {\n"
+		for i := range s.Varnames {
+			if s.Types[i].CType == CellTypeSimple {
+				ret += "    public " + s.Varnames[i] + ": " + getTsType(s.Types[i].ValueType1)
+			} else if s.Types[i].CType == CellTypeSlc {
+				ret += "    public " + s.Varnames[i] + ": Array<" + getTsType(s.Types[i].ValueType1) + ">"
+			} else if s.Types[i].CType == CellTypeDoubleSlc {
+				ret += "    public " + s.Varnames[i] + ": Array<Array<" + getTsType(s.Types[i].ValueType1) + ">>"
+			} else if s.Types[i].CType == CellTypeMap {
+				ret += "    public " + s.Varnames[i] + ": Map<" + getTsType(s.Types[i].ValueType1) + "," + getTsType(s.Types[i].ValueType2) + ">"
+			}
+			ret += "// " + strings.Replace(s.Descs[i], "\n", " ", -1) + "\n"
+		}
+		ret += "}\n\n"
+	}
+	ret += "export class " + this.Name + "Config {\n"
+	ret += "    private static instance: " + this.Name + "Config\n"
+	ret += "    public static Get(): " + this.Name + "Config {\n"
+	ret += "        if (" + this.Name + "Config.instance == null) {\n"
+	ret += "            " + this.Name + "Config.instance = new " + this.Name + "Config()\n"
+	ret += "            " + this.Name + "Config.instance.init()\n"
+	ret += "        }\n"
+	ret += "        return " + this.Name + "Config.instance\n"
+	ret += "    }\n\n"
+	for _, s := range this.Sheets {
+		ret += "    public " + s.Name + "Slc: Array<" + s.Name + "Info>\n"
+		if needMap[s.Name] {
+			ret += "    public " + s.Name + "Map: Map<number, " + s.Name + "Info>\n"
+		}
+		ret += "\n"
+	}
+	ret += "    private init(): void {\n"
+	for _, s := range this.Sheets {
+		ret += "        this." + s.Name + "Slc = new Array<" + s.Name + "Info>()\n"
+		if needMap[s.Name] {
+			ret += "        this." + s.Name + "Map = new Map<number, " + s.Name + "Info>()\n"
+		}
+		ret += "\n"
+	}
+	ret += "        let jsonData = Res.get<cc.JsonAsset>(\"json/" + this.Name + "\", cc.JsonAsset)\n"
+	for _, s := range this.Sheets {
+		ret += "        this." + s.Name + "Slc = jsonData.json['" + s.Name + "']\n"
+		if needMap[s.Name] {
+			ret += "        this." + s.Name + "Slc.forEach(" + strings.ToLower(s.Name) + " => {\n"
+			ret += "            this." + s.Name + "Map.set(" + strings.ToLower(s.Name) + ".ID, " + strings.ToLower(s.Name) + ")\n"
+			ret += "        })\n"
+		}
+		ret += "\n"
+	}
+	ret += "    }\n"
+
+	ret += "}\n"
+	filePath := path + "/" + this.Name + "Cfg.ts"
+	file, err := os.OpenFile(filePath, os.O_RDWR|os.O_TRUNC|os.O_CREATE, os.ModePerm)
+	if nil != err {
+		return errors.New("open ts code file failed " + this.Name + "Cfg.ts")
+	}
+	defer file.Close()
+	file.WriteString(ret)
+	return nil
+}
+
+func getTsType(t string) string {
+	switch t {
+	case "int", "int32", "int64", "float", "float32", "float64":
+		return "number"
+	case "string":
+		return "string"
+	case "bool":
+		return "boolean"
+	}
+	return "any"
+}

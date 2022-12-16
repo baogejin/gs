@@ -29,6 +29,8 @@ func main() {
 	genJson(jsonPath, excels)
 	//生成go代码
 	genGoCode(codePath, excels)
+	//生成ts代码
+	genTsCode(codePath, excels)
 
 }
 
@@ -98,5 +100,17 @@ func genGoCode(path string, excels []*myexcel.ExcelInfo) {
 	err := cmd.Run()
 	if nil != err {
 		fmt.Println(err)
+	}
+}
+
+func genTsCode(path string, excels []*myexcel.ExcelInfo) {
+	for i, excel := range excels {
+		if excel.Name == "Global" {
+			continue
+		}
+		if err := excel.GenTsCode(path); err != nil {
+			panic("gen code failed:" + excel.Name + ".xlsx " + err.Error())
+		}
+		fmt.Printf("[%d/%d]gen code %s.xlsx success\n", i+1, len(excels), excel.Name)
 	}
 }
