@@ -6,6 +6,7 @@ import (
 	"gs/lib/myconfig"
 	"gs/lib/mylog"
 	"gs/lib/myredis"
+	"gs/lib/myticker"
 	"gs/lib/myutil"
 	"gs/proto/myproto"
 	"net"
@@ -13,6 +14,11 @@ import (
 	"time"
 
 	"github.com/xfxdev/xtcp"
+)
+
+const (
+	UpdateTime = time.Second * 10
+	CheckTime  = time.Second * 12
 )
 
 type MyRpc struct {
@@ -111,6 +117,10 @@ func (this *MyRpc) SetNotifyHandler(fn func(p *RpcPacket)) {
 	<-wait
 	mylog.Info("rpc notify address ", this.notifyAddr)
 	myredis.GetInstance().HSet("notify_"+this.name, this.notifyAddr, time.Now().Unix())
+	//定时更新
+	myticker.GetInstance().AddTicker(UpdateTime, func() {
+		myredis.GetInstance().HSet("notify_"+this.name, this.notifyAddr, time.Now().Unix())
+	})
 }
 
 func (this *MyRpc) GetNotifyAddr() string {
@@ -149,6 +159,9 @@ func (this *MyRpc) RegisterRpcServerToRedis() {
 	}
 	myredis.GetInstance().HSet(this.name, this.address, time.Now().Unix())
 	myredis.GetInstance().Publish(this.name, nil)
+	myticker.GetInstance().AddTicker(UpdateTime, func() {
+		myredis.GetInstance().HSet(this.name, this.address, time.Now().Unix())
+	})
 }
 
 func (this *MyRpc) Destory() {
