@@ -2,6 +2,7 @@ package player_info
 
 import (
 	"encoding/json"
+	"gs/define"
 	"gs/game/player_info/bag"
 	"gs/lib/mylog"
 	"gs/lib/myredis"
@@ -64,5 +65,5 @@ func (this *Player) SendMsg(msgid myproto.MsgId, msg myproto.MyMsg) {
 		mylog.Error("msg marshal err,msgid ", msgid, ",err:", err)
 		return
 	}
-	myrpc.GetInstance().SendMsg(this.NotifyAddr, this.Uid, msgid, data)
+	myrpc.GetInstance().SendMsg(this.NotifyAddr, this.Uid, msgid, define.NodeGateway, data)
 }

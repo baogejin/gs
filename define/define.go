@@ -4,11 +4,12 @@ const (
 	EnvName = "gs"
 )
 
-var (
+const (
 	NodeGateway = "gateway"
 	NodeLogic   = "logic"
 )
 
-var (
-	EventTest = "EventTest"
-)
+var NodeId map[string]int32 = map[string]int32{
+	NodeGateway: 1,
+	NodeLogic:   2,
+}

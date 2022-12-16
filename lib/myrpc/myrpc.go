@@ -3,6 +3,7 @@ package myrpc
 import (
 	"errors"
 	"fmt"
+	"gs/define"
 	"gs/lib/myconfig"
 	"gs/lib/mylog"
 	"gs/lib/myredis"
@@ -10,6 +11,7 @@ import (
 	"gs/lib/myutil"
 	"gs/proto/myproto"
 	"net"
+	"strconv"
 	"sync"
 	"time"
 
@@ -183,12 +185,13 @@ func (this *MyRpc) Call(param *RpcParam) (interface{}, error) {
 	return nil, errors.New("node " + param.Node + " not found,need register client")
 }
 
-func (this *MyRpc) SendMsg(addr string, uid uint64, msgid myproto.MsgId, data []byte) {
+func (this *MyRpc) SendMsg(addr string, uid uint64, msgid myproto.MsgId, node string, data []byte) {
 	conn := this.getNotifyConn(addr)
 	if conn != nil {
 		_, err := conn.SendPacket(&RpcPacket{
 			Uid:   uid,
 			MsgId: uint32(msgid),
+			Node:  define.NodeId[node],
 			Data:  data,
 		})
 		if err != nil {
@@ -219,4 +222,24 @@ func (this *MyRpc) getNotifyConn(addr string) *xtcp.Conn {
 		}
 	}()
 	return client
+}
+
+func (this *MyRpc) NotifyAllNodes(node string, msgid myproto.MsgId, msg myproto.MyMsg) {
+	data, err := msg.Marshal()
+	if err != nil {
+		mylog.Error(err)
+		return
+	}
+	nodes := myredis.GetInstance().HGetAll("notify_" + node)
+	for k, v := range nodes {
+		updateAt, err := strconv.ParseInt(v, 10, 0)
+		if err != nil {
+			mylog.Error(err)
+			continue
+		}
+		if time.Now().Unix()-updateAt > int64(CheckTime/time.Second) {
+			continue
+		}
+		this.SendMsg(k, 0, msgid, node, data)
+	}
 }

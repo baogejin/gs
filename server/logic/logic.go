@@ -30,5 +30,8 @@ func (this *LogicServer) Destory() {
 }
 
 func (this *LogicServer) handleNotify(p *myrpc.RpcPacket) {
+	if p.Node != define.NodeId[define.NodeLogic] {
+		return
+	}
 	//todo
 }

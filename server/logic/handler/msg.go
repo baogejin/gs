@@ -3,9 +3,11 @@ package logic_handler
 import (
 	"encoding/json"
 	"gs/data/gencode"
+	"gs/define"
 	"gs/game/player_info"
 	"gs/lib/mylog"
 	"gs/lib/myredis"
+	"gs/lib/myrpc"
 	"gs/lib/myutil"
 	"gs/proto/myproto"
 	"gs/server/logic/player_manager"
@@ -150,6 +152,6 @@ func handChat(uid uint64, data []byte) *myproto.ChatACK {
 		Name: player.Name,
 		Msg:  req.Msg,
 	}
-	player_manager.GetMgr().NotifyAllPlayers(myproto.MsgId_Msg_ChatPUSH, push)
+	myrpc.GetInstance().NotifyAllNodes(define.NodeGateway, myproto.MsgId_Msg_ChatPUSH, push)
 	return &myproto.ChatACK{}
 }
