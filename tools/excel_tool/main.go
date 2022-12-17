@@ -11,6 +11,7 @@ import (
 )
 
 func main() {
+	//生成后端代码
 	rootPath := os.Getenv(define.EnvName)
 	if rootPath == "" {
 		panic("gs环境变量没有设置，可以先运行bin下的set_env.bat")
@@ -18,19 +19,31 @@ func main() {
 	excelPath := rootPath + "/data/excel"
 	jsonPath := rootPath + "/data/json"
 	codePath := rootPath + "/data/gencode"
+	tag := "s"
+
+	//生成前端代码
+	// rootPath := os.Getenv("gc")
+	// if rootPath == "" {
+	// 	panic("gc环境变量没有设置，可以先运行tool下的set_env.bat")
+	// }
+	// excelPath := rootPath + "/assets/scripts/data/excel"
+	// jsonPath := rootPath + "/assets/resources/json"
+	// codePath := rootPath + "/assets/scripts/data/gencode"
+	// tag := "c"
+
 	fileList, err := getExcelList(excelPath)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 	//读取excel
-	excels := loadExcels(excelPath, fileList)
+	excels := loadExcels(excelPath, fileList, tag)
 	//生成json
 	genJson(jsonPath, excels)
 	//生成go代码
-	genGoCode(codePath, excels)
+	genGoCode(codePath, excels, tag)
 	//生成ts代码
-	genTsCode(codePath, excels)
+	genTsCode(codePath, excels, tag)
 
 }
 
@@ -58,12 +71,12 @@ func getExcelList(path string) ([]string, error) {
 	return ret, nil
 }
 
-func loadExcels(path string, files []string) []*myexcel.ExcelInfo {
+func loadExcels(path string, files []string, tag string) []*myexcel.ExcelInfo {
 	ret := []*myexcel.ExcelInfo{}
 	for i, file := range files {
 		excel := &myexcel.ExcelInfo{}
 		excel.Name = file
-		err := excel.Load(path, file)
+		err := excel.Load(path, file, tag)
 		if err != nil {
 			panic("load " + file + ".xlsx failed," + err.Error())
 		}
@@ -82,7 +95,10 @@ func genJson(path string, excels []*myexcel.ExcelInfo) {
 	}
 }
 
-func genGoCode(path string, excels []*myexcel.ExcelInfo) {
+func genGoCode(path string, excels []*myexcel.ExcelInfo, tag string) {
+	if tag == "c" {
+		return
+	}
 	for i, excel := range excels {
 		if excel.Name == "Global" {
 			if err := excel.GenGlobalKey(path); err != nil {
@@ -103,9 +119,16 @@ func genGoCode(path string, excels []*myexcel.ExcelInfo) {
 	}
 }
 
-func genTsCode(path string, excels []*myexcel.ExcelInfo) {
+func genTsCode(path string, excels []*myexcel.ExcelInfo, tag string) {
+	if tag == "s" {
+		return
+	}
 	for i, excel := range excels {
 		if excel.Name == "Global" {
+			if err := excel.GenTsGlobalKey(path); err != nil {
+				panic("gen global key failed " + err.Error())
+			}
+			fmt.Printf("[%d/%d]gen global key %s.xlsx success\n", i+1, len(excels), excel.Name)
 			continue
 		}
 		if err := excel.GenTsCode(path); err != nil {

@@ -21,7 +21,7 @@ type SheetInfo struct {
 	Content  [][]string
 }
 
-func (this *ExcelInfo) Load(path, name string) error {
+func (this *ExcelInfo) Load(path, name string, tag string) error {
 	f, err := excelize.OpenFile(path + "/" + name + ".xlsx")
 	if err != nil {
 		return err
@@ -45,7 +45,7 @@ func (this *ExcelInfo) Load(path, name string) error {
 		}
 		needExport := make(map[int]bool)
 		for i, v := range rows[0] {
-			if strings.Contains(v, "s") {
+			if strings.Contains(v, tag) {
 				needExport[i] = true
 			}
 		}
@@ -206,6 +206,9 @@ func (this *ExcelInfo) GenCode(path string) error {
 	}
 	ret += "}\n\n"
 	for _, s := range this.Sheets {
+		if len(s.Varnames) == 0 {
+			continue
+		}
 		ret += "type " + s.Name + "Info struct {\n"
 		for i := range s.Varnames {
 			if s.Types[i].CType == CellTypeSimple {
@@ -232,6 +235,9 @@ func (this *ExcelInfo) GenCode(path string) error {
 	ret += "}\n\n"
 	ret += "func (this *" + this.Name + "Cfg) init() {\n"
 	for _, s := range this.Sheets {
+		if len(s.Varnames) == 0 {
+			continue
+		}
 		if needMap[s.Name] {
 			ret += "this." + s.Name + "Map = make(map[int32]*" + s.Name + "Info)\n"
 		}
@@ -254,6 +260,9 @@ func (this *ExcelInfo) GenCode(path string) error {
 	ret += "		return\n"
 	ret += "	}\n"
 	for _, s := range this.Sheets {
+		if len(s.Varnames) == 0 {
+			continue
+		}
 		if needMap[s.Name] {
 			ret += "	for _, v := range this." + s.Name + "Slc {\n"
 			ret += "		this." + s.Name + "Map[v.ID] = v\n"
@@ -262,6 +271,9 @@ func (this *ExcelInfo) GenCode(path string) error {
 	}
 	ret += "}\n\n"
 	for _, s := range this.Sheets {
+		if len(s.Varnames) == 0 {
+			continue
+		}
 		if needMap[s.Name] {
 			ret += "func (this *" + this.Name + "Cfg) Get" + s.Name + "ById(id int32) (*" + s.Name + "Info, bool) {\n"
 			ret += "	if ret, ok := this." + s.Name + "Map[id]; ok {\n"
@@ -308,6 +320,32 @@ func (this *ExcelInfo) GenGlobalKey(path string) error {
 	return nil
 }
 
+func (this *ExcelInfo) GenTsGlobalKey(path string) error {
+	if this.Name != "Global" {
+		return errors.New("this is not Global.xlsx")
+	}
+	if len(this.Sheets) != 1 || this.Sheets[0].Name != "Global" {
+		return errors.New("Global sheet error")
+	}
+	if this.Sheets[0].Types[0].CType != CellTypeSimple || this.Sheets[0].Types[0].ValueType1 != "string" {
+		return errors.New("Global key type error")
+	}
+	ret := ""
+	ret += "export class GlobalKey {\n"
+	for _, v := range this.Sheets[0].Content {
+		ret += "    public static " + v[0] + ": string = \"" + v[0] + "\"\n"
+	}
+	ret += "}"
+	filePath := path + "/GlobalKey.ts"
+	file, err := os.OpenFile(filePath, os.O_RDWR|os.O_TRUNC|os.O_CREATE, os.ModePerm)
+	if nil != err {
+		return errors.New("open code file failed GlobalKey.ts")
+	}
+	defer file.Close()
+	file.WriteString(ret)
+	return nil
+}
+
 func (this *ExcelInfo) GenTsCode(path string) error {
 	ret := ""
 	ret += "import Res from \"../../common/util/Res\"\n\n"
@@ -344,6 +382,9 @@ func (this *ExcelInfo) GenTsCode(path string) error {
 	ret += "        return " + this.Name + "Config.instance\n"
 	ret += "    }\n\n"
 	for _, s := range this.Sheets {
+		if len(s.Varnames) == 0 {
+			continue
+		}
 		ret += "    public " + s.Name + "Slc: Array<" + s.Name + "Info>\n"
 		if needMap[s.Name] {
 			ret += "    public " + s.Name + "Map: Map<number, " + s.Name + "Info>\n"
@@ -352,6 +393,9 @@ func (this *ExcelInfo) GenTsCode(path string) error {
 	}
 	ret += "    private init(): void {\n"
 	for _, s := range this.Sheets {
+		if len(s.Varnames) == 0 {
+			continue
+		}
 		ret += "        this." + s.Name + "Slc = new Array<" + s.Name + "Info>()\n"
 		if needMap[s.Name] {
 			ret += "        this." + s.Name + "Map = new Map<number, " + s.Name + "Info>()\n"
@@ -360,6 +404,9 @@ func (this *ExcelInfo) GenTsCode(path string) error {
 	}
 	ret += "        let jsonData = Res.get<cc.JsonAsset>(\"json/" + this.Name + "\", cc.JsonAsset)\n"
 	for _, s := range this.Sheets {
+		if len(s.Varnames) == 0 {
+			continue
+		}
 		ret += "        this." + s.Name + "Slc = jsonData.json['" + s.Name + "']\n"
 		if needMap[s.Name] {
 			ret += "        this." + s.Name + "Slc.forEach(" + strings.ToLower(s.Name) + " => {\n"
