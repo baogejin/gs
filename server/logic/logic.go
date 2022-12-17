@@ -4,6 +4,7 @@ import (
 	"gs/define"
 	"gs/lib/mylog"
 	"gs/lib/myrpc"
+	"gs/proto/myproto"
 	"gs/server/logic/player_manager"
 	rpc_logic "gs/server/logic/rpc"
 )
@@ -33,5 +34,8 @@ func (this *LogicServer) handleNotify(p *myrpc.RpcPacket) {
 	if p.Node != define.NodeId[define.NodeLogic] {
 		return
 	}
-	//todo
+	player := player_manager.GetMgr().GetPlayer(p.Uid)
+	if player != nil {
+		player.ProcessNotify(myproto.MsgId(p.MsgId), p.Data)
+	}
 }

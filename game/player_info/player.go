@@ -74,3 +74,10 @@ func (this *Player) SendMsgData(msgid myproto.MsgId, data []byte) {
 	}
 	myrpc.GetInstance().SendMsg(this.NotifyAddr, this.Uid, msgid, define.NodeGateway, data)
 }
+
+func (this *Player) ProcessNotify(msgId myproto.MsgId, data []byte) {
+	switch msgId {
+	default:
+		this.SendMsgData(msgId, data)
+	}
+}
