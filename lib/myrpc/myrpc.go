@@ -243,3 +243,16 @@ func (this *MyRpc) NotifyAllNodes(node string, msgid myproto.MsgId, msg myproto.
 		this.SendMsg(k, 0, msgid, node, data)
 	}
 }
+
+func (this *MyRpc) NotifyPlayer(uid uint64, msgid myproto.MsgId, msg myproto.MyMsg) {
+	addr := myredis.GetInstance().HGet(myredis.NotifyPlayer, fmt.Sprintf("%d", uid))
+	if addr == "" {
+		return
+	}
+	data, err := msg.Marshal()
+	if err != nil {
+		mylog.Warning(err)
+		return
+	}
+	this.SendMsg(addr, uid, msgid, define.NodeLogic, data)
+}

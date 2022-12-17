@@ -67,3 +67,10 @@ func (this *Player) SendMsg(msgid myproto.MsgId, msg myproto.MyMsg) {
 	}
 	myrpc.GetInstance().SendMsg(this.NotifyAddr, this.Uid, msgid, define.NodeGateway, data)
 }
+
+func (this *Player) SendMsgData(msgid myproto.MsgId, data []byte) {
+	if this.NotifyAddr == "" {
+		return
+	}
+	myrpc.GetInstance().SendMsg(this.NotifyAddr, this.Uid, msgid, define.NodeGateway, data)
+}
