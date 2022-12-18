@@ -25,21 +25,24 @@ const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 type MsgId int32
 
 const (
-	MsgId_Msg_None          MsgId = 0
-	MsgId_Msg_RegisterREQ   MsgId = 1
-	MsgId_Msg_RegisterACK   MsgId = 2
-	MsgId_Msg_LoginREQ      MsgId = 3
-	MsgId_Msg_LoginACK      MsgId = 4
-	MsgId_Msg_CreateRoleREQ MsgId = 5
-	MsgId_Msg_CreateRoleACK MsgId = 6
-	MsgId_Msg_EnterGameREQ  MsgId = 7
-	MsgId_Msg_EnterGameACK  MsgId = 8
-	MsgId_Msg_LogoutREQ     MsgId = 9
-	MsgId_Msg_LogoutACK     MsgId = 10
-	MsgId_Msg_KickPUSH      MsgId = 11
-	MsgId_Msg_ChatREQ       MsgId = 12
-	MsgId_Msg_ChatACK       MsgId = 13
-	MsgId_Msg_ChatPUSH      MsgId = 14
+	MsgId_Msg_None           MsgId = 0
+	MsgId_Msg_RegisterREQ    MsgId = 1
+	MsgId_Msg_RegisterACK    MsgId = 2
+	MsgId_Msg_LoginREQ       MsgId = 3
+	MsgId_Msg_LoginACK       MsgId = 4
+	MsgId_Msg_CreateRoleREQ  MsgId = 5
+	MsgId_Msg_CreateRoleACK  MsgId = 6
+	MsgId_Msg_EnterGameREQ   MsgId = 7
+	MsgId_Msg_EnterGameACK   MsgId = 8
+	MsgId_Msg_LogoutREQ      MsgId = 9
+	MsgId_Msg_LogoutACK      MsgId = 10
+	MsgId_Msg_KickPUSH       MsgId = 11
+	MsgId_Msg_ChatREQ        MsgId = 12
+	MsgId_Msg_ChatACK        MsgId = 13
+	MsgId_Msg_ChatPUSH       MsgId = 14
+	MsgId_Msg_GMREQ          MsgId = 15
+	MsgId_Msg_GMACK          MsgId = 16
+	MsgId_Msg_ItemUpdatePUSH MsgId = 17
 )
 
 var MsgId_name = map[int32]string{
@@ -58,24 +61,30 @@ var MsgId_name = map[int32]string{
 	12: "Msg_ChatREQ",
 	13: "Msg_ChatACK",
 	14: "Msg_ChatPUSH",
+	15: "Msg_GMREQ",
+	16: "Msg_GMACK",
+	17: "Msg_ItemUpdatePUSH",
 }
 
 var MsgId_value = map[string]int32{
-	"Msg_None":          0,
-	"Msg_RegisterREQ":   1,
-	"Msg_RegisterACK":   2,
-	"Msg_LoginREQ":      3,
-	"Msg_LoginACK":      4,
-	"Msg_CreateRoleREQ": 5,
-	"Msg_CreateRoleACK": 6,
-	"Msg_EnterGameREQ":  7,
-	"Msg_EnterGameACK":  8,
-	"Msg_LogoutREQ":     9,
-	"Msg_LogoutACK":     10,
-	"Msg_KickPUSH":      11,
-	"Msg_ChatREQ":       12,
-	"Msg_ChatACK":       13,
-	"Msg_ChatPUSH":      14,
+	"Msg_None":           0,
+	"Msg_RegisterREQ":    1,
+	"Msg_RegisterACK":    2,
+	"Msg_LoginREQ":       3,
+	"Msg_LoginACK":       4,
+	"Msg_CreateRoleREQ":  5,
+	"Msg_CreateRoleACK":  6,
+	"Msg_EnterGameREQ":   7,
+	"Msg_EnterGameACK":   8,
+	"Msg_LogoutREQ":      9,
+	"Msg_LogoutACK":      10,
+	"Msg_KickPUSH":       11,
+	"Msg_ChatREQ":        12,
+	"Msg_ChatACK":        13,
+	"Msg_ChatPUSH":       14,
+	"Msg_GMREQ":          15,
+	"Msg_GMACK":          16,
+	"Msg_ItemUpdatePUSH": 17,
 }
 
 func (x MsgId) String() string {
@@ -105,6 +114,9 @@ const (
 	ResultCode_CreateRoleFaild ResultCode = 112
 	ResultCode_EnterGameFailed ResultCode = 113
 	ResultCode_PlayerNotFound  ResultCode = 114
+	ResultCode_GMCmdNotFound   ResultCode = 115
+	ResultCode_GMCmdParamErr   ResultCode = 116
+	ResultCode_GMCmdExecErr    ResultCode = 117
 )
 
 var ResultCode_name = map[int32]string{
@@ -124,6 +136,9 @@ var ResultCode_name = map[int32]string{
 	112: "CreateRoleFaild",
 	113: "EnterGameFailed",
 	114: "PlayerNotFound",
+	115: "GMCmdNotFound",
+	116: "GMCmdParamErr",
+	117: "GMCmdExecErr",
 }
 
 var ResultCode_value = map[string]int32{
@@ -143,6 +158,9 @@ var ResultCode_value = map[string]int32{
 	"CreateRoleFaild": 112,
 	"EnterGameFailed": 113,
 	"PlayerNotFound":  114,
+	"GMCmdNotFound":   115,
+	"GMCmdParamErr":   116,
+	"GMCmdExecErr":    117,
 }
 
 func (x ResultCode) String() string {
@@ -276,30 +294,30 @@ func (ItemType) EnumDescriptor() ([]byte, []int) {
 type Quality int32
 
 const (
-	Quality_QualityNone   Quality = 0
-	Quality_QualityWhite  Quality = 1
-	Quality_QualityGreen  Quality = 2
-	Quality_QualityBlue   Quality = 3
-	Quality_QualityPurple Quality = 4
-	Quality_QualityOrange Quality = 5
+	Quality_QualityNone Quality = 0
+	Quality_White       Quality = 1
+	Quality_Green       Quality = 2
+	Quality_Blue        Quality = 3
+	Quality_Purple      Quality = 4
+	Quality_Orange      Quality = 5
 )
 
 var Quality_name = map[int32]string{
 	0: "QualityNone",
-	1: "QualityWhite",
-	2: "QualityGreen",
-	3: "QualityBlue",
-	4: "QualityPurple",
-	5: "QualityOrange",
+	1: "White",
+	2: "Green",
+	3: "Blue",
+	4: "Purple",
+	5: "Orange",
 }
 
 var Quality_value = map[string]int32{
-	"QualityNone":   0,
-	"QualityWhite":  1,
-	"QualityGreen":  2,
-	"QualityBlue":   3,
-	"QualityPurple": 4,
-	"QualityOrange": 5,
+	"QualityNone": 0,
+	"White":       1,
+	"Green":       2,
+	"Blue":        3,
+	"Purple":      4,
+	"Orange":      5,
 }
 
 func (x Quality) String() string {
@@ -308,6 +326,34 @@ func (x Quality) String() string {
 
 func (Quality) EnumDescriptor() ([]byte, []int) {
 	return fileDescriptor_c06e4cca6c2cc899, []int{5}
+}
+
+type ItemUpdateType int32
+
+const (
+	ItemUpdateType_ItemUpdateNone ItemUpdateType = 0
+	ItemUpdateType_ItemAdd        ItemUpdateType = 1
+	ItemUpdateType_ItemDel        ItemUpdateType = 2
+)
+
+var ItemUpdateType_name = map[int32]string{
+	0: "ItemUpdateNone",
+	1: "ItemAdd",
+	2: "ItemDel",
+}
+
+var ItemUpdateType_value = map[string]int32{
+	"ItemUpdateNone": 0,
+	"ItemAdd":        1,
+	"ItemDel":        2,
+}
+
+func (x ItemUpdateType) String() string {
+	return proto.EnumName(ItemUpdateType_name, int32(x))
+}
+
+func (ItemUpdateType) EnumDescriptor() ([]byte, []int) {
+	return fileDescriptor_c06e4cca6c2cc899, []int{6}
 }
 
 type RegisterREQ struct {
@@ -518,16 +564,77 @@ func (m *LoginACK) GetHasRole() bool {
 	return false
 }
 
+type PlayerBagInfo struct {
+	Unoccupied   map[int32]int64  `protobuf:"bytes,1,rep,name=Unoccupied,proto3" json:"Unoccupied,omitempty" protobuf_key:"varint,1,opt,name=key,proto3" protobuf_val:"varint,2,opt,name=value,proto3"`
+	StackItems   map[int32]*Item  `protobuf:"bytes,2,rep,name=StackItems,proto3" json:"StackItems,omitempty" protobuf_key:"varint,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
+	UnstackItems map[uint64]*Item `protobuf:"bytes,3,rep,name=UnstackItems,proto3" json:"UnstackItems,omitempty" protobuf_key:"varint,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
+}
+
+func (m *PlayerBagInfo) Reset()         { *m = PlayerBagInfo{} }
+func (m *PlayerBagInfo) String() string { return proto.CompactTextString(m) }
+func (*PlayerBagInfo) ProtoMessage()    {}
+func (*PlayerBagInfo) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c06e4cca6c2cc899, []int{4}
+}
+func (m *PlayerBagInfo) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *PlayerBagInfo) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_PlayerBagInfo.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *PlayerBagInfo) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_PlayerBagInfo.Merge(m, src)
+}
+func (m *PlayerBagInfo) XXX_Size() int {
+	return m.Size()
+}
+func (m *PlayerBagInfo) XXX_DiscardUnknown() {
+	xxx_messageInfo_PlayerBagInfo.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_PlayerBagInfo proto.InternalMessageInfo
+
+func (m *PlayerBagInfo) GetUnoccupied() map[int32]int64 {
+	if m != nil {
+		return m.Unoccupied
+	}
+	return nil
+}
+
+func (m *PlayerBagInfo) GetStackItems() map[int32]*Item {
+	if m != nil {
+		return m.StackItems
+	}
+	return nil
+}
+
+func (m *PlayerBagInfo) GetUnstackItems() map[uint64]*Item {
+	if m != nil {
+		return m.UnstackItems
+	}
+	return nil
+}
+
 type PlayerInfo struct {
-	Uid  uint64 `protobuf:"varint,1,opt,name=Uid,proto3" json:"Uid,omitempty"`
-	Name string `protobuf:"bytes,2,opt,name=Name,proto3" json:"Name,omitempty"`
+	Uid     uint64         `protobuf:"varint,1,opt,name=Uid,proto3" json:"Uid,omitempty"`
+	Name    string         `protobuf:"bytes,2,opt,name=Name,proto3" json:"Name,omitempty"`
+	BagInfo *PlayerBagInfo `protobuf:"bytes,3,opt,name=BagInfo,proto3" json:"BagInfo,omitempty"`
 }
 
 func (m *PlayerInfo) Reset()         { *m = PlayerInfo{} }
 func (m *PlayerInfo) String() string { return proto.CompactTextString(m) }
 func (*PlayerInfo) ProtoMessage()    {}
 func (*PlayerInfo) Descriptor() ([]byte, []int) {
-	return fileDescriptor_c06e4cca6c2cc899, []int{4}
+	return fileDescriptor_c06e4cca6c2cc899, []int{5}
 }
 func (m *PlayerInfo) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -570,6 +677,13 @@ func (m *PlayerInfo) GetName() string {
 	return ""
 }
 
+func (m *PlayerInfo) GetBagInfo() *PlayerBagInfo {
+	if m != nil {
+		return m.BagInfo
+	}
+	return nil
+}
+
 type CreateRoleREQ struct {
 	Name string `protobuf:"bytes,1,opt,name=Name,proto3" json:"Name,omitempty"`
 }
@@ -578,7 +692,7 @@ func (m *CreateRoleREQ) Reset()         { *m = CreateRoleREQ{} }
 func (m *CreateRoleREQ) String() string { return proto.CompactTextString(m) }
 func (*CreateRoleREQ) ProtoMessage()    {}
 func (*CreateRoleREQ) Descriptor() ([]byte, []int) {
-	return fileDescriptor_c06e4cca6c2cc899, []int{5}
+	return fileDescriptor_c06e4cca6c2cc899, []int{6}
 }
 func (m *CreateRoleREQ) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -622,7 +736,7 @@ func (m *CreateRoleACK) Reset()         { *m = CreateRoleACK{} }
 func (m *CreateRoleACK) String() string { return proto.CompactTextString(m) }
 func (*CreateRoleACK) ProtoMessage()    {}
 func (*CreateRoleACK) Descriptor() ([]byte, []int) {
-	return fileDescriptor_c06e4cca6c2cc899, []int{6}
+	return fileDescriptor_c06e4cca6c2cc899, []int{7}
 }
 func (m *CreateRoleACK) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -665,7 +779,7 @@ func (m *EnterGameREQ) Reset()         { *m = EnterGameREQ{} }
 func (m *EnterGameREQ) String() string { return proto.CompactTextString(m) }
 func (*EnterGameREQ) ProtoMessage()    {}
 func (*EnterGameREQ) Descriptor() ([]byte, []int) {
-	return fileDescriptor_c06e4cca6c2cc899, []int{7}
+	return fileDescriptor_c06e4cca6c2cc899, []int{8}
 }
 func (m *EnterGameREQ) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -703,7 +817,7 @@ func (m *EnterGameACK) Reset()         { *m = EnterGameACK{} }
 func (m *EnterGameACK) String() string { return proto.CompactTextString(m) }
 func (*EnterGameACK) ProtoMessage()    {}
 func (*EnterGameACK) Descriptor() ([]byte, []int) {
-	return fileDescriptor_c06e4cca6c2cc899, []int{8}
+	return fileDescriptor_c06e4cca6c2cc899, []int{9}
 }
 func (m *EnterGameACK) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -753,7 +867,7 @@ func (m *LogoutREQ) Reset()         { *m = LogoutREQ{} }
 func (m *LogoutREQ) String() string { return proto.CompactTextString(m) }
 func (*LogoutREQ) ProtoMessage()    {}
 func (*LogoutREQ) Descriptor() ([]byte, []int) {
-	return fileDescriptor_c06e4cca6c2cc899, []int{9}
+	return fileDescriptor_c06e4cca6c2cc899, []int{10}
 }
 func (m *LogoutREQ) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -790,7 +904,7 @@ func (m *LogoutACK) Reset()         { *m = LogoutACK{} }
 func (m *LogoutACK) String() string { return proto.CompactTextString(m) }
 func (*LogoutACK) ProtoMessage()    {}
 func (*LogoutACK) Descriptor() ([]byte, []int) {
-	return fileDescriptor_c06e4cca6c2cc899, []int{10}
+	return fileDescriptor_c06e4cca6c2cc899, []int{11}
 }
 func (m *LogoutACK) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -833,7 +947,7 @@ func (m *KickPUSH) Reset()         { *m = KickPUSH{} }
 func (m *KickPUSH) String() string { return proto.CompactTextString(m) }
 func (*KickPUSH) ProtoMessage()    {}
 func (*KickPUSH) Descriptor() ([]byte, []int) {
-	return fileDescriptor_c06e4cca6c2cc899, []int{11}
+	return fileDescriptor_c06e4cca6c2cc899, []int{12}
 }
 func (m *KickPUSH) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -870,7 +984,7 @@ func (m *ChatREQ) Reset()         { *m = ChatREQ{} }
 func (m *ChatREQ) String() string { return proto.CompactTextString(m) }
 func (*ChatREQ) ProtoMessage()    {}
 func (*ChatREQ) Descriptor() ([]byte, []int) {
-	return fileDescriptor_c06e4cca6c2cc899, []int{12}
+	return fileDescriptor_c06e4cca6c2cc899, []int{13}
 }
 func (m *ChatREQ) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -914,7 +1028,7 @@ func (m *ChatACK) Reset()         { *m = ChatACK{} }
 func (m *ChatACK) String() string { return proto.CompactTextString(m) }
 func (*ChatACK) ProtoMessage()    {}
 func (*ChatACK) Descriptor() ([]byte, []int) {
-	return fileDescriptor_c06e4cca6c2cc899, []int{13}
+	return fileDescriptor_c06e4cca6c2cc899, []int{14}
 }
 func (m *ChatACK) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -960,7 +1074,7 @@ func (m *ChatPUSH) Reset()         { *m = ChatPUSH{} }
 func (m *ChatPUSH) String() string { return proto.CompactTextString(m) }
 func (*ChatPUSH) ProtoMessage()    {}
 func (*ChatPUSH) Descriptor() ([]byte, []int) {
-	return fileDescriptor_c06e4cca6c2cc899, []int{14}
+	return fileDescriptor_c06e4cca6c2cc899, []int{15}
 }
 func (m *ChatPUSH) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -1020,7 +1134,7 @@ func (m *Item) Reset()         { *m = Item{} }
 func (m *Item) String() string { return proto.CompactTextString(m) }
 func (*Item) ProtoMessage()    {}
 func (*Item) Descriptor() ([]byte, []int) {
-	return fileDescriptor_c06e4cca6c2cc899, []int{15}
+	return fileDescriptor_c06e4cca6c2cc899, []int{16}
 }
 func (m *Item) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -1070,6 +1184,146 @@ func (m *Item) GetNum() int64 {
 	return 0
 }
 
+type GMREQ struct {
+	Cmd string `protobuf:"bytes,1,opt,name=Cmd,proto3" json:"Cmd,omitempty"`
+}
+
+func (m *GMREQ) Reset()         { *m = GMREQ{} }
+func (m *GMREQ) String() string { return proto.CompactTextString(m) }
+func (*GMREQ) ProtoMessage()    {}
+func (*GMREQ) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c06e4cca6c2cc899, []int{17}
+}
+func (m *GMREQ) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *GMREQ) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_GMREQ.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *GMREQ) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GMREQ.Merge(m, src)
+}
+func (m *GMREQ) XXX_Size() int {
+	return m.Size()
+}
+func (m *GMREQ) XXX_DiscardUnknown() {
+	xxx_messageInfo_GMREQ.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GMREQ proto.InternalMessageInfo
+
+func (m *GMREQ) GetCmd() string {
+	if m != nil {
+		return m.Cmd
+	}
+	return ""
+}
+
+type GMACK struct {
+	Ret ResultCode `protobuf:"varint,1,opt,name=Ret,proto3,enum=myproto.ResultCode" json:"Ret,omitempty"`
+}
+
+func (m *GMACK) Reset()         { *m = GMACK{} }
+func (m *GMACK) String() string { return proto.CompactTextString(m) }
+func (*GMACK) ProtoMessage()    {}
+func (*GMACK) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c06e4cca6c2cc899, []int{18}
+}
+func (m *GMACK) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *GMACK) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_GMACK.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *GMACK) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GMACK.Merge(m, src)
+}
+func (m *GMACK) XXX_Size() int {
+	return m.Size()
+}
+func (m *GMACK) XXX_DiscardUnknown() {
+	xxx_messageInfo_GMACK.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GMACK proto.InternalMessageInfo
+
+func (m *GMACK) GetRet() ResultCode {
+	if m != nil {
+		return m.Ret
+	}
+	return ResultCode_Success
+}
+
+type ItemUpdatePUSH struct {
+	UpdateType ItemUpdateType `protobuf:"varint,1,opt,name=UpdateType,proto3,enum=myproto.ItemUpdateType" json:"UpdateType,omitempty"`
+	Items      []*Item        `protobuf:"bytes,2,rep,name=Items,proto3" json:"Items,omitempty"`
+}
+
+func (m *ItemUpdatePUSH) Reset()         { *m = ItemUpdatePUSH{} }
+func (m *ItemUpdatePUSH) String() string { return proto.CompactTextString(m) }
+func (*ItemUpdatePUSH) ProtoMessage()    {}
+func (*ItemUpdatePUSH) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c06e4cca6c2cc899, []int{19}
+}
+func (m *ItemUpdatePUSH) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *ItemUpdatePUSH) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_ItemUpdatePUSH.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *ItemUpdatePUSH) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ItemUpdatePUSH.Merge(m, src)
+}
+func (m *ItemUpdatePUSH) XXX_Size() int {
+	return m.Size()
+}
+func (m *ItemUpdatePUSH) XXX_DiscardUnknown() {
+	xxx_messageInfo_ItemUpdatePUSH.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ItemUpdatePUSH proto.InternalMessageInfo
+
+func (m *ItemUpdatePUSH) GetUpdateType() ItemUpdateType {
+	if m != nil {
+		return m.UpdateType
+	}
+	return ItemUpdateType_ItemUpdateNone
+}
+
+func (m *ItemUpdatePUSH) GetItems() []*Item {
+	if m != nil {
+		return m.Items
+	}
+	return nil
+}
+
 func init() {
 	proto.RegisterEnum("myproto.MsgId", MsgId_name, MsgId_value)
 	proto.RegisterEnum("myproto.ResultCode", ResultCode_name, ResultCode_value)
@@ -1077,10 +1331,15 @@ func init() {
 	proto.RegisterEnum("myproto.TargetType", TargetType_name, TargetType_value)
 	proto.RegisterEnum("myproto.ItemType", ItemType_name, ItemType_value)
 	proto.RegisterEnum("myproto.Quality", Quality_name, Quality_value)
+	proto.RegisterEnum("myproto.ItemUpdateType", ItemUpdateType_name, ItemUpdateType_value)
 	proto.RegisterType((*RegisterREQ)(nil), "myproto.RegisterREQ")
 	proto.RegisterType((*RegisterACK)(nil), "myproto.RegisterACK")
 	proto.RegisterType((*LoginREQ)(nil), "myproto.LoginREQ")
 	proto.RegisterType((*LoginACK)(nil), "myproto.LoginACK")
+	proto.RegisterType((*PlayerBagInfo)(nil), "myproto.PlayerBagInfo")
+	proto.RegisterMapType((map[int32]*Item)(nil), "myproto.PlayerBagInfo.StackItemsEntry")
+	proto.RegisterMapType((map[int32]int64)(nil), "myproto.PlayerBagInfo.UnoccupiedEntry")
+	proto.RegisterMapType((map[uint64]*Item)(nil), "myproto.PlayerBagInfo.UnstackItemsEntry")
 	proto.RegisterType((*PlayerInfo)(nil), "myproto.PlayerInfo")
 	proto.RegisterType((*CreateRoleREQ)(nil), "myproto.CreateRoleREQ")
 	proto.RegisterType((*CreateRoleACK)(nil), "myproto.CreateRoleACK")
@@ -1093,69 +1352,89 @@ func init() {
 	proto.RegisterType((*ChatACK)(nil), "myproto.ChatACK")
 	proto.RegisterType((*ChatPUSH)(nil), "myproto.ChatPUSH")
 	proto.RegisterType((*Item)(nil), "myproto.Item")
+	proto.RegisterType((*GMREQ)(nil), "myproto.GMREQ")
+	proto.RegisterType((*GMACK)(nil), "myproto.GMACK")
+	proto.RegisterType((*ItemUpdatePUSH)(nil), "myproto.ItemUpdatePUSH")
 }
 
 func init() { proto.RegisterFile("msg.proto", fileDescriptor_c06e4cca6c2cc899) }
 
 var fileDescriptor_c06e4cca6c2cc899 = []byte{
-	// 902 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x9c, 0x94, 0xdd, 0x6e, 0x1b, 0x55,
-	0x10, 0xc7, 0xbd, 0xb6, 0xe3, 0x8f, 0xb1, 0xbd, 0x99, 0x9e, 0x02, 0x8a, 0x40, 0xb2, 0xaa, 0xad,
-	0x10, 0x95, 0x91, 0x02, 0x0a, 0x88, 0xeb, 0x26, 0x96, 0xd3, 0x5a, 0xa9, 0x4d, 0xba, 0x6e, 0x84,
-	0x84, 0x04, 0xd5, 0xe2, 0x3d, 0xd9, 0x2c, 0x39, 0xbb, 0xc7, 0xdd, 0x0f, 0x81, 0xdf, 0x81, 0x0b,
-	0x5e, 0x83, 0x0b, 0xde, 0x83, 0xcb, 0x5e, 0x72, 0x89, 0x92, 0x17, 0x41, 0x73, 0x3e, 0xbc, 0x1b,
-	0x7a, 0xd3, 0x70, 0xe5, 0x33, 0xbf, 0x9d, 0xf9, 0xcf, 0x9c, 0x99, 0x39, 0x86, 0x7e, 0x92, 0x47,
-	0x87, 0x9b, 0x4c, 0x16, 0x92, 0x75, 0x93, 0xad, 0x3a, 0x78, 0x53, 0x18, 0xf8, 0x3c, 0x8a, 0xf3,
-	0x82, 0x67, 0xfe, 0xec, 0x25, 0x3b, 0x80, 0xee, 0xf1, 0x7a, 0x2d, 0xcb, 0xb4, 0x38, 0x70, 0x1e,
-	0x39, 0x4f, 0xfa, 0xbe, 0x35, 0xd9, 0xc7, 0xd0, 0x3b, 0x0f, 0xf2, 0xfc, 0x17, 0x99, 0x85, 0x07,
-	0x4d, 0xf5, 0x69, 0x67, 0x7b, 0x5f, 0x57, 0x22, 0xc7, 0xd3, 0x33, 0xf6, 0x29, 0xb4, 0x7c, 0xae,
-	0x05, 0xdc, 0xa3, 0x87, 0x87, 0x26, 0xd5, 0xa1, 0xcf, 0xf3, 0x52, 0x14, 0x53, 0x19, 0x72, 0x9f,
-	0xbe, 0x7b, 0x4f, 0xa1, 0xf7, 0x42, 0x46, 0x71, 0xfa, 0xff, 0xf3, 0xfe, 0x60, 0x14, 0xde, 0x3f,
-	0x29, 0x43, 0x68, 0x5d, 0xc4, 0x5a, 0xa9, 0xed, 0xd3, 0x91, 0x52, 0x3f, 0x0f, 0x72, 0x5f, 0x0a,
-	0x7e, 0xd0, 0x7a, 0xe4, 0x3c, 0xe9, 0xf9, 0xd6, 0xf4, 0x8e, 0x00, 0xce, 0x45, 0xb0, 0xe5, 0xd9,
-	0x3c, 0xbd, 0x94, 0x36, 0xd2, 0xa9, 0x22, 0x19, 0xb4, 0x97, 0x41, 0xc2, 0x4d, 0x59, 0xea, 0xec,
-	0x3d, 0x86, 0xd1, 0x34, 0xe3, 0x41, 0xc1, 0x49, 0x81, 0x6e, 0x66, 0x9d, 0x9c, 0x9a, 0xd3, 0x37,
-	0x75, 0xa7, 0x7b, 0x74, 0xcc, 0x85, 0xe1, 0x2c, 0x2d, 0x78, 0xf6, 0x2c, 0x48, 0x48, 0xdb, 0xfb,
-	0xb1, 0x66, 0xdf, 0xa3, 0x07, 0x9f, 0x41, 0x9b, 0x6e, 0xa4, 0xea, 0x1e, 0xd4, 0xfc, 0xaa, 0xcb,
-	0xfa, 0xca, 0xc1, 0x1b, 0x40, 0xff, 0x85, 0x8c, 0x64, 0x59, 0x50, 0xb2, 0x23, 0x6b, 0xdc, 0xa3,
-	0x60, 0x80, 0xde, 0x59, 0xbc, 0xbe, 0x3e, 0xbf, 0x58, 0x3d, 0xf7, 0x3e, 0x81, 0xee, 0xf4, 0x2a,
-	0x20, 0x29, 0x6a, 0xe5, 0x22, 0x8f, 0x4c, 0x4b, 0xe8, 0xe8, 0x7d, 0xa9, 0x3f, 0xde, 0x43, 0xfa,
-	0x04, 0x7a, 0x14, 0x41, 0xd2, 0xef, 0x37, 0x1a, 0x9b, 0xb5, 0x55, 0x65, 0x7d, 0x0a, 0xed, 0x79,
-	0xc1, 0x13, 0xe6, 0x42, 0x73, 0x6e, 0xc3, 0x9b, 0xf3, 0x90, 0x7d, 0x04, 0x1d, 0xe2, 0x73, 0xbd,
-	0x27, 0x7b, 0xbe, 0xb1, 0x48, 0x61, 0x59, 0x26, 0x4a, 0xa1, 0xe5, 0xd3, 0x71, 0xf2, 0x47, 0x13,
-	0xf6, 0x16, 0x79, 0x34, 0x0f, 0xd9, 0x10, 0x7a, 0x8b, 0x3c, 0x7a, 0xbd, 0x94, 0x29, 0xc7, 0x06,
-	0x7b, 0x08, 0xfb, 0x64, 0xd5, 0x9e, 0x16, 0x3a, 0xff, 0x85, 0xc7, 0xd3, 0x33, 0x6c, 0x32, 0x84,
-	0x21, 0x41, 0xfb, 0x12, 0xb0, 0x75, 0x87, 0x90, 0x4f, 0x9b, 0x7d, 0x08, 0x0f, 0x88, 0xdc, 0x59,
-	0x2c, 0xdc, 0x7b, 0x17, 0x93, 0x77, 0x87, 0x7d, 0x00, 0x48, 0xb8, 0xbe, 0x29, 0xd8, 0x7d, 0x87,
-	0x92, 0x6f, 0x8f, 0x3d, 0x80, 0x91, 0xc9, 0xa5, 0xa7, 0x8c, 0xfd, 0xbb, 0x88, 0xbc, 0xc0, 0x56,
-	0x64, 0x47, 0x89, 0x03, 0xb6, 0x0f, 0x03, 0x95, 0x5a, 0x0f, 0x14, 0x87, 0x75, 0x40, 0x31, 0x23,
-	0x1b, 0x63, 0x67, 0x84, 0xee, 0xe4, 0xcf, 0x26, 0x40, 0x35, 0x45, 0x36, 0x80, 0xee, 0xaa, 0x5c,
-	0xaf, 0x79, 0x9e, 0x63, 0x83, 0x01, 0x74, 0x16, 0x79, 0x34, 0xcb, 0x32, 0x74, 0x28, 0xd2, 0x3c,
-	0xfe, 0xd9, 0xaf, 0x71, 0x5e, 0x20, 0xa7, 0xc6, 0x19, 0xb2, 0x94, 0x06, 0x5e, 0x52, 0x9d, 0x74,
-	0x67, 0x1a, 0xad, 0x46, 0x11, 0x15, 0x61, 0xff, 0x1b, 0x48, 0xea, 0x4a, 0x49, 0x89, 0x8c, 0x07,
-	0xe1, 0x56, 0x75, 0x13, 0xe3, 0xba, 0x78, 0xb2, 0x29, 0xb6, 0xf8, 0x33, 0xe9, 0xec, 0x82, 0x14,
-	0xba, 0x66, 0x2e, 0x80, 0x75, 0xca, 0x32, 0x14, 0x8c, 0x81, 0x6b, 0x64, 0xcc, 0x5f, 0x03, 0x26,
-	0x6c, 0x04, 0xfd, 0x25, 0xe7, 0xa1, 0xd6, 0x4d, 0xa9, 0x44, 0x5b, 0xcd, 0x5c, 0x08, 0x1e, 0x05,
-	0x02, 0x25, 0xc1, 0x6a, 0x38, 0xa7, 0x41, 0x2c, 0x42, 0xdc, 0x10, 0xdc, 0x0d, 0x81, 0x18, 0x0f,
-	0xf1, 0x0d, 0x65, 0xd0, 0xaf, 0x6f, 0x29, 0x8b, 0x53, 0x59, 0xa6, 0x21, 0x66, 0x93, 0xcf, 0xa1,
-	0x77, 0x91, 0xc6, 0xc5, 0xab, 0xed, 0x86, 0xd3, 0xcd, 0xe8, 0xbc, 0x90, 0x29, 0x6d, 0x0e, 0x36,
-	0xa8, 0x44, 0x02, 0x3a, 0x08, 0x9d, 0xc9, 0x6f, 0x4d, 0x80, 0x57, 0x41, 0x16, 0x71, 0xed, 0xef,
-	0x5a, 0xcb, 0xec, 0xe3, 0x3e, 0x0c, 0x66, 0x29, 0x4f, 0xb6, 0xab, 0x38, 0x8d, 0x04, 0x47, 0x87,
-	0xd6, 0xa1, 0x06, 0x4e, 0x33, 0x99, 0x16, 0xd8, 0xa4, 0x8d, 0xaa, 0xd1, 0x13, 0x7e, 0x15, 0xa7,
-	0x21, 0xb6, 0x68, 0xb7, 0x15, 0x3e, 0x16, 0x02, 0xdb, 0xd4, 0x30, 0x65, 0xa9, 0x20, 0x42, 0x7b,
-	0x54, 0xbe, 0x42, 0x3a, 0x82, 0x58, 0xa7, 0x2a, 0x61, 0xc5, 0xc5, 0x25, 0x82, 0x6a, 0xaa, 0x10,
-	0xb6, 0x82, 0x81, 0x1a, 0xea, 0xce, 0xd6, 0x05, 0x0c, 0xa9, 0xac, 0x0a, 0x9a, 0xfc, 0x23, 0x5a,
-	0x15, 0xa2, 0xa4, 0xeb, 0xea, 0x99, 0x8a, 0x2a, 0xfb, 0x3e, 0x15, 0x44, 0xa4, 0x4a, 0x8e, 0x93,
-	0xd7, 0xd0, 0xa3, 0x37, 0xab, 0x7a, 0x81, 0x30, 0xb4, 0x67, 0xd3, 0x0d, 0x06, 0xee, 0x45, 0x2a,
-	0xd7, 0xeb, 0x72, 0x13, 0xf3, 0x90, 0xbe, 0xa1, 0x43, 0xf3, 0x5c, 0x15, 0xc1, 0xfa, 0x5a, 0x99,
-	0x4d, 0xdd, 0xf0, 0x7c, 0x07, 0x5a, 0xf4, 0x7d, 0xf6, 0xa6, 0x8c, 0x37, 0xca, 0x6c, 0x4f, 0x4a,
-	0xe8, 0xbe, 0x2c, 0x03, 0x11, 0x17, 0x5b, 0x72, 0x35, 0x47, 0x23, 0x8f, 0x30, 0x34, 0xe0, 0xbb,
-	0xab, 0xb8, 0xe0, 0x7a, 0xa5, 0x0d, 0x79, 0x96, 0x71, 0x9e, 0x6a, 0x7d, 0x43, 0x4e, 0x44, 0xc9,
-	0xb1, 0x45, 0x97, 0x30, 0xe0, 0xbc, 0xcc, 0x36, 0x82, 0xeb, 0x46, 0x1b, 0xf4, 0x6d, 0x16, 0xa4,
-	0x11, 0xc7, 0xbd, 0x93, 0xc7, 0x7f, 0xdd, 0x8c, 0x9d, 0xb7, 0x37, 0x63, 0xe7, 0x9f, 0x9b, 0xb1,
-	0xf3, 0xfb, 0xed, 0xb8, 0xf1, 0xf6, 0x76, 0xdc, 0xf8, 0xfb, 0x76, 0xdc, 0xf8, 0xbe, 0x7f, 0xf8,
-	0x85, 0xf9, 0xab, 0xfc, 0xa9, 0xa3, 0x7e, 0xbe, 0xfa, 0x37, 0x00, 0x00, 0xff, 0xff, 0xdc, 0xac,
-	0x79, 0x39, 0xf0, 0x07, 0x00, 0x00,
+	// 1180 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x9c, 0x56, 0x5d, 0x8f, 0xdb, 0x44,
+	0x17, 0x8e, 0xed, 0x64, 0x93, 0x1c, 0xe7, 0xe3, 0xec, 0xb4, 0x6f, 0xdf, 0x50, 0xa4, 0xa8, 0x72,
+	0x05, 0xac, 0x82, 0x14, 0xaa, 0x05, 0x01, 0x42, 0x02, 0x75, 0x37, 0x64, 0xb7, 0x51, 0x37, 0x61,
+	0xeb, 0x6d, 0x84, 0x84, 0x04, 0x95, 0x89, 0xa7, 0x5e, 0xb3, 0xfe, 0x48, 0xfd, 0x01, 0xcd, 0x7f,
+	0xe0, 0x82, 0x9f, 0x85, 0xb8, 0xea, 0x25, 0x77, 0xa0, 0x56, 0xfc, 0x0f, 0x74, 0xc6, 0xe3, 0xd8,
+	0xc9, 0x16, 0xd4, 0x70, 0x95, 0x39, 0xcf, 0x9c, 0xf3, 0x9c, 0x8f, 0x79, 0xc6, 0x13, 0x68, 0xfa,
+	0xb1, 0x33, 0x5c, 0x46, 0x61, 0x12, 0xb2, 0xba, 0xbf, 0x12, 0x0b, 0x63, 0x04, 0xba, 0xc9, 0x1d,
+	0x37, 0x4e, 0x78, 0x64, 0x8e, 0x1f, 0xb1, 0x1e, 0xd4, 0x8f, 0x16, 0x8b, 0x30, 0x0d, 0x92, 0x9e,
+	0x72, 0x47, 0x39, 0x68, 0x9a, 0xb9, 0xc9, 0x6e, 0x43, 0xe3, 0xdc, 0x8a, 0xe3, 0x9f, 0xc2, 0xc8,
+	0xee, 0xa9, 0x62, 0x6b, 0x6d, 0x1b, 0x1f, 0x15, 0x24, 0x47, 0xa3, 0x87, 0xec, 0x1d, 0xd0, 0x4c,
+	0x9e, 0x11, 0x74, 0x0e, 0x6f, 0x0c, 0x65, 0xaa, 0xa1, 0xc9, 0xe3, 0xd4, 0x4b, 0x46, 0xa1, 0xcd,
+	0x4d, 0xda, 0x37, 0xee, 0x43, 0xe3, 0x2c, 0x74, 0xdc, 0xe0, 0xbf, 0xe7, 0xfd, 0x56, 0x32, 0xbc,
+	0x79, 0x52, 0x86, 0xa0, 0xcd, 0xdd, 0x8c, 0xa9, 0x6a, 0xd2, 0x92, 0x52, 0x3f, 0xb0, 0x62, 0x33,
+	0xf4, 0x78, 0x4f, 0xbb, 0xa3, 0x1c, 0x34, 0xcc, 0xdc, 0x34, 0x7e, 0xd3, 0xa0, 0x7d, 0xee, 0x59,
+	0x2b, 0x1e, 0x1d, 0x5b, 0xce, 0x24, 0x78, 0x1a, 0xb2, 0x13, 0x80, 0x79, 0x10, 0x2e, 0x16, 0xe9,
+	0xd2, 0xe5, 0x76, 0x4f, 0xb9, 0xa3, 0x1d, 0xe8, 0x87, 0xef, 0xae, 0x73, 0x6d, 0xf8, 0x0e, 0x0b,
+	0xc7, 0x71, 0x90, 0x44, 0x2b, 0xb3, 0x14, 0x49, 0x3c, 0x17, 0x89, 0xb5, 0xb8, 0x9a, 0x24, 0xdc,
+	0x8f, 0x7b, 0xea, 0xbf, 0xf2, 0x14, 0x8e, 0x92, 0xa7, 0x00, 0xd8, 0x19, 0xb4, 0xe6, 0x41, 0x5c,
+	0x30, 0x69, 0x82, 0xe9, 0xe0, 0x1f, 0x2b, 0x8a, 0xb7, 0xb8, 0x36, 0xa2, 0x6f, 0x7f, 0x0e, 0xdd,
+	0xad, 0xa2, 0x69, 0x5c, 0x57, 0x7c, 0x25, 0xa6, 0x5a, 0x33, 0x69, 0xc9, 0x6e, 0x42, 0xed, 0x47,
+	0xcb, 0x4b, 0xb9, 0x18, 0xa1, 0x66, 0x66, 0xc6, 0x67, 0xea, 0xa7, 0xca, 0xed, 0x33, 0xe8, 0x6e,
+	0xd5, 0xfa, 0x9a, 0xf0, 0xbb, 0xe5, 0x70, 0xfd, 0xb0, 0xbd, 0x2e, 0x95, 0xa2, 0xca, 0x6c, 0x33,
+	0xd8, 0xbf, 0x56, 0x6f, 0x99, 0xaf, 0xba, 0x1b, 0x9f, 0x61, 0x03, 0x64, 0xd3, 0x10, 0x07, 0x29,
+	0x65, 0xa0, 0x14, 0x32, 0x60, 0x50, 0x9d, 0x59, 0x3e, 0x97, 0x1a, 0x13, 0x6b, 0x76, 0x0f, 0xea,
+	0x72, 0x76, 0x42, 0x1a, 0xfa, 0xe1, 0xad, 0xd7, 0x4f, 0xd6, 0xcc, 0xdd, 0x8c, 0xbb, 0xd0, 0x1e,
+	0x45, 0xdc, 0x4a, 0x38, 0x09, 0x88, 0x84, 0x9d, 0xd3, 0x2a, 0x05, 0xad, 0xf1, 0x71, 0xd9, 0x69,
+	0x87, 0x0b, 0xd3, 0x81, 0xd6, 0x38, 0x48, 0x78, 0x74, 0x6a, 0xf9, 0xc4, 0x6d, 0x7c, 0x57, 0xb2,
+	0x77, 0xb8, 0x02, 0xef, 0x41, 0x55, 0xb4, 0x94, 0x4d, 0xec, 0xc6, 0x56, 0x4b, 0xa2, 0x1f, 0xe1,
+	0x60, 0xe8, 0xd0, 0x3c, 0x0b, 0x9d, 0x30, 0x4d, 0x28, 0xd9, 0x61, 0x6e, 0xec, 0x50, 0x30, 0x40,
+	0xe3, 0xa1, 0xbb, 0xb8, 0x3a, 0x9f, 0x5f, 0x3c, 0x30, 0xde, 0x86, 0xfa, 0xe8, 0xd2, 0x22, 0x2a,
+	0x1a, 0xfe, 0x34, 0x76, 0xe4, 0x48, 0x68, 0x69, 0xdc, 0xcb, 0x36, 0x77, 0xa0, 0x3e, 0x86, 0x06,
+	0x45, 0x10, 0xf5, 0x1b, 0x1e, 0xa6, 0xcc, 0xaa, 0x15, 0x59, 0xef, 0x43, 0x95, 0x54, 0xc2, 0x3a,
+	0xa0, 0x4e, 0xf2, 0x70, 0x75, 0x62, 0xb3, 0x5b, 0xb0, 0x47, 0xf8, 0x24, 0xfb, 0x4c, 0xd4, 0x4c,
+	0x69, 0x11, 0xc3, 0x2c, 0xf5, 0x05, 0x83, 0x66, 0xd2, 0xd2, 0x78, 0x0b, 0x6a, 0xa7, 0x53, 0xd9,
+	0xd2, 0xc8, 0xb7, 0xf3, 0x96, 0x46, 0xbe, 0x6d, 0x0c, 0x69, 0x6b, 0x87, 0x86, 0x02, 0xe8, 0x50,
+	0x9a, 0xf9, 0xd2, 0xb6, 0x12, 0x2e, 0xda, 0xfa, 0x04, 0x20, 0xb3, 0x1e, 0xaf, 0x96, 0x5c, 0xc6,
+	0xff, 0x7f, 0x43, 0xdf, 0xc5, 0xb6, 0x59, 0x72, 0xa5, 0x3b, 0x51, 0xfe, 0xb0, 0x6c, 0xdf, 0x09,
+	0xb1, 0x37, 0xf8, 0x43, 0x85, 0xda, 0x34, 0x76, 0x26, 0x36, 0x6b, 0x41, 0x63, 0x1a, 0x3b, 0x4f,
+	0x66, 0x61, 0xc0, 0xb1, 0xc2, 0x6e, 0x40, 0x97, 0xac, 0xd2, 0xa3, 0x80, 0xca, 0x36, 0x78, 0x34,
+	0x7a, 0x88, 0x2a, 0x43, 0x68, 0x11, 0x98, 0x7f, 0xc3, 0x51, 0xdb, 0x40, 0xc8, 0xa7, 0xca, 0xfe,
+	0x07, 0xfb, 0x84, 0x6c, 0xdc, 0x09, 0xac, 0x5d, 0x87, 0xc9, 0x7b, 0x8f, 0xdd, 0x04, 0x24, 0xb8,
+	0x2c, 0x72, 0xac, 0x5f, 0x43, 0xc9, 0xb7, 0xc1, 0xf6, 0xa1, 0x2d, 0x73, 0x65, 0x02, 0xc5, 0xe6,
+	0x26, 0x44, 0x5e, 0x90, 0x57, 0x94, 0xab, 0x10, 0x75, 0xd6, 0x05, 0x5d, 0xa4, 0xce, 0xb4, 0x88,
+	0xad, 0x32, 0x40, 0x31, 0xed, 0x3c, 0x26, 0x97, 0x17, 0x76, 0x58, 0x1b, 0x9a, 0x84, 0x88, 0xa3,
+	0xc6, 0x6e, 0x61, 0x92, 0x3f, 0xb2, 0x5b, 0xc0, 0xc8, 0xdc, 0x3c, 0x3d, 0xdc, 0x1f, 0xfc, 0xa5,
+	0x02, 0x14, 0xa7, 0xcc, 0x74, 0xa8, 0x5f, 0xa4, 0x8b, 0x05, 0x8f, 0x63, 0xac, 0x30, 0x80, 0xbd,
+	0x69, 0xec, 0x8c, 0xa3, 0x08, 0x15, 0xca, 0x27, 0x1f, 0xbb, 0xf1, 0x73, 0x37, 0x4e, 0x90, 0xd3,
+	0xb8, 0x25, 0x32, 0x0b, 0x25, 0xf8, 0x94, 0xba, 0xa3, 0x49, 0x91, 0x96, 0x33, 0xc8, 0xa1, 0xd2,
+	0xf3, 0xb7, 0x90, 0xa8, 0x2e, 0x05, 0x95, 0x17, 0x71, 0xcb, 0x5e, 0x89, 0x33, 0x40, 0xb7, 0x4c,
+	0xee, 0x2f, 0x93, 0x15, 0xfe, 0x40, 0x3c, 0xeb, 0x20, 0x01, 0x5d, 0xb1, 0x0e, 0x40, 0xee, 0x14,
+	0x45, 0xe8, 0x31, 0x06, 0x1d, 0x49, 0x23, 0x9f, 0x42, 0xf4, 0xa9, 0xe9, 0x19, 0xe7, 0x76, 0xc6,
+	0x1b, 0x50, 0x89, 0x79, 0x35, 0x13, 0xcf, 0xe3, 0x8e, 0xe5, 0x61, 0x48, 0x60, 0x71, 0xa4, 0x27,
+	0x96, 0xeb, 0xd9, 0xb8, 0x24, 0x70, 0x7d, 0x74, 0x84, 0x71, 0x1b, 0x9f, 0x51, 0x86, 0xec, 0x73,
+	0x33, 0x0b, 0x93, 0x93, 0x30, 0x0d, 0x6c, 0x8c, 0xa8, 0xb0, 0xd3, 0xe9, 0xc8, 0xb7, 0xd7, 0x50,
+	0xbc, 0x86, 0xce, 0xad, 0xc8, 0xf2, 0xa9, 0x36, 0x7a, 0xc0, 0x5b, 0x02, 0x1a, 0x3f, 0xe7, 0x0b,
+	0x42, 0xd2, 0xc1, 0xfb, 0xd0, 0x98, 0x07, 0x6e, 0x22, 0xa4, 0xdf, 0x05, 0x9d, 0xd6, 0xd3, 0x30,
+	0x20, 0x9d, 0x62, 0x85, 0x5a, 0x23, 0x20, 0x4b, 0x86, 0xca, 0xe0, 0x67, 0x15, 0xe0, 0xb1, 0x15,
+	0x39, 0x3c, 0xf3, 0xef, 0xe4, 0x96, 0x54, 0x7f, 0x17, 0xf4, 0x71, 0xc0, 0xfd, 0xd5, 0x85, 0x1b,
+	0x38, 0x1e, 0x47, 0x85, 0xc4, 0x57, 0x02, 0x4e, 0xa2, 0x30, 0x48, 0x50, 0x25, 0xfd, 0x96, 0xd0,
+	0x63, 0x7e, 0xe9, 0x06, 0x36, 0x6a, 0x74, 0x93, 0x04, 0x7c, 0xe4, 0x79, 0x58, 0xa5, 0xe2, 0x85,
+	0x25, 0x82, 0x08, 0xaa, 0x51, 0xdb, 0x02, 0xca, 0x22, 0x08, 0xdb, 0x2b, 0x4a, 0xb8, 0xe0, 0xde,
+	0x53, 0x04, 0x71, 0x18, 0x9e, 0x97, 0x57, 0xa0, 0x0b, 0x31, 0xac, 0xed, 0xac, 0x80, 0x16, 0x95,
+	0x55, 0x80, 0x32, 0x7f, 0x9b, 0x24, 0x46, 0x28, 0xf1, 0x76, 0x32, 0x2d, 0x78, 0x45, 0xf6, 0x2e,
+	0x15, 0x44, 0x48, 0x91, 0x1c, 0x07, 0x4f, 0xa0, 0x41, 0xba, 0x15, 0xb3, 0x40, 0x68, 0xe5, 0x6b,
+	0x39, 0x0d, 0x06, 0x9d, 0xe2, 0x0f, 0x01, 0xed, 0xa1, 0x42, 0x3a, 0x58, 0xbf, 0xf2, 0xa8, 0x66,
+	0x03, 0x5f, 0x3f, 0xd3, 0xa8, 0xd1, 0xfe, 0xf8, 0x59, 0xea, 0x2e, 0x85, 0x59, 0x1d, 0x98, 0x50,
+	0x7f, 0x94, 0x5a, 0x9e, 0x9b, 0xac, 0xc8, 0x55, 0x2e, 0x25, 0x7d, 0x13, 0x6a, 0x5f, 0x5f, 0xba,
+	0x09, 0x8d, 0xb9, 0x09, 0xb5, 0xd3, 0x88, 0xf3, 0x00, 0x55, 0xd6, 0x80, 0xea, 0xb1, 0x97, 0x72,
+	0xd4, 0xe8, 0x92, 0x9c, 0xa7, 0xd1, 0xd2, 0xe3, 0x58, 0xa5, 0xf5, 0x57, 0x91, 0x15, 0x38, 0x1c,
+	0x6b, 0x83, 0x2f, 0xca, 0x9f, 0x4a, 0x51, 0x3a, 0x2b, 0x23, 0x92, 0x5d, 0x87, 0x3a, 0x61, 0x47,
+	0xb6, 0x8d, 0x4a, 0x6e, 0x7c, 0xc9, 0x3d, 0x54, 0x8f, 0xef, 0xfe, 0xfa, 0xb2, 0xaf, 0xbc, 0x78,
+	0xd9, 0x57, 0xfe, 0x7c, 0xd9, 0x57, 0x7e, 0x79, 0xd5, 0xaf, 0xbc, 0x78, 0xd5, 0xaf, 0xfc, 0xfe,
+	0xaa, 0x5f, 0xf9, 0xa6, 0x39, 0xfc, 0x40, 0x7e, 0x2b, 0xbf, 0xdf, 0x13, 0x3f, 0x1f, 0xfe, 0x1d,
+	0x00, 0x00, 0xff, 0xff, 0x15, 0x17, 0xd4, 0x01, 0x35, 0x0b, 0x00, 0x00,
 }
 
 func (m *RegisterREQ) Marshal() (dAtA []byte, err error) {
@@ -1303,6 +1582,92 @@ func (m *LoginACK) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	return len(dAtA) - i, nil
 }
 
+func (m *PlayerBagInfo) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *PlayerBagInfo) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *PlayerBagInfo) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.UnstackItems) > 0 {
+		for k := range m.UnstackItems {
+			v := m.UnstackItems[k]
+			baseI := i
+			if v != nil {
+				{
+					size, err := v.MarshalToSizedBuffer(dAtA[:i])
+					if err != nil {
+						return 0, err
+					}
+					i -= size
+					i = encodeVarintMsg(dAtA, i, uint64(size))
+				}
+				i--
+				dAtA[i] = 0x12
+			}
+			i = encodeVarintMsg(dAtA, i, uint64(k))
+			i--
+			dAtA[i] = 0x8
+			i = encodeVarintMsg(dAtA, i, uint64(baseI-i))
+			i--
+			dAtA[i] = 0x1a
+		}
+	}
+	if len(m.StackItems) > 0 {
+		for k := range m.StackItems {
+			v := m.StackItems[k]
+			baseI := i
+			if v != nil {
+				{
+					size, err := v.MarshalToSizedBuffer(dAtA[:i])
+					if err != nil {
+						return 0, err
+					}
+					i -= size
+					i = encodeVarintMsg(dAtA, i, uint64(size))
+				}
+				i--
+				dAtA[i] = 0x12
+			}
+			i = encodeVarintMsg(dAtA, i, uint64(k))
+			i--
+			dAtA[i] = 0x8
+			i = encodeVarintMsg(dAtA, i, uint64(baseI-i))
+			i--
+			dAtA[i] = 0x12
+		}
+	}
+	if len(m.Unoccupied) > 0 {
+		for k := range m.Unoccupied {
+			v := m.Unoccupied[k]
+			baseI := i
+			i = encodeVarintMsg(dAtA, i, uint64(v))
+			i--
+			dAtA[i] = 0x10
+			i = encodeVarintMsg(dAtA, i, uint64(k))
+			i--
+			dAtA[i] = 0x8
+			i = encodeVarintMsg(dAtA, i, uint64(baseI-i))
+			i--
+			dAtA[i] = 0xa
+		}
+	}
+	return len(dAtA) - i, nil
+}
+
 func (m *PlayerInfo) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
@@ -1323,6 +1688,18 @@ func (m *PlayerInfo) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
+	if m.BagInfo != nil {
+		{
+			size, err := m.BagInfo.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintMsg(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x1a
+	}
 	if len(m.Name) > 0 {
 		i -= len(m.Name)
 		copy(dAtA[i:], m.Name)
@@ -1671,6 +2048,106 @@ func (m *Item) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	return len(dAtA) - i, nil
 }
 
+func (m *GMREQ) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *GMREQ) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *GMREQ) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.Cmd) > 0 {
+		i -= len(m.Cmd)
+		copy(dAtA[i:], m.Cmd)
+		i = encodeVarintMsg(dAtA, i, uint64(len(m.Cmd)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *GMACK) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *GMACK) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *GMACK) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Ret != 0 {
+		i = encodeVarintMsg(dAtA, i, uint64(m.Ret))
+		i--
+		dAtA[i] = 0x8
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *ItemUpdatePUSH) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *ItemUpdatePUSH) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *ItemUpdatePUSH) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.Items) > 0 {
+		for iNdEx := len(m.Items) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.Items[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintMsg(dAtA, i, uint64(size))
+			}
+			i--
+			dAtA[i] = 0x12
+		}
+	}
+	if m.UpdateType != 0 {
+		i = encodeVarintMsg(dAtA, i, uint64(m.UpdateType))
+		i--
+		dAtA[i] = 0x8
+	}
+	return len(dAtA) - i, nil
+}
+
 func encodeVarintMsg(dAtA []byte, offset int, v uint64) int {
 	offset -= sovMsg(v)
 	base := offset
@@ -1746,6 +2223,49 @@ func (m *LoginACK) Size() (n int) {
 	return n
 }
 
+func (m *PlayerBagInfo) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if len(m.Unoccupied) > 0 {
+		for k, v := range m.Unoccupied {
+			_ = k
+			_ = v
+			mapEntrySize := 1 + sovMsg(uint64(k)) + 1 + sovMsg(uint64(v))
+			n += mapEntrySize + 1 + sovMsg(uint64(mapEntrySize))
+		}
+	}
+	if len(m.StackItems) > 0 {
+		for k, v := range m.StackItems {
+			_ = k
+			_ = v
+			l = 0
+			if v != nil {
+				l = v.Size()
+				l += 1 + sovMsg(uint64(l))
+			}
+			mapEntrySize := 1 + sovMsg(uint64(k)) + l
+			n += mapEntrySize + 1 + sovMsg(uint64(mapEntrySize))
+		}
+	}
+	if len(m.UnstackItems) > 0 {
+		for k, v := range m.UnstackItems {
+			_ = k
+			_ = v
+			l = 0
+			if v != nil {
+				l = v.Size()
+				l += 1 + sovMsg(uint64(l))
+			}
+			mapEntrySize := 1 + sovMsg(uint64(k)) + l
+			n += mapEntrySize + 1 + sovMsg(uint64(mapEntrySize))
+		}
+	}
+	return n
+}
+
 func (m *PlayerInfo) Size() (n int) {
 	if m == nil {
 		return 0
@@ -1757,6 +2277,10 @@ func (m *PlayerInfo) Size() (n int) {
 	}
 	l = len(m.Name)
 	if l > 0 {
+		n += 1 + l + sovMsg(uint64(l))
+	}
+	if m.BagInfo != nil {
+		l = m.BagInfo.Size()
 		n += 1 + l + sovMsg(uint64(l))
 	}
 	return n
@@ -1901,6 +2425,49 @@ func (m *Item) Size() (n int) {
 	}
 	if m.Num != 0 {
 		n += 1 + sovMsg(uint64(m.Num))
+	}
+	return n
+}
+
+func (m *GMREQ) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Cmd)
+	if l > 0 {
+		n += 1 + l + sovMsg(uint64(l))
+	}
+	return n
+}
+
+func (m *GMACK) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Ret != 0 {
+		n += 1 + sovMsg(uint64(m.Ret))
+	}
+	return n
+}
+
+func (m *ItemUpdatePUSH) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.UpdateType != 0 {
+		n += 1 + sovMsg(uint64(m.UpdateType))
+	}
+	if len(m.Items) > 0 {
+		for _, e := range m.Items {
+			l = e.Size()
+			n += 1 + l + sovMsg(uint64(l))
+		}
 	}
 	return n
 }
@@ -2316,6 +2883,385 @@ func (m *LoginACK) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
+func (m *PlayerBagInfo) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowMsg
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: PlayerBagInfo: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: PlayerBagInfo: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Unoccupied", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowMsg
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthMsg
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthMsg
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Unoccupied == nil {
+				m.Unoccupied = make(map[int32]int64)
+			}
+			var mapkey int32
+			var mapvalue int64
+			for iNdEx < postIndex {
+				entryPreIndex := iNdEx
+				var wire uint64
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return ErrIntOverflowMsg
+					}
+					if iNdEx >= l {
+						return io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					wire |= uint64(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				fieldNum := int32(wire >> 3)
+				if fieldNum == 1 {
+					for shift := uint(0); ; shift += 7 {
+						if shift >= 64 {
+							return ErrIntOverflowMsg
+						}
+						if iNdEx >= l {
+							return io.ErrUnexpectedEOF
+						}
+						b := dAtA[iNdEx]
+						iNdEx++
+						mapkey |= int32(b&0x7F) << shift
+						if b < 0x80 {
+							break
+						}
+					}
+				} else if fieldNum == 2 {
+					for shift := uint(0); ; shift += 7 {
+						if shift >= 64 {
+							return ErrIntOverflowMsg
+						}
+						if iNdEx >= l {
+							return io.ErrUnexpectedEOF
+						}
+						b := dAtA[iNdEx]
+						iNdEx++
+						mapvalue |= int64(b&0x7F) << shift
+						if b < 0x80 {
+							break
+						}
+					}
+				} else {
+					iNdEx = entryPreIndex
+					skippy, err := skipMsg(dAtA[iNdEx:])
+					if err != nil {
+						return err
+					}
+					if (skippy < 0) || (iNdEx+skippy) < 0 {
+						return ErrInvalidLengthMsg
+					}
+					if (iNdEx + skippy) > postIndex {
+						return io.ErrUnexpectedEOF
+					}
+					iNdEx += skippy
+				}
+			}
+			m.Unoccupied[mapkey] = mapvalue
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field StackItems", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowMsg
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthMsg
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthMsg
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.StackItems == nil {
+				m.StackItems = make(map[int32]*Item)
+			}
+			var mapkey int32
+			var mapvalue *Item
+			for iNdEx < postIndex {
+				entryPreIndex := iNdEx
+				var wire uint64
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return ErrIntOverflowMsg
+					}
+					if iNdEx >= l {
+						return io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					wire |= uint64(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				fieldNum := int32(wire >> 3)
+				if fieldNum == 1 {
+					for shift := uint(0); ; shift += 7 {
+						if shift >= 64 {
+							return ErrIntOverflowMsg
+						}
+						if iNdEx >= l {
+							return io.ErrUnexpectedEOF
+						}
+						b := dAtA[iNdEx]
+						iNdEx++
+						mapkey |= int32(b&0x7F) << shift
+						if b < 0x80 {
+							break
+						}
+					}
+				} else if fieldNum == 2 {
+					var mapmsglen int
+					for shift := uint(0); ; shift += 7 {
+						if shift >= 64 {
+							return ErrIntOverflowMsg
+						}
+						if iNdEx >= l {
+							return io.ErrUnexpectedEOF
+						}
+						b := dAtA[iNdEx]
+						iNdEx++
+						mapmsglen |= int(b&0x7F) << shift
+						if b < 0x80 {
+							break
+						}
+					}
+					if mapmsglen < 0 {
+						return ErrInvalidLengthMsg
+					}
+					postmsgIndex := iNdEx + mapmsglen
+					if postmsgIndex < 0 {
+						return ErrInvalidLengthMsg
+					}
+					if postmsgIndex > l {
+						return io.ErrUnexpectedEOF
+					}
+					mapvalue = &Item{}
+					if err := mapvalue.Unmarshal(dAtA[iNdEx:postmsgIndex]); err != nil {
+						return err
+					}
+					iNdEx = postmsgIndex
+				} else {
+					iNdEx = entryPreIndex
+					skippy, err := skipMsg(dAtA[iNdEx:])
+					if err != nil {
+						return err
+					}
+					if (skippy < 0) || (iNdEx+skippy) < 0 {
+						return ErrInvalidLengthMsg
+					}
+					if (iNdEx + skippy) > postIndex {
+						return io.ErrUnexpectedEOF
+					}
+					iNdEx += skippy
+				}
+			}
+			m.StackItems[mapkey] = mapvalue
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field UnstackItems", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowMsg
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthMsg
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthMsg
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.UnstackItems == nil {
+				m.UnstackItems = make(map[uint64]*Item)
+			}
+			var mapkey uint64
+			var mapvalue *Item
+			for iNdEx < postIndex {
+				entryPreIndex := iNdEx
+				var wire uint64
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return ErrIntOverflowMsg
+					}
+					if iNdEx >= l {
+						return io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					wire |= uint64(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				fieldNum := int32(wire >> 3)
+				if fieldNum == 1 {
+					for shift := uint(0); ; shift += 7 {
+						if shift >= 64 {
+							return ErrIntOverflowMsg
+						}
+						if iNdEx >= l {
+							return io.ErrUnexpectedEOF
+						}
+						b := dAtA[iNdEx]
+						iNdEx++
+						mapkey |= uint64(b&0x7F) << shift
+						if b < 0x80 {
+							break
+						}
+					}
+				} else if fieldNum == 2 {
+					var mapmsglen int
+					for shift := uint(0); ; shift += 7 {
+						if shift >= 64 {
+							return ErrIntOverflowMsg
+						}
+						if iNdEx >= l {
+							return io.ErrUnexpectedEOF
+						}
+						b := dAtA[iNdEx]
+						iNdEx++
+						mapmsglen |= int(b&0x7F) << shift
+						if b < 0x80 {
+							break
+						}
+					}
+					if mapmsglen < 0 {
+						return ErrInvalidLengthMsg
+					}
+					postmsgIndex := iNdEx + mapmsglen
+					if postmsgIndex < 0 {
+						return ErrInvalidLengthMsg
+					}
+					if postmsgIndex > l {
+						return io.ErrUnexpectedEOF
+					}
+					mapvalue = &Item{}
+					if err := mapvalue.Unmarshal(dAtA[iNdEx:postmsgIndex]); err != nil {
+						return err
+					}
+					iNdEx = postmsgIndex
+				} else {
+					iNdEx = entryPreIndex
+					skippy, err := skipMsg(dAtA[iNdEx:])
+					if err != nil {
+						return err
+					}
+					if (skippy < 0) || (iNdEx+skippy) < 0 {
+						return ErrInvalidLengthMsg
+					}
+					if (iNdEx + skippy) > postIndex {
+						return io.ErrUnexpectedEOF
+					}
+					iNdEx += skippy
+				}
+			}
+			m.UnstackItems[mapkey] = mapvalue
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipMsg(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthMsg
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
 func (m *PlayerInfo) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
@@ -2395,6 +3341,42 @@ func (m *PlayerInfo) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			m.Name = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field BagInfo", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowMsg
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthMsg
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthMsg
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.BagInfo == nil {
+				m.BagInfo = &PlayerBagInfo{}
+			}
+			if err := m.BagInfo.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
 			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
@@ -3262,6 +4244,260 @@ func (m *Item) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
+		default:
+			iNdEx = preIndex
+			skippy, err := skipMsg(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthMsg
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *GMREQ) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowMsg
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: GMREQ: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: GMREQ: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Cmd", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowMsg
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthMsg
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthMsg
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Cmd = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipMsg(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthMsg
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *GMACK) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowMsg
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: GMACK: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: GMACK: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Ret", wireType)
+			}
+			m.Ret = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowMsg
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Ret |= ResultCode(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		default:
+			iNdEx = preIndex
+			skippy, err := skipMsg(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthMsg
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *ItemUpdatePUSH) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowMsg
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: ItemUpdatePUSH: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: ItemUpdatePUSH: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field UpdateType", wireType)
+			}
+			m.UpdateType = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowMsg
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.UpdateType |= ItemUpdateType(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Items", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowMsg
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthMsg
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthMsg
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Items = append(m.Items, &Item{})
+			if err := m.Items[len(m.Items)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
 			skippy, err := skipMsg(dAtA[iNdEx:])

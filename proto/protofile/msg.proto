@@ -20,6 +20,9 @@ enum MsgId{
     Msg_ChatREQ=12;
     Msg_ChatACK=13;
     Msg_ChatPUSH=14;
+    Msg_GMREQ=15;
+    Msg_GMACK=16;
+    Msg_ItemUpdatePUSH=17;
 }
 
 enum ResultCode{
@@ -39,6 +42,9 @@ enum ResultCode{
     CreateRoleFaild=112;
     EnterGameFailed=113;
     PlayerNotFound=114;
+    GMCmdNotFound=115;
+    GMCmdParamErr=116;
+    GMCmdExecErr=117;
 }
 
 message RegisterREQ{
@@ -61,9 +67,16 @@ message LoginACK{
     bool HasRole=3;
 }
 
+message PlayerBagInfo{
+    map<int32,int64> Unoccupied=1;
+    map<int32,Item> StackItems=2;
+    map<uint64,Item> UnstackItems=3;
+}
+
 message PlayerInfo{
     uint64 Uid=1;
     string Name=2;
+    PlayerBagInfo BagInfo=3;
 }
 
 message CreateRoleREQ{
@@ -147,9 +160,28 @@ enum ItemType {
 
 enum Quality{
     QualityNone=0;
-    QualityWhite=1;
-    QualityGreen=2;
-    QualityBlue=3;
-    QualityPurple=4;
-    QualityOrange=5;
+    White=1;
+    Green=2;
+    Blue=3;
+    Purple=4;
+    Orange=5;
+}
+
+message GMREQ{
+    string Cmd=1;
+}
+
+message GMACK{
+    ResultCode Ret=1;
+}
+
+enum ItemUpdateType{
+    ItemUpdateNone=0;
+    ItemAdd=1;
+    ItemDel=2;
+}
+
+message ItemUpdatePUSH{
+    ItemUpdateType UpdateType=1;
+    repeated Item Items=2;
 }

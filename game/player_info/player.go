@@ -13,12 +13,12 @@ import (
 )
 
 type Player struct {
-	Uid        uint64
-	Name       string
-	CreateAt   int64
-	NotifyAddr string
-	lock       sync.RWMutex
-	Bag        *bag.Bag
+	Uid        uint64       `json:"Uid,,omitempty"`
+	Name       string       `json:"Name,omitempty"`
+	CreateAt   int64        `json:"CreateAt,,omitempty"`
+	NotifyAddr string       `json:"-"`
+	lock       sync.RWMutex `json:"-"`
+	Bag        *bag.Bag     `json:"Bag,,omitempty"`
 }
 
 func NewPlayer(uid uint64, name string) *Player {
@@ -32,8 +32,9 @@ func NewPlayer(uid uint64, name string) *Player {
 
 func (this *Player) Proto() *myproto.PlayerInfo {
 	return &myproto.PlayerInfo{
-		Uid:  this.Uid,
-		Name: this.Name,
+		Uid:     this.Uid,
+		Name:    this.Name,
+		BagInfo: this.Bag.Proto(),
 	}
 }
 

@@ -12,6 +12,7 @@ import (
 	"gs/proto/myproto"
 	"gs/server/logic/player_manager"
 	"strconv"
+	"strings"
 )
 
 func handleRegister(uid uint64, data []byte) *myproto.RegisterACK {
@@ -108,7 +109,7 @@ func handCreateRole(uid uint64, data []byte) *myproto.CreateRoleACK {
 func handEnterGame(uid uint64, notifyAddr string) *myproto.EnterGameACK {
 	player := player_manager.GetMgr().GetPlayer(uid)
 	if player == nil {
-		player = &player_info.Player{}
+		player = player_info.NewPlayer(0, "")
 		jsonData := myredis.GetInstance().Get(myredis.GetRoleKey(uid))
 		if len(jsonData) == 0 {
 			return &myproto.EnterGameACK{Ret: myproto.ResultCode_EnterGameFailed}
@@ -154,4 +155,38 @@ func handChat(uid uint64, data []byte) *myproto.ChatACK {
 	}
 	myrpc.GetInstance().NotifyAllNodes(define.NodeGateway, myproto.MsgId_Msg_ChatPUSH, push)
 	return &myproto.ChatACK{}
+}
+
+func handGM(uid uint64, data []byte) *myproto.GMACK {
+	player := player_manager.GetMgr().GetPlayer(uid)
+	if player == nil {
+		return &myproto.GMACK{Ret: myproto.ResultCode_PlayerNotFound}
+	}
+	req := &myproto.GMREQ{}
+	err := req.Unmarshal(data)
+	if err != nil {
+		return &myproto.GMACK{Ret: myproto.ResultCode_MsgErr}
+	}
+	args := strings.Split(req.Cmd, " ")
+	if len(args) == 0 {
+		return &myproto.GMACK{Ret: myproto.ResultCode_GMCmdNotFound}
+	}
+	switch strings.ToLower(args[0]) {
+	case "additem":
+		if len(args) != 3 {
+			return &myproto.GMACK{Ret: myproto.ResultCode_GMCmdParamErr}
+		}
+		itemid, err := strconv.ParseInt(args[1], 10, 0)
+		if err != nil {
+			return &myproto.GMACK{Ret: myproto.ResultCode_GMCmdParamErr}
+		}
+		num, err := strconv.ParseInt(args[2], 10, 0)
+		if err != nil {
+			return &myproto.GMACK{Ret: myproto.ResultCode_GMCmdParamErr}
+		}
+		player.AddItems(&myproto.Item{ItemId: int32(itemid), Num: num})
+		return &myproto.GMACK{}
+	default:
+		return &myproto.GMACK{Ret: myproto.ResultCode_GMCmdNotFound}
+	}
 }

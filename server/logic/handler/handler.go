@@ -6,6 +6,12 @@ import (
 )
 
 func ProcessMsg(uid uint64, msgId uint32, data []byte, notifyAddr string) (myproto.MsgId, myproto.MyMsg) {
+	defer func() {
+		err := recover()
+		if err != nil {
+			mylog.Error(err)
+		}
+	}()
 	switch myproto.MsgId(msgId) {
 	case myproto.MsgId_Msg_RegisterREQ:
 		return myproto.MsgId_Msg_RegisterACK, handleRegister(uid, data)
@@ -19,6 +25,8 @@ func ProcessMsg(uid uint64, msgId uint32, data []byte, notifyAddr string) (mypro
 		return myproto.MsgId_Msg_LogoutACK, handleLogout(uid)
 	case myproto.MsgId_Msg_ChatREQ:
 		return myproto.MsgId_Msg_ChatACK, handChat(uid, data)
+	case myproto.MsgId_Msg_GMREQ:
+		return myproto.MsgId_Msg_GMACK, handGM(uid, data)
 	default:
 		mylog.Error("msg id ", msgId, " not handle")
 	}

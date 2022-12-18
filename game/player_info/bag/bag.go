@@ -8,10 +8,10 @@ import (
 )
 
 type Bag struct {
-	Unoccupied   map[int32]int64
-	StackItems   map[int32]*myproto.Item
-	UnstackItems map[uint64]*myproto.Item
-	curId        uint64
+	Unoccupied   map[int32]int64          `json:"Unoccupied,omitempty"`
+	StackItems   map[int32]*myproto.Item  `json:"StackItems,omitempty"`
+	UnstackItems map[uint64]*myproto.Item `json:"UnstackItems,omitempty"`
+	CurId        uint64                   `json:"CurId,omitempty"`
 	//todo 格子上限
 }
 
@@ -20,6 +20,14 @@ func NewBag() *Bag {
 		Unoccupied:   make(map[int32]int64),
 		StackItems:   make(map[int32]*myproto.Item),
 		UnstackItems: make(map[uint64]*myproto.Item),
+	}
+}
+
+func (this *Bag) Proto() *myproto.PlayerBagInfo {
+	return &myproto.PlayerBagInfo{
+		Unoccupied:   this.Unoccupied,
+		StackItems:   this.StackItems,
+		UnstackItems: this.UnstackItems,
 	}
 }
 
@@ -48,7 +56,7 @@ func (this *Bag) AddItems(items ...*myproto.Item) []*myproto.Item {
 			stack[v.ItemId] += v.Num
 		case myproto.ItemType_UnstackItem, myproto.ItemType_EquipItem:
 			for i := 0; i < int(v.Num); i++ {
-				id := atomic.AddUint64(&this.curId, 1)
+				id := atomic.AddUint64(&this.CurId, 1)
 				item := &myproto.Item{Id: id, ItemId: v.ItemId, Num: v.Num}
 				this.UnstackItems[item.Id] = item
 				ret = append(ret, item)
