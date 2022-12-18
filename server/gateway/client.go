@@ -3,7 +3,6 @@ package gateway
 import (
 	"bytes"
 	"encoding/binary"
-	"fmt"
 	"gs/define"
 	"gs/lib/mylog"
 	"gs/lib/myrpc"
@@ -49,7 +48,6 @@ func (this *Client) Start() {
 		recvBuf.Write(buf[:length])
 		for recvBuf.Len() > 4 {
 			needLen := binary.LittleEndian.Uint32(recvBuf.Bytes())
-			fmt.Println("need", needLen, "len", recvBuf.Len())
 			if recvBuf.Len() >= int(needLen) {
 				msg := UnpackMsg(recvBuf.Bytes()[4:])
 				this.seq++
@@ -100,18 +98,18 @@ func (this *Client) ProcessMsg(msgId uint32, data []byte) bool {
 					}
 				}
 			}
-			this.ws.Write(PackMsg(ack.MsgId, ack.Data))
+			websocket.Message.Send(this.ws, PackMsg(ack.MsgId, ack.Data))
 		}
 	}
 	return true
 }
 
 func (this *Client) Kick() {
-	this.ws.Write(PackMsg(uint32(myproto.MsgId_Msg_KickPUSH), []byte{}))
+	websocket.Message.Send(this.ws, PackMsg(uint32(myproto.MsgId_Msg_KickPUSH), []byte{}))
 	this.uid = 0
 	this.ws.Close()
 }
 
 func (this *Client) SendMsg(msgid uint32, data []byte) {
-	this.ws.Write(PackMsg(msgid, data))
+	websocket.Message.Send(this.ws, PackMsg(msgid, data))
 }
