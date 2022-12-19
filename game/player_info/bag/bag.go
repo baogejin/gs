@@ -57,7 +57,7 @@ func (this *Bag) AddItems(items ...*myproto.Item) []*myproto.Item {
 		case myproto.ItemType_UnstackItem, myproto.ItemType_EquipItem:
 			for i := 0; i < int(v.Num); i++ {
 				id := atomic.AddUint64(&this.CurId, 1)
-				item := &myproto.Item{Id: id, ItemId: v.ItemId, Num: v.Num}
+				item := &myproto.Item{Id: id, ItemId: v.ItemId, Num: 1}
 				this.UnstackItems[item.Id] = item
 				ret = append(ret, item)
 			}
