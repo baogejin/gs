@@ -7,16 +7,48 @@ import (
 	"gs/proto/myproto"
 	"sort"
 	"sync"
+	"sync/atomic"
 	"time"
 )
 
+var curBattleId uint64 = 0
+
 type Battle struct {
 	BattleId   uint64
+	CurUnitId  int32
 	Units      []*Unit
 	ActionList []*BattleAction
 	CreateAt   int64
 	StartAt    int64
+	End        bool
 	lock       sync.RWMutex
+}
+
+func CreateBattle() *Battle {
+	battleId := atomic.AddUint64(&curBattleId, 1)
+	return &Battle{
+		BattleId:  battleId,
+		CurUnitId: 0,
+		CreateAt:  time.Now().UnixMilli(),
+	}
+}
+
+func (this *Battle) AddUnit(unit *Unit) {
+	unitId := atomic.AddInt32(&this.CurUnitId, 1)
+	unit.Id = unitId
+	this.Units = append(this.Units, unit)
+}
+
+func (this *Battle) AddUnits(units []*Unit) {
+	for _, v := range units {
+		unitId := atomic.AddInt32(&this.CurUnitId, 1)
+		v.Id = unitId
+	}
+	this.Units = append(this.Units, units...)
+}
+
+func (this *Battle) Start() {
+	this.StartAt = time.Now().UnixMilli()
 }
 
 type BattleAction struct {
@@ -32,6 +64,10 @@ func (this *Battle) BattleTick() {
 	}
 	this.lock.Lock()
 	defer this.lock.Unlock()
+	//结束检查
+	if this.checkEnd() {
+		return
+	}
 	//正在放的技能判断生效
 	this.checkBattleAction()
 	//单位新释放技能
@@ -40,6 +76,22 @@ func (this *Battle) BattleTick() {
 	this.checkUnitStatus()
 	//信息打包发送战斗内所有玩家
 	//todo
+}
+
+func (this *Battle) checkEnd() bool {
+	if this.End {
+		return true
+	}
+	teamMap := make(map[int32]bool)
+	for _, v := range this.Units {
+		if !v.IsDead() {
+			teamMap[v.Team] = true
+		}
+	}
+	if len(teamMap) < 2 {
+		this.End = true
+	}
+	return this.End
 }
 
 func (this *Battle) checkBattleAction() {

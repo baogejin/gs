@@ -3,6 +3,7 @@ package player_info
 import (
 	"encoding/json"
 	"gs/define"
+	"gs/game/battle"
 	"gs/game/player_info/bag"
 	"gs/lib/mylog"
 	"gs/lib/myredis"
@@ -80,5 +81,21 @@ func (this *Player) ProcessNotify(msgId myproto.MsgId, data []byte) {
 	switch msgId {
 	default:
 		this.SendMsgData(msgId, data)
+	}
+}
+
+//临时生成战斗单位
+func (this *Player) GenBattleUnit() *battle.Unit {
+	return &battle.Unit{
+		Uid:          this.Uid,
+		Name:         this.Name,
+		Team:         0,
+		Position:     2,
+		UnitType:     myproto.UnitType_UnitPlayer,
+		WeaponSkill:  1,
+		SkillUseTime: make(map[int32]int64),
+		HP:           100,
+		MaxHP:        100,
+		NotifyAddr:   this.NotifyAddr,
 	}
 }

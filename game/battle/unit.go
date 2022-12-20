@@ -2,6 +2,9 @@ package battle
 
 import (
 	"gs/data/gencode"
+	"gs/define"
+	"gs/lib/mylog"
+	"gs/lib/myrpc"
 	"gs/proto/myproto"
 	"time"
 )
@@ -19,6 +22,7 @@ type Unit struct {
 	NextFreeTime int64           //可以施放下一个技能的时间
 	HP           int64
 	MaxHP        int64
+	NotifyAddr   string
 	//todo 属性相关
 }
 
@@ -56,4 +60,16 @@ func (this *Unit) IsFront() bool {
 
 func (this *Unit) GetTargetWeight() uint {
 	return 100 //todo 后续根据位置返回成为目标的权重
+}
+
+func (this *Unit) SendMsg(msgid myproto.MsgId, msg myproto.MyMsg) {
+	if this.NotifyAddr == "" {
+		return
+	}
+	data, err := msg.Marshal()
+	if err != nil {
+		mylog.Error("msg marshal err,msgid ", msgid, ",err:", err)
+		return
+	}
+	myrpc.GetInstance().SendMsg(this.NotifyAddr, this.Uid, msgid, define.NodeGateway, data)
 }
