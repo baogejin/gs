@@ -25,66 +25,84 @@ const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 type MsgId int32
 
 const (
-	MsgId_Msg_None           MsgId = 0
-	MsgId_Msg_RegisterREQ    MsgId = 1
-	MsgId_Msg_RegisterACK    MsgId = 2
-	MsgId_Msg_LoginREQ       MsgId = 3
-	MsgId_Msg_LoginACK       MsgId = 4
-	MsgId_Msg_CreateRoleREQ  MsgId = 5
-	MsgId_Msg_CreateRoleACK  MsgId = 6
-	MsgId_Msg_EnterGameREQ   MsgId = 7
-	MsgId_Msg_EnterGameACK   MsgId = 8
-	MsgId_Msg_LogoutREQ      MsgId = 9
-	MsgId_Msg_LogoutACK      MsgId = 10
-	MsgId_Msg_KickPUSH       MsgId = 11
-	MsgId_Msg_ChatREQ        MsgId = 12
-	MsgId_Msg_ChatACK        MsgId = 13
-	MsgId_Msg_ChatPUSH       MsgId = 14
-	MsgId_Msg_GMREQ          MsgId = 15
-	MsgId_Msg_GMACK          MsgId = 16
-	MsgId_Msg_ItemUpdatePUSH MsgId = 17
+	MsgId_Msg_None             MsgId = 0
+	MsgId_Msg_RegisterREQ      MsgId = 1
+	MsgId_Msg_RegisterACK      MsgId = 2
+	MsgId_Msg_LoginREQ         MsgId = 3
+	MsgId_Msg_LoginACK         MsgId = 4
+	MsgId_Msg_CreateRoleREQ    MsgId = 5
+	MsgId_Msg_CreateRoleACK    MsgId = 6
+	MsgId_Msg_EnterGameREQ     MsgId = 7
+	MsgId_Msg_EnterGameACK     MsgId = 8
+	MsgId_Msg_LogoutREQ        MsgId = 9
+	MsgId_Msg_LogoutACK        MsgId = 10
+	MsgId_Msg_KickPUSH         MsgId = 11
+	MsgId_Msg_ChatREQ          MsgId = 12
+	MsgId_Msg_ChatACK          MsgId = 13
+	MsgId_Msg_ChatPUSH         MsgId = 14
+	MsgId_Msg_GMREQ            MsgId = 15
+	MsgId_Msg_GMACK            MsgId = 16
+	MsgId_Msg_ItemUpdatePUSH   MsgId = 17
+	MsgId_Msg_CreateBattleREQ  MsgId = 100
+	MsgId_Msg_CreateBattleACK  MsgId = 101
+	MsgId_Msg_BattleInfoPUSH   MsgId = 102
+	MsgId_Msg_BattleStartPUSH  MsgId = 103
+	MsgId_Msg_BattleActionPUSH MsgId = 104
+	MsgId_Msg_BattleFinishPUSH MsgId = 105
 )
 
 var MsgId_name = map[int32]string{
-	0:  "Msg_None",
-	1:  "Msg_RegisterREQ",
-	2:  "Msg_RegisterACK",
-	3:  "Msg_LoginREQ",
-	4:  "Msg_LoginACK",
-	5:  "Msg_CreateRoleREQ",
-	6:  "Msg_CreateRoleACK",
-	7:  "Msg_EnterGameREQ",
-	8:  "Msg_EnterGameACK",
-	9:  "Msg_LogoutREQ",
-	10: "Msg_LogoutACK",
-	11: "Msg_KickPUSH",
-	12: "Msg_ChatREQ",
-	13: "Msg_ChatACK",
-	14: "Msg_ChatPUSH",
-	15: "Msg_GMREQ",
-	16: "Msg_GMACK",
-	17: "Msg_ItemUpdatePUSH",
+	0:   "Msg_None",
+	1:   "Msg_RegisterREQ",
+	2:   "Msg_RegisterACK",
+	3:   "Msg_LoginREQ",
+	4:   "Msg_LoginACK",
+	5:   "Msg_CreateRoleREQ",
+	6:   "Msg_CreateRoleACK",
+	7:   "Msg_EnterGameREQ",
+	8:   "Msg_EnterGameACK",
+	9:   "Msg_LogoutREQ",
+	10:  "Msg_LogoutACK",
+	11:  "Msg_KickPUSH",
+	12:  "Msg_ChatREQ",
+	13:  "Msg_ChatACK",
+	14:  "Msg_ChatPUSH",
+	15:  "Msg_GMREQ",
+	16:  "Msg_GMACK",
+	17:  "Msg_ItemUpdatePUSH",
+	100: "Msg_CreateBattleREQ",
+	101: "Msg_CreateBattleACK",
+	102: "Msg_BattleInfoPUSH",
+	103: "Msg_BattleStartPUSH",
+	104: "Msg_BattleActionPUSH",
+	105: "Msg_BattleFinishPUSH",
 }
 
 var MsgId_value = map[string]int32{
-	"Msg_None":           0,
-	"Msg_RegisterREQ":    1,
-	"Msg_RegisterACK":    2,
-	"Msg_LoginREQ":       3,
-	"Msg_LoginACK":       4,
-	"Msg_CreateRoleREQ":  5,
-	"Msg_CreateRoleACK":  6,
-	"Msg_EnterGameREQ":   7,
-	"Msg_EnterGameACK":   8,
-	"Msg_LogoutREQ":      9,
-	"Msg_LogoutACK":      10,
-	"Msg_KickPUSH":       11,
-	"Msg_ChatREQ":        12,
-	"Msg_ChatACK":        13,
-	"Msg_ChatPUSH":       14,
-	"Msg_GMREQ":          15,
-	"Msg_GMACK":          16,
-	"Msg_ItemUpdatePUSH": 17,
+	"Msg_None":             0,
+	"Msg_RegisterREQ":      1,
+	"Msg_RegisterACK":      2,
+	"Msg_LoginREQ":         3,
+	"Msg_LoginACK":         4,
+	"Msg_CreateRoleREQ":    5,
+	"Msg_CreateRoleACK":    6,
+	"Msg_EnterGameREQ":     7,
+	"Msg_EnterGameACK":     8,
+	"Msg_LogoutREQ":        9,
+	"Msg_LogoutACK":        10,
+	"Msg_KickPUSH":         11,
+	"Msg_ChatREQ":          12,
+	"Msg_ChatACK":          13,
+	"Msg_ChatPUSH":         14,
+	"Msg_GMREQ":            15,
+	"Msg_GMACK":            16,
+	"Msg_ItemUpdatePUSH":   17,
+	"Msg_CreateBattleREQ":  100,
+	"Msg_CreateBattleACK":  101,
+	"Msg_BattleInfoPUSH":   102,
+	"Msg_BattleStartPUSH":  103,
+	"Msg_BattleActionPUSH": 104,
+	"Msg_BattleFinishPUSH": 105,
 }
 
 func (x MsgId) String() string {
@@ -98,25 +116,26 @@ func (MsgId) EnumDescriptor() ([]byte, []int) {
 type ResultCode int32
 
 const (
-	ResultCode_Success         ResultCode = 0
-	ResultCode_MsgErr          ResultCode = 1
-	ResultCode_AccountExist    ResultCode = 101
-	ResultCode_AccountNotExist ResultCode = 102
-	ResultCode_RoleNameExist   ResultCode = 103
-	ResultCode_PasswordErr     ResultCode = 104
-	ResultCode_AlreadyLogin    ResultCode = 105
-	ResultCode_AccountEmpty    ResultCode = 106
-	ResultCode_PasswordEmpty   ResultCode = 107
-	ResultCode_AccountErr      ResultCode = 108
-	ResultCode_AlreadyHasRole  ResultCode = 109
-	ResultCode_NeedLogin       ResultCode = 110
-	ResultCode_RoleNameIllegal ResultCode = 111
-	ResultCode_CreateRoleFaild ResultCode = 112
-	ResultCode_EnterGameFailed ResultCode = 113
-	ResultCode_PlayerNotFound  ResultCode = 114
-	ResultCode_GMCmdNotFound   ResultCode = 115
-	ResultCode_GMCmdParamErr   ResultCode = 116
-	ResultCode_GMCmdExecErr    ResultCode = 117
+	ResultCode_Success            ResultCode = 0
+	ResultCode_MsgErr             ResultCode = 1
+	ResultCode_AccountExist       ResultCode = 101
+	ResultCode_AccountNotExist    ResultCode = 102
+	ResultCode_RoleNameExist      ResultCode = 103
+	ResultCode_PasswordErr        ResultCode = 104
+	ResultCode_AlreadyLogin       ResultCode = 105
+	ResultCode_AccountEmpty       ResultCode = 106
+	ResultCode_PasswordEmpty      ResultCode = 107
+	ResultCode_AccountErr         ResultCode = 108
+	ResultCode_AlreadyHasRole     ResultCode = 109
+	ResultCode_NeedLogin          ResultCode = 110
+	ResultCode_RoleNameIllegal    ResultCode = 111
+	ResultCode_CreateRoleFaild    ResultCode = 112
+	ResultCode_EnterGameFailed    ResultCode = 113
+	ResultCode_PlayerNotFound     ResultCode = 114
+	ResultCode_GMCmdNotFound      ResultCode = 115
+	ResultCode_GMCmdParamErr      ResultCode = 116
+	ResultCode_GMCmdExecErr       ResultCode = 117
+	ResultCode_CreateBattleFailed ResultCode = 118
 )
 
 var ResultCode_name = map[int32]string{
@@ -139,28 +158,30 @@ var ResultCode_name = map[int32]string{
 	115: "GMCmdNotFound",
 	116: "GMCmdParamErr",
 	117: "GMCmdExecErr",
+	118: "CreateBattleFailed",
 }
 
 var ResultCode_value = map[string]int32{
-	"Success":         0,
-	"MsgErr":          1,
-	"AccountExist":    101,
-	"AccountNotExist": 102,
-	"RoleNameExist":   103,
-	"PasswordErr":     104,
-	"AlreadyLogin":    105,
-	"AccountEmpty":    106,
-	"PasswordEmpty":   107,
-	"AccountErr":      108,
-	"AlreadyHasRole":  109,
-	"NeedLogin":       110,
-	"RoleNameIllegal": 111,
-	"CreateRoleFaild": 112,
-	"EnterGameFailed": 113,
-	"PlayerNotFound":  114,
-	"GMCmdNotFound":   115,
-	"GMCmdParamErr":   116,
-	"GMCmdExecErr":    117,
+	"Success":            0,
+	"MsgErr":             1,
+	"AccountExist":       101,
+	"AccountNotExist":    102,
+	"RoleNameExist":      103,
+	"PasswordErr":        104,
+	"AlreadyLogin":       105,
+	"AccountEmpty":       106,
+	"PasswordEmpty":      107,
+	"AccountErr":         108,
+	"AlreadyHasRole":     109,
+	"NeedLogin":          110,
+	"RoleNameIllegal":    111,
+	"CreateRoleFaild":    112,
+	"EnterGameFailed":    113,
+	"PlayerNotFound":     114,
+	"GMCmdNotFound":      115,
+	"GMCmdParamErr":      116,
+	"GMCmdExecErr":       117,
+	"CreateBattleFailed": 118,
 }
 
 func (x ResultCode) String() string {
@@ -1324,6 +1345,522 @@ func (m *ItemUpdatePUSH) GetItems() []*Item {
 	return nil
 }
 
+type CreateBattleREQ struct {
+	LevelId int32 `protobuf:"varint,1,opt,name=LevelId,proto3" json:"LevelId,omitempty"`
+}
+
+func (m *CreateBattleREQ) Reset()         { *m = CreateBattleREQ{} }
+func (m *CreateBattleREQ) String() string { return proto.CompactTextString(m) }
+func (*CreateBattleREQ) ProtoMessage()    {}
+func (*CreateBattleREQ) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c06e4cca6c2cc899, []int{20}
+}
+func (m *CreateBattleREQ) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *CreateBattleREQ) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_CreateBattleREQ.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *CreateBattleREQ) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_CreateBattleREQ.Merge(m, src)
+}
+func (m *CreateBattleREQ) XXX_Size() int {
+	return m.Size()
+}
+func (m *CreateBattleREQ) XXX_DiscardUnknown() {
+	xxx_messageInfo_CreateBattleREQ.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_CreateBattleREQ proto.InternalMessageInfo
+
+func (m *CreateBattleREQ) GetLevelId() int32 {
+	if m != nil {
+		return m.LevelId
+	}
+	return 0
+}
+
+type CreateBattleACK struct {
+	Ret ResultCode `protobuf:"varint,1,opt,name=Ret,proto3,enum=myproto.ResultCode" json:"Ret,omitempty"`
+}
+
+func (m *CreateBattleACK) Reset()         { *m = CreateBattleACK{} }
+func (m *CreateBattleACK) String() string { return proto.CompactTextString(m) }
+func (*CreateBattleACK) ProtoMessage()    {}
+func (*CreateBattleACK) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c06e4cca6c2cc899, []int{21}
+}
+func (m *CreateBattleACK) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *CreateBattleACK) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_CreateBattleACK.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *CreateBattleACK) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_CreateBattleACK.Merge(m, src)
+}
+func (m *CreateBattleACK) XXX_Size() int {
+	return m.Size()
+}
+func (m *CreateBattleACK) XXX_DiscardUnknown() {
+	xxx_messageInfo_CreateBattleACK.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_CreateBattleACK proto.InternalMessageInfo
+
+func (m *CreateBattleACK) GetRet() ResultCode {
+	if m != nil {
+		return m.Ret
+	}
+	return ResultCode_Success
+}
+
+type BattleUint struct {
+	Id       int32  `protobuf:"varint,1,opt,name=Id,proto3" json:"Id,omitempty"`
+	Uid      uint64 `protobuf:"varint,2,opt,name=Uid,proto3" json:"Uid,omitempty"`
+	Name     string `protobuf:"bytes,3,opt,name=Name,proto3" json:"Name,omitempty"`
+	Team     int32  `protobuf:"varint,4,opt,name=Team,proto3" json:"Team,omitempty"`
+	Position int32  `protobuf:"varint,5,opt,name=Position,proto3" json:"Position,omitempty"`
+	HP       int64  `protobuf:"varint,6,opt,name=HP,proto3" json:"HP,omitempty"`
+	MaxHP    int64  `protobuf:"varint,7,opt,name=MaxHP,proto3" json:"MaxHP,omitempty"`
+}
+
+func (m *BattleUint) Reset()         { *m = BattleUint{} }
+func (m *BattleUint) String() string { return proto.CompactTextString(m) }
+func (*BattleUint) ProtoMessage()    {}
+func (*BattleUint) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c06e4cca6c2cc899, []int{22}
+}
+func (m *BattleUint) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *BattleUint) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_BattleUint.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *BattleUint) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_BattleUint.Merge(m, src)
+}
+func (m *BattleUint) XXX_Size() int {
+	return m.Size()
+}
+func (m *BattleUint) XXX_DiscardUnknown() {
+	xxx_messageInfo_BattleUint.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_BattleUint proto.InternalMessageInfo
+
+func (m *BattleUint) GetId() int32 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
+
+func (m *BattleUint) GetUid() uint64 {
+	if m != nil {
+		return m.Uid
+	}
+	return 0
+}
+
+func (m *BattleUint) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+func (m *BattleUint) GetTeam() int32 {
+	if m != nil {
+		return m.Team
+	}
+	return 0
+}
+
+func (m *BattleUint) GetPosition() int32 {
+	if m != nil {
+		return m.Position
+	}
+	return 0
+}
+
+func (m *BattleUint) GetHP() int64 {
+	if m != nil {
+		return m.HP
+	}
+	return 0
+}
+
+func (m *BattleUint) GetMaxHP() int64 {
+	if m != nil {
+		return m.MaxHP
+	}
+	return 0
+}
+
+type BattleInfoPUSH struct {
+	BattleId uint64        `protobuf:"varint,1,opt,name=BattleId,proto3" json:"BattleId,omitempty"`
+	LevelId  int32         `protobuf:"varint,2,opt,name=LevelId,proto3" json:"LevelId,omitempty"`
+	Units    []*BattleUint `protobuf:"bytes,3,rep,name=Units,proto3" json:"Units,omitempty"`
+}
+
+func (m *BattleInfoPUSH) Reset()         { *m = BattleInfoPUSH{} }
+func (m *BattleInfoPUSH) String() string { return proto.CompactTextString(m) }
+func (*BattleInfoPUSH) ProtoMessage()    {}
+func (*BattleInfoPUSH) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c06e4cca6c2cc899, []int{23}
+}
+func (m *BattleInfoPUSH) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *BattleInfoPUSH) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_BattleInfoPUSH.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *BattleInfoPUSH) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_BattleInfoPUSH.Merge(m, src)
+}
+func (m *BattleInfoPUSH) XXX_Size() int {
+	return m.Size()
+}
+func (m *BattleInfoPUSH) XXX_DiscardUnknown() {
+	xxx_messageInfo_BattleInfoPUSH.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_BattleInfoPUSH proto.InternalMessageInfo
+
+func (m *BattleInfoPUSH) GetBattleId() uint64 {
+	if m != nil {
+		return m.BattleId
+	}
+	return 0
+}
+
+func (m *BattleInfoPUSH) GetLevelId() int32 {
+	if m != nil {
+		return m.LevelId
+	}
+	return 0
+}
+
+func (m *BattleInfoPUSH) GetUnits() []*BattleUint {
+	if m != nil {
+		return m.Units
+	}
+	return nil
+}
+
+type BattleStartPUSH struct {
+	BattleId uint64 `protobuf:"varint,1,opt,name=BattleId,proto3" json:"BattleId,omitempty"`
+}
+
+func (m *BattleStartPUSH) Reset()         { *m = BattleStartPUSH{} }
+func (m *BattleStartPUSH) String() string { return proto.CompactTextString(m) }
+func (*BattleStartPUSH) ProtoMessage()    {}
+func (*BattleStartPUSH) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c06e4cca6c2cc899, []int{24}
+}
+func (m *BattleStartPUSH) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *BattleStartPUSH) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_BattleStartPUSH.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *BattleStartPUSH) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_BattleStartPUSH.Merge(m, src)
+}
+func (m *BattleStartPUSH) XXX_Size() int {
+	return m.Size()
+}
+func (m *BattleStartPUSH) XXX_DiscardUnknown() {
+	xxx_messageInfo_BattleStartPUSH.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_BattleStartPUSH proto.InternalMessageInfo
+
+func (m *BattleStartPUSH) GetBattleId() uint64 {
+	if m != nil {
+		return m.BattleId
+	}
+	return 0
+}
+
+type BattleSkillStart struct {
+	Src     int32   `protobuf:"varint,1,opt,name=Src,proto3" json:"Src,omitempty"`
+	SkillId int32   `protobuf:"varint,2,opt,name=SkillId,proto3" json:"SkillId,omitempty"`
+	Tar     []int32 `protobuf:"varint,3,rep,packed,name=Tar,proto3" json:"Tar,omitempty"`
+}
+
+func (m *BattleSkillStart) Reset()         { *m = BattleSkillStart{} }
+func (m *BattleSkillStart) String() string { return proto.CompactTextString(m) }
+func (*BattleSkillStart) ProtoMessage()    {}
+func (*BattleSkillStart) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c06e4cca6c2cc899, []int{25}
+}
+func (m *BattleSkillStart) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *BattleSkillStart) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_BattleSkillStart.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *BattleSkillStart) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_BattleSkillStart.Merge(m, src)
+}
+func (m *BattleSkillStart) XXX_Size() int {
+	return m.Size()
+}
+func (m *BattleSkillStart) XXX_DiscardUnknown() {
+	xxx_messageInfo_BattleSkillStart.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_BattleSkillStart proto.InternalMessageInfo
+
+func (m *BattleSkillStart) GetSrc() int32 {
+	if m != nil {
+		return m.Src
+	}
+	return 0
+}
+
+func (m *BattleSkillStart) GetSkillId() int32 {
+	if m != nil {
+		return m.SkillId
+	}
+	return 0
+}
+
+func (m *BattleSkillStart) GetTar() []int32 {
+	if m != nil {
+		return m.Tar
+	}
+	return nil
+}
+
+type BattleSkillEffect struct {
+	Src     int32 `protobuf:"varint,1,opt,name=Src,proto3" json:"Src,omitempty"`
+	SkillId int32 `protobuf:"varint,2,opt,name=SkillId,proto3" json:"SkillId,omitempty"`
+	Tar     int32 `protobuf:"varint,3,opt,name=Tar,proto3" json:"Tar,omitempty"`
+	IsHeal  bool  `protobuf:"varint,4,opt,name=IsHeal,proto3" json:"IsHeal,omitempty"`
+	Value   int64 `protobuf:"varint,5,opt,name=Value,proto3" json:"Value,omitempty"`
+}
+
+func (m *BattleSkillEffect) Reset()         { *m = BattleSkillEffect{} }
+func (m *BattleSkillEffect) String() string { return proto.CompactTextString(m) }
+func (*BattleSkillEffect) ProtoMessage()    {}
+func (*BattleSkillEffect) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c06e4cca6c2cc899, []int{26}
+}
+func (m *BattleSkillEffect) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *BattleSkillEffect) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_BattleSkillEffect.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *BattleSkillEffect) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_BattleSkillEffect.Merge(m, src)
+}
+func (m *BattleSkillEffect) XXX_Size() int {
+	return m.Size()
+}
+func (m *BattleSkillEffect) XXX_DiscardUnknown() {
+	xxx_messageInfo_BattleSkillEffect.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_BattleSkillEffect proto.InternalMessageInfo
+
+func (m *BattleSkillEffect) GetSrc() int32 {
+	if m != nil {
+		return m.Src
+	}
+	return 0
+}
+
+func (m *BattleSkillEffect) GetSkillId() int32 {
+	if m != nil {
+		return m.SkillId
+	}
+	return 0
+}
+
+func (m *BattleSkillEffect) GetTar() int32 {
+	if m != nil {
+		return m.Tar
+	}
+	return 0
+}
+
+func (m *BattleSkillEffect) GetIsHeal() bool {
+	if m != nil {
+		return m.IsHeal
+	}
+	return false
+}
+
+func (m *BattleSkillEffect) GetValue() int64 {
+	if m != nil {
+		return m.Value
+	}
+	return 0
+}
+
+type BattleActionPUSH struct {
+	Effects []*BattleSkillEffect `protobuf:"bytes,1,rep,name=Effects,proto3" json:"Effects,omitempty"`
+	Skills  []*BattleSkillStart  `protobuf:"bytes,2,rep,name=Skills,proto3" json:"Skills,omitempty"`
+}
+
+func (m *BattleActionPUSH) Reset()         { *m = BattleActionPUSH{} }
+func (m *BattleActionPUSH) String() string { return proto.CompactTextString(m) }
+func (*BattleActionPUSH) ProtoMessage()    {}
+func (*BattleActionPUSH) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c06e4cca6c2cc899, []int{27}
+}
+func (m *BattleActionPUSH) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *BattleActionPUSH) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_BattleActionPUSH.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *BattleActionPUSH) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_BattleActionPUSH.Merge(m, src)
+}
+func (m *BattleActionPUSH) XXX_Size() int {
+	return m.Size()
+}
+func (m *BattleActionPUSH) XXX_DiscardUnknown() {
+	xxx_messageInfo_BattleActionPUSH.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_BattleActionPUSH proto.InternalMessageInfo
+
+func (m *BattleActionPUSH) GetEffects() []*BattleSkillEffect {
+	if m != nil {
+		return m.Effects
+	}
+	return nil
+}
+
+func (m *BattleActionPUSH) GetSkills() []*BattleSkillStart {
+	if m != nil {
+		return m.Skills
+	}
+	return nil
+}
+
+type BattleFinishPUSH struct {
+	Win bool `protobuf:"varint,1,opt,name=Win,proto3" json:"Win,omitempty"`
+}
+
+func (m *BattleFinishPUSH) Reset()         { *m = BattleFinishPUSH{} }
+func (m *BattleFinishPUSH) String() string { return proto.CompactTextString(m) }
+func (*BattleFinishPUSH) ProtoMessage()    {}
+func (*BattleFinishPUSH) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c06e4cca6c2cc899, []int{28}
+}
+func (m *BattleFinishPUSH) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *BattleFinishPUSH) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_BattleFinishPUSH.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *BattleFinishPUSH) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_BattleFinishPUSH.Merge(m, src)
+}
+func (m *BattleFinishPUSH) XXX_Size() int {
+	return m.Size()
+}
+func (m *BattleFinishPUSH) XXX_DiscardUnknown() {
+	xxx_messageInfo_BattleFinishPUSH.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_BattleFinishPUSH proto.InternalMessageInfo
+
+func (m *BattleFinishPUSH) GetWin() bool {
+	if m != nil {
+		return m.Win
+	}
+	return false
+}
+
 func init() {
 	proto.RegisterEnum("myproto.MsgId", MsgId_name, MsgId_value)
 	proto.RegisterEnum("myproto.ResultCode", ResultCode_name, ResultCode_value)
@@ -1355,86 +1892,116 @@ func init() {
 	proto.RegisterType((*GMREQ)(nil), "myproto.GMREQ")
 	proto.RegisterType((*GMACK)(nil), "myproto.GMACK")
 	proto.RegisterType((*ItemUpdatePUSH)(nil), "myproto.ItemUpdatePUSH")
+	proto.RegisterType((*CreateBattleREQ)(nil), "myproto.CreateBattleREQ")
+	proto.RegisterType((*CreateBattleACK)(nil), "myproto.CreateBattleACK")
+	proto.RegisterType((*BattleUint)(nil), "myproto.BattleUint")
+	proto.RegisterType((*BattleInfoPUSH)(nil), "myproto.BattleInfoPUSH")
+	proto.RegisterType((*BattleStartPUSH)(nil), "myproto.BattleStartPUSH")
+	proto.RegisterType((*BattleSkillStart)(nil), "myproto.BattleSkillStart")
+	proto.RegisterType((*BattleSkillEffect)(nil), "myproto.BattleSkillEffect")
+	proto.RegisterType((*BattleActionPUSH)(nil), "myproto.BattleActionPUSH")
+	proto.RegisterType((*BattleFinishPUSH)(nil), "myproto.BattleFinishPUSH")
 }
 
 func init() { proto.RegisterFile("msg.proto", fileDescriptor_c06e4cca6c2cc899) }
 
 var fileDescriptor_c06e4cca6c2cc899 = []byte{
-	// 1180 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x9c, 0x56, 0x5d, 0x8f, 0xdb, 0x44,
-	0x17, 0x8e, 0xed, 0x64, 0x93, 0x1c, 0xe7, 0xe3, 0xec, 0xb4, 0x6f, 0xdf, 0x50, 0xa4, 0xa8, 0x72,
-	0x05, 0xac, 0x82, 0x14, 0xaa, 0x05, 0x01, 0x42, 0x02, 0x75, 0x37, 0x64, 0xb7, 0x51, 0x37, 0x61,
-	0xeb, 0x6d, 0x84, 0x84, 0x04, 0x95, 0x89, 0xa7, 0x5e, 0xb3, 0xfe, 0x48, 0xfd, 0x01, 0xcd, 0x7f,
-	0xe0, 0x82, 0x9f, 0x85, 0xb8, 0xea, 0x25, 0x77, 0xa0, 0x56, 0xfc, 0x0f, 0x74, 0xc6, 0xe3, 0xd8,
-	0xc9, 0x16, 0xd4, 0x70, 0x95, 0x39, 0xcf, 0x9c, 0xf3, 0x9c, 0x8f, 0x79, 0xc6, 0x13, 0x68, 0xfa,
-	0xb1, 0x33, 0x5c, 0x46, 0x61, 0x12, 0xb2, 0xba, 0xbf, 0x12, 0x0b, 0x63, 0x04, 0xba, 0xc9, 0x1d,
-	0x37, 0x4e, 0x78, 0x64, 0x8e, 0x1f, 0xb1, 0x1e, 0xd4, 0x8f, 0x16, 0x8b, 0x30, 0x0d, 0x92, 0x9e,
-	0x72, 0x47, 0x39, 0x68, 0x9a, 0xb9, 0xc9, 0x6e, 0x43, 0xe3, 0xdc, 0x8a, 0xe3, 0x9f, 0xc2, 0xc8,
-	0xee, 0xa9, 0x62, 0x6b, 0x6d, 0x1b, 0x1f, 0x15, 0x24, 0x47, 0xa3, 0x87, 0xec, 0x1d, 0xd0, 0x4c,
-	0x9e, 0x11, 0x74, 0x0e, 0x6f, 0x0c, 0x65, 0xaa, 0xa1, 0xc9, 0xe3, 0xd4, 0x4b, 0x46, 0xa1, 0xcd,
-	0x4d, 0xda, 0x37, 0xee, 0x43, 0xe3, 0x2c, 0x74, 0xdc, 0xe0, 0xbf, 0xe7, 0xfd, 0x56, 0x32, 0xbc,
-	0x79, 0x52, 0x86, 0xa0, 0xcd, 0xdd, 0x8c, 0xa9, 0x6a, 0xd2, 0x92, 0x52, 0x3f, 0xb0, 0x62, 0x33,
-	0xf4, 0x78, 0x4f, 0xbb, 0xa3, 0x1c, 0x34, 0xcc, 0xdc, 0x34, 0x7e, 0xd3, 0xa0, 0x7d, 0xee, 0x59,
-	0x2b, 0x1e, 0x1d, 0x5b, 0xce, 0x24, 0x78, 0x1a, 0xb2, 0x13, 0x80, 0x79, 0x10, 0x2e, 0x16, 0xe9,
-	0xd2, 0xe5, 0x76, 0x4f, 0xb9, 0xa3, 0x1d, 0xe8, 0x87, 0xef, 0xae, 0x73, 0x6d, 0xf8, 0x0e, 0x0b,
-	0xc7, 0x71, 0x90, 0x44, 0x2b, 0xb3, 0x14, 0x49, 0x3c, 0x17, 0x89, 0xb5, 0xb8, 0x9a, 0x24, 0xdc,
-	0x8f, 0x7b, 0xea, 0xbf, 0xf2, 0x14, 0x8e, 0x92, 0xa7, 0x00, 0xd8, 0x19, 0xb4, 0xe6, 0x41, 0x5c,
-	0x30, 0x69, 0x82, 0xe9, 0xe0, 0x1f, 0x2b, 0x8a, 0xb7, 0xb8, 0x36, 0xa2, 0x6f, 0x7f, 0x0e, 0xdd,
-	0xad, 0xa2, 0x69, 0x5c, 0x57, 0x7c, 0x25, 0xa6, 0x5a, 0x33, 0x69, 0xc9, 0x6e, 0x42, 0xed, 0x47,
-	0xcb, 0x4b, 0xb9, 0x18, 0xa1, 0x66, 0x66, 0xc6, 0x67, 0xea, 0xa7, 0xca, 0xed, 0x33, 0xe8, 0x6e,
-	0xd5, 0xfa, 0x9a, 0xf0, 0xbb, 0xe5, 0x70, 0xfd, 0xb0, 0xbd, 0x2e, 0x95, 0xa2, 0xca, 0x6c, 0x33,
-	0xd8, 0xbf, 0x56, 0x6f, 0x99, 0xaf, 0xba, 0x1b, 0x9f, 0x61, 0x03, 0x64, 0xd3, 0x10, 0x07, 0x29,
-	0x65, 0xa0, 0x14, 0x32, 0x60, 0x50, 0x9d, 0x59, 0x3e, 0x97, 0x1a, 0x13, 0x6b, 0x76, 0x0f, 0xea,
-	0x72, 0x76, 0x42, 0x1a, 0xfa, 0xe1, 0xad, 0xd7, 0x4f, 0xd6, 0xcc, 0xdd, 0x8c, 0xbb, 0xd0, 0x1e,
-	0x45, 0xdc, 0x4a, 0x38, 0x09, 0x88, 0x84, 0x9d, 0xd3, 0x2a, 0x05, 0xad, 0xf1, 0x71, 0xd9, 0x69,
-	0x87, 0x0b, 0xd3, 0x81, 0xd6, 0x38, 0x48, 0x78, 0x74, 0x6a, 0xf9, 0xc4, 0x6d, 0x7c, 0x57, 0xb2,
-	0x77, 0xb8, 0x02, 0xef, 0x41, 0x55, 0xb4, 0x94, 0x4d, 0xec, 0xc6, 0x56, 0x4b, 0xa2, 0x1f, 0xe1,
-	0x60, 0xe8, 0xd0, 0x3c, 0x0b, 0x9d, 0x30, 0x4d, 0x28, 0xd9, 0x61, 0x6e, 0xec, 0x50, 0x30, 0x40,
-	0xe3, 0xa1, 0xbb, 0xb8, 0x3a, 0x9f, 0x5f, 0x3c, 0x30, 0xde, 0x86, 0xfa, 0xe8, 0xd2, 0x22, 0x2a,
-	0x1a, 0xfe, 0x34, 0x76, 0xe4, 0x48, 0x68, 0x69, 0xdc, 0xcb, 0x36, 0x77, 0xa0, 0x3e, 0x86, 0x06,
-	0x45, 0x10, 0xf5, 0x1b, 0x1e, 0xa6, 0xcc, 0xaa, 0x15, 0x59, 0xef, 0x43, 0x95, 0x54, 0xc2, 0x3a,
-	0xa0, 0x4e, 0xf2, 0x70, 0x75, 0x62, 0xb3, 0x5b, 0xb0, 0x47, 0xf8, 0x24, 0xfb, 0x4c, 0xd4, 0x4c,
-	0x69, 0x11, 0xc3, 0x2c, 0xf5, 0x05, 0x83, 0x66, 0xd2, 0xd2, 0x78, 0x0b, 0x6a, 0xa7, 0x53, 0xd9,
-	0xd2, 0xc8, 0xb7, 0xf3, 0x96, 0x46, 0xbe, 0x6d, 0x0c, 0x69, 0x6b, 0x87, 0x86, 0x02, 0xe8, 0x50,
-	0x9a, 0xf9, 0xd2, 0xb6, 0x12, 0x2e, 0xda, 0xfa, 0x04, 0x20, 0xb3, 0x1e, 0xaf, 0x96, 0x5c, 0xc6,
-	0xff, 0x7f, 0x43, 0xdf, 0xc5, 0xb6, 0x59, 0x72, 0xa5, 0x3b, 0x51, 0xfe, 0xb0, 0x6c, 0xdf, 0x09,
-	0xb1, 0x37, 0xf8, 0x43, 0x85, 0xda, 0x34, 0x76, 0x26, 0x36, 0x6b, 0x41, 0x63, 0x1a, 0x3b, 0x4f,
-	0x66, 0x61, 0xc0, 0xb1, 0xc2, 0x6e, 0x40, 0x97, 0xac, 0xd2, 0xa3, 0x80, 0xca, 0x36, 0x78, 0x34,
-	0x7a, 0x88, 0x2a, 0x43, 0x68, 0x11, 0x98, 0x7f, 0xc3, 0x51, 0xdb, 0x40, 0xc8, 0xa7, 0xca, 0xfe,
-	0x07, 0xfb, 0x84, 0x6c, 0xdc, 0x09, 0xac, 0x5d, 0x87, 0xc9, 0x7b, 0x8f, 0xdd, 0x04, 0x24, 0xb8,
-	0x2c, 0x72, 0xac, 0x5f, 0x43, 0xc9, 0xb7, 0xc1, 0xf6, 0xa1, 0x2d, 0x73, 0x65, 0x02, 0xc5, 0xe6,
-	0x26, 0x44, 0x5e, 0x90, 0x57, 0x94, 0xab, 0x10, 0x75, 0xd6, 0x05, 0x5d, 0xa4, 0xce, 0xb4, 0x88,
-	0xad, 0x32, 0x40, 0x31, 0xed, 0x3c, 0x26, 0x97, 0x17, 0x76, 0x58, 0x1b, 0x9a, 0x84, 0x88, 0xa3,
-	0xc6, 0x6e, 0x61, 0x92, 0x3f, 0xb2, 0x5b, 0xc0, 0xc8, 0xdc, 0x3c, 0x3d, 0xdc, 0x1f, 0xfc, 0xa5,
-	0x02, 0x14, 0xa7, 0xcc, 0x74, 0xa8, 0x5f, 0xa4, 0x8b, 0x05, 0x8f, 0x63, 0xac, 0x30, 0x80, 0xbd,
-	0x69, 0xec, 0x8c, 0xa3, 0x08, 0x15, 0xca, 0x27, 0x1f, 0xbb, 0xf1, 0x73, 0x37, 0x4e, 0x90, 0xd3,
-	0xb8, 0x25, 0x32, 0x0b, 0x25, 0xf8, 0x94, 0xba, 0xa3, 0x49, 0x91, 0x96, 0x33, 0xc8, 0xa1, 0xd2,
-	0xf3, 0xb7, 0x90, 0xa8, 0x2e, 0x05, 0x95, 0x17, 0x71, 0xcb, 0x5e, 0x89, 0x33, 0x40, 0xb7, 0x4c,
-	0xee, 0x2f, 0x93, 0x15, 0xfe, 0x40, 0x3c, 0xeb, 0x20, 0x01, 0x5d, 0xb1, 0x0e, 0x40, 0xee, 0x14,
-	0x45, 0xe8, 0x31, 0x06, 0x1d, 0x49, 0x23, 0x9f, 0x42, 0xf4, 0xa9, 0xe9, 0x19, 0xe7, 0x76, 0xc6,
-	0x1b, 0x50, 0x89, 0x79, 0x35, 0x13, 0xcf, 0xe3, 0x8e, 0xe5, 0x61, 0x48, 0x60, 0x71, 0xa4, 0x27,
-	0x96, 0xeb, 0xd9, 0xb8, 0x24, 0x70, 0x7d, 0x74, 0x84, 0x71, 0x1b, 0x9f, 0x51, 0x86, 0xec, 0x73,
-	0x33, 0x0b, 0x93, 0x93, 0x30, 0x0d, 0x6c, 0x8c, 0xa8, 0xb0, 0xd3, 0xe9, 0xc8, 0xb7, 0xd7, 0x50,
-	0xbc, 0x86, 0xce, 0xad, 0xc8, 0xf2, 0xa9, 0x36, 0x7a, 0xc0, 0x5b, 0x02, 0x1a, 0x3f, 0xe7, 0x0b,
-	0x42, 0xd2, 0xc1, 0xfb, 0xd0, 0x98, 0x07, 0x6e, 0x22, 0xa4, 0xdf, 0x05, 0x9d, 0xd6, 0xd3, 0x30,
-	0x20, 0x9d, 0x62, 0x85, 0x5a, 0x23, 0x20, 0x4b, 0x86, 0xca, 0xe0, 0x67, 0x15, 0xe0, 0xb1, 0x15,
-	0x39, 0x3c, 0xf3, 0xef, 0xe4, 0x96, 0x54, 0x7f, 0x17, 0xf4, 0x71, 0xc0, 0xfd, 0xd5, 0x85, 0x1b,
-	0x38, 0x1e, 0x47, 0x85, 0xc4, 0x57, 0x02, 0x4e, 0xa2, 0x30, 0x48, 0x50, 0x25, 0xfd, 0x96, 0xd0,
-	0x63, 0x7e, 0xe9, 0x06, 0x36, 0x6a, 0x74, 0x93, 0x04, 0x7c, 0xe4, 0x79, 0x58, 0xa5, 0xe2, 0x85,
-	0x25, 0x82, 0x08, 0xaa, 0x51, 0xdb, 0x02, 0xca, 0x22, 0x08, 0xdb, 0x2b, 0x4a, 0xb8, 0xe0, 0xde,
-	0x53, 0x04, 0x71, 0x18, 0x9e, 0x97, 0x57, 0xa0, 0x0b, 0x31, 0xac, 0xed, 0xac, 0x80, 0x16, 0x95,
-	0x55, 0x80, 0x32, 0x7f, 0x9b, 0x24, 0x46, 0x28, 0xf1, 0x76, 0x32, 0x2d, 0x78, 0x45, 0xf6, 0x2e,
-	0x15, 0x44, 0x48, 0x91, 0x1c, 0x07, 0x4f, 0xa0, 0x41, 0xba, 0x15, 0xb3, 0x40, 0x68, 0xe5, 0x6b,
-	0x39, 0x0d, 0x06, 0x9d, 0xe2, 0x0f, 0x01, 0xed, 0xa1, 0x42, 0x3a, 0x58, 0xbf, 0xf2, 0xa8, 0x66,
-	0x03, 0x5f, 0x3f, 0xd3, 0xa8, 0xd1, 0xfe, 0xf8, 0x59, 0xea, 0x2e, 0x85, 0x59, 0x1d, 0x98, 0x50,
-	0x7f, 0x94, 0x5a, 0x9e, 0x9b, 0xac, 0xc8, 0x55, 0x2e, 0x25, 0x7d, 0x13, 0x6a, 0x5f, 0x5f, 0xba,
-	0x09, 0x8d, 0xb9, 0x09, 0xb5, 0xd3, 0x88, 0xf3, 0x00, 0x55, 0xd6, 0x80, 0xea, 0xb1, 0x97, 0x72,
-	0xd4, 0xe8, 0x92, 0x9c, 0xa7, 0xd1, 0xd2, 0xe3, 0x58, 0xa5, 0xf5, 0x57, 0x91, 0x15, 0x38, 0x1c,
-	0x6b, 0x83, 0x2f, 0xca, 0x9f, 0x4a, 0x51, 0x3a, 0x2b, 0x23, 0x92, 0x5d, 0x87, 0x3a, 0x61, 0x47,
-	0xb6, 0x8d, 0x4a, 0x6e, 0x7c, 0xc9, 0x3d, 0x54, 0x8f, 0xef, 0xfe, 0xfa, 0xb2, 0xaf, 0xbc, 0x78,
-	0xd9, 0x57, 0xfe, 0x7c, 0xd9, 0x57, 0x7e, 0x79, 0xd5, 0xaf, 0xbc, 0x78, 0xd5, 0xaf, 0xfc, 0xfe,
-	0xaa, 0x5f, 0xf9, 0xa6, 0x39, 0xfc, 0x40, 0x7e, 0x2b, 0xbf, 0xdf, 0x13, 0x3f, 0x1f, 0xfe, 0x1d,
-	0x00, 0x00, 0xff, 0xff, 0x15, 0x17, 0xd4, 0x01, 0x35, 0x0b, 0x00, 0x00,
+	// 1513 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x9c, 0x56, 0x5d, 0x6f, 0x1b, 0x45,
+	0x17, 0xce, 0xee, 0x7a, 0x63, 0xfb, 0xd8, 0xb1, 0x27, 0x93, 0xbe, 0xad, 0x9b, 0x57, 0x8a, 0xaa,
+	0xed, 0xfb, 0x42, 0x48, 0x45, 0x28, 0xa1, 0x82, 0x0a, 0x09, 0xd4, 0xc4, 0x38, 0x1f, 0x6a, 0x1c,
+	0xdc, 0x75, 0x4c, 0x25, 0x24, 0xa8, 0x16, 0xef, 0x64, 0xb3, 0x64, 0x3f, 0xdc, 0xdd, 0x75, 0xa9,
+	0xc5, 0x05, 0x7f, 0x80, 0x0b, 0x2e, 0xf9, 0x49, 0x88, 0xab, 0x5e, 0x72, 0x89, 0xda, 0xff, 0xc0,
+	0x1d, 0x12, 0x3a, 0xf3, 0xe1, 0x5d, 0x3b, 0x01, 0xea, 0x5e, 0x79, 0xce, 0x33, 0xe7, 0x3c, 0xe7,
+	0xcc, 0x33, 0x67, 0x8e, 0x17, 0xaa, 0x61, 0xea, 0x6d, 0x8f, 0x92, 0x38, 0x8b, 0x69, 0x39, 0x9c,
+	0xf0, 0x85, 0xd5, 0x86, 0x9a, 0xcd, 0x3c, 0x3f, 0xcd, 0x58, 0x62, 0x77, 0x1e, 0xd1, 0x16, 0x94,
+	0x77, 0x87, 0xc3, 0x78, 0x1c, 0x65, 0x2d, 0xed, 0x96, 0xb6, 0x59, 0xb5, 0x95, 0x49, 0xd7, 0xa1,
+	0xd2, 0x73, 0xd2, 0xf4, 0xbb, 0x38, 0x71, 0x5b, 0x3a, 0xdf, 0x9a, 0xda, 0xd6, 0xbd, 0x9c, 0x64,
+	0xb7, 0xfd, 0x90, 0xfe, 0x1f, 0x0c, 0x9b, 0x09, 0x82, 0xc6, 0xce, 0xda, 0xb6, 0x4c, 0xb5, 0x6d,
+	0xb3, 0x74, 0x1c, 0x64, 0xed, 0xd8, 0x65, 0x36, 0xee, 0x5b, 0x0f, 0xa0, 0x72, 0x1c, 0x7b, 0x7e,
+	0xf4, 0xe6, 0x79, 0xbf, 0x92, 0x0c, 0xaf, 0x9f, 0x94, 0x12, 0x30, 0x06, 0xbe, 0x60, 0x2a, 0xd9,
+	0xb8, 0xc4, 0xd4, 0x87, 0x4e, 0x6a, 0xc7, 0x01, 0x6b, 0x19, 0xb7, 0xb4, 0xcd, 0x8a, 0xad, 0x4c,
+	0xeb, 0x57, 0x03, 0x56, 0x7a, 0x81, 0x33, 0x61, 0xc9, 0x9e, 0xe3, 0x1d, 0x45, 0x67, 0x31, 0xdd,
+	0x07, 0x18, 0x44, 0xf1, 0x70, 0x38, 0x1e, 0xf9, 0xcc, 0x6d, 0x69, 0xb7, 0x8c, 0xcd, 0xda, 0xce,
+	0x5b, 0xd3, 0x5c, 0x33, 0xbe, 0xdb, 0xb9, 0x63, 0x27, 0xca, 0x92, 0x89, 0x5d, 0x88, 0x44, 0x9e,
+	0x7e, 0xe6, 0x0c, 0x2f, 0x8e, 0x32, 0x16, 0xa6, 0x2d, 0xfd, 0x1f, 0x79, 0x72, 0x47, 0xc9, 0x93,
+	0x03, 0xf4, 0x18, 0xea, 0x83, 0x28, 0xcd, 0x99, 0x0c, 0xce, 0xb4, 0xf9, 0xb7, 0x15, 0xa5, 0x73,
+	0x5c, 0x33, 0xd1, 0xeb, 0x9f, 0x40, 0x73, 0xae, 0x68, 0x94, 0xeb, 0x82, 0x4d, 0xb8, 0xaa, 0xa6,
+	0x8d, 0x4b, 0x7a, 0x0d, 0xcc, 0x67, 0x4e, 0x30, 0x66, 0x5c, 0x42, 0xc3, 0x16, 0xc6, 0xc7, 0xfa,
+	0x7d, 0x6d, 0xfd, 0x18, 0x9a, 0x73, 0xb5, 0x5e, 0x11, 0x7e, 0xbb, 0x18, 0x5e, 0xdb, 0x59, 0x99,
+	0x96, 0x8a, 0x51, 0x45, 0xb6, 0x13, 0x58, 0xbd, 0x54, 0x6f, 0x91, 0xaf, 0xb4, 0x18, 0x9f, 0xe5,
+	0x02, 0x08, 0x35, 0xf8, 0x45, 0xca, 0x36, 0xd0, 0xf2, 0x36, 0xa0, 0x50, 0x3a, 0x71, 0x42, 0x26,
+	0x7b, 0x8c, 0xaf, 0xe9, 0x5d, 0x28, 0x4b, 0xed, 0x78, 0x6b, 0xd4, 0x76, 0xae, 0x5f, 0xad, 0xac,
+	0xad, 0xdc, 0xac, 0xdb, 0xb0, 0xd2, 0x4e, 0x98, 0x93, 0x31, 0x6c, 0x20, 0x6c, 0x6c, 0x45, 0xab,
+	0xe5, 0xb4, 0xd6, 0x87, 0x45, 0xa7, 0x05, 0x1e, 0x4c, 0x03, 0xea, 0x9d, 0x28, 0x63, 0xc9, 0x81,
+	0x13, 0x22, 0xb7, 0xf5, 0x75, 0xc1, 0x5e, 0xe0, 0x09, 0xbc, 0x0d, 0x25, 0x7e, 0x24, 0xa1, 0xd8,
+	0xda, 0xdc, 0x91, 0xf8, 0x79, 0xb8, 0x83, 0x55, 0x83, 0xea, 0x71, 0xec, 0xc5, 0xe3, 0x0c, 0x93,
+	0xed, 0x28, 0x63, 0x81, 0x82, 0x01, 0x2a, 0x0f, 0xfd, 0xe1, 0x45, 0x6f, 0xd0, 0x3f, 0xb4, 0xfe,
+	0x0b, 0xe5, 0xf6, 0xb9, 0x83, 0x54, 0x28, 0x7e, 0x37, 0xf5, 0xa4, 0x24, 0xb8, 0xb4, 0xee, 0x8a,
+	0xcd, 0x05, 0xa8, 0xf7, 0xa0, 0x82, 0x11, 0x48, 0xfd, 0x9a, 0x97, 0x29, 0xb3, 0x1a, 0x79, 0xd6,
+	0x07, 0x50, 0xc2, 0x2e, 0xa1, 0x0d, 0xd0, 0x8f, 0x54, 0xb8, 0x7e, 0xe4, 0xd2, 0xeb, 0xb0, 0x8c,
+	0xf8, 0x91, 0x18, 0x13, 0xa6, 0x2d, 0x2d, 0x64, 0x38, 0x19, 0x87, 0x9c, 0xc1, 0xb0, 0x71, 0x69,
+	0xdd, 0x04, 0xf3, 0xa0, 0x2b, 0x8f, 0xd4, 0x0e, 0x5d, 0x75, 0xa4, 0x76, 0xe8, 0x5a, 0xdb, 0xb8,
+	0xb5, 0xc0, 0x81, 0x22, 0x68, 0x60, 0x9a, 0xc1, 0xc8, 0x75, 0x32, 0xc6, 0x8f, 0xf5, 0x11, 0x80,
+	0xb0, 0x4e, 0x27, 0x23, 0x26, 0xe3, 0x6f, 0xcc, 0xf4, 0x77, 0xbe, 0x6d, 0x17, 0x5c, 0xf1, 0x4d,
+	0x14, 0x07, 0xcb, 0xfc, 0x9b, 0xe0, 0x7b, 0xd6, 0x1d, 0x68, 0x8a, 0x26, 0xdc, 0x73, 0xb2, 0x4c,
+	0xf4, 0x6a, 0x0b, 0xca, 0xc7, 0xec, 0x19, 0x0b, 0xa4, 0x18, 0xa6, 0xad, 0x4c, 0xeb, 0xfe, 0xac,
+	0xf3, 0x02, 0xc7, 0xfa, 0x59, 0x03, 0x10, 0x41, 0x03, 0x3f, 0xca, 0x0a, 0x52, 0x9b, 0x5c, 0xea,
+	0xcb, 0xe3, 0x58, 0x5d, 0x9d, 0x51, 0xb8, 0x3a, 0x0a, 0xa5, 0x53, 0xe6, 0x84, 0xad, 0x12, 0x8f,
+	0xe3, 0x6b, 0xfe, 0xbf, 0x10, 0xa7, 0x7e, 0xe6, 0xc7, 0x51, 0xcb, 0xe4, 0xf8, 0xd4, 0xc6, 0x2c,
+	0x87, 0xbd, 0xd6, 0x32, 0xbf, 0x27, 0xfd, 0xb0, 0x87, 0x33, 0xab, 0xeb, 0x3c, 0x3f, 0xec, 0xb5,
+	0xca, 0x62, 0x66, 0x71, 0xc3, 0x7a, 0x0a, 0x0d, 0x51, 0x19, 0x36, 0x3b, 0x57, 0x7c, 0x1d, 0x2a,
+	0x12, 0x51, 0xed, 0x30, 0xb5, 0x8b, 0xe2, 0xe8, 0x33, 0xe2, 0xd0, 0x77, 0xc0, 0x1c, 0x44, 0x7e,
+	0xa6, 0xa6, 0x6f, 0xae, 0x45, 0x7e, 0x6e, 0x5b, 0x78, 0x58, 0xef, 0x42, 0x53, 0x80, 0xfd, 0xcc,
+	0x49, 0xb2, 0x7f, 0xcb, 0x69, 0xf5, 0x80, 0x48, 0xf7, 0x0b, 0x3f, 0x08, 0x78, 0x0c, 0x2a, 0xd6,
+	0x4f, 0x86, 0x6a, 0xa4, 0xf6, 0x93, 0x21, 0x56, 0xc6, 0xf7, 0xf3, 0xca, 0xa4, 0x89, 0xbe, 0xa7,
+	0x4e, 0xc2, 0xeb, 0x32, 0x6d, 0x5c, 0x5a, 0x3f, 0xc0, 0x6a, 0x81, 0xb1, 0x73, 0x76, 0xc6, 0x86,
+	0x6f, 0x48, 0xa9, 0x49, 0x4a, 0xfe, 0x5a, 0xd2, 0x43, 0xe6, 0x04, 0xfc, 0x7a, 0x2a, 0xb6, 0xb4,
+	0x50, 0xf4, 0x2f, 0xf8, 0x64, 0x36, 0x85, 0xe8, 0xdc, 0xb0, 0xbe, 0x57, 0x47, 0xda, 0x1d, 0xe2,
+	0x55, 0x71, 0x09, 0xee, 0x41, 0x59, 0x54, 0x92, 0xca, 0xbf, 0xd4, 0xf5, 0x39, 0x09, 0x0b, 0xc5,
+	0xda, 0xca, 0x95, 0xbe, 0x0f, 0xcb, 0x1c, 0x57, 0x6d, 0x7e, 0xf3, 0xaa, 0x20, 0xae, 0x99, 0x2d,
+	0x1d, 0xad, 0xff, 0xa9, 0xe4, 0xfb, 0x7e, 0xe4, 0xa7, 0xe7, 0x6a, 0x78, 0x3c, 0xf6, 0x23, 0x7e,
+	0xf8, 0x8a, 0x8d, 0xcb, 0xad, 0x3f, 0x0c, 0x30, 0xbb, 0xa9, 0x77, 0xe4, 0xd2, 0x3a, 0x54, 0xba,
+	0xa9, 0xf7, 0xe4, 0x24, 0x8e, 0x18, 0x59, 0xa2, 0x6b, 0xd0, 0x44, 0xab, 0xf0, 0xb9, 0x44, 0xb4,
+	0x79, 0x70, 0xb7, 0xfd, 0x90, 0xe8, 0x94, 0x40, 0x1d, 0x41, 0xf5, 0x75, 0x43, 0x8c, 0x19, 0x04,
+	0x7d, 0x4a, 0xf4, 0x3f, 0xb0, 0x8a, 0xc8, 0xcc, 0xbf, 0x05, 0x31, 0x2f, 0xc3, 0xe8, 0xbd, 0x4c,
+	0xaf, 0x01, 0x41, 0xb8, 0x38, 0xfe, 0x49, 0xf9, 0x12, 0x8a, 0xbe, 0x15, 0xba, 0x0a, 0x2b, 0x32,
+	0x97, 0x18, 0xdd, 0xa4, 0x3a, 0x0b, 0xa1, 0x17, 0xa8, 0x8a, 0xd4, 0x7c, 0x26, 0x35, 0xda, 0x84,
+	0x1a, 0x4f, 0x2d, 0xa6, 0x34, 0xa9, 0x17, 0x01, 0x8c, 0x59, 0x51, 0x31, 0x6a, 0xf0, 0x92, 0x06,
+	0x5d, 0x81, 0x2a, 0x22, 0x7c, 0x08, 0x92, 0x66, 0x6e, 0xa2, 0x3f, 0xa1, 0xd7, 0x81, 0xa2, 0x39,
+	0x3b, 0xd7, 0xc8, 0x2a, 0xbd, 0x01, 0x6b, 0xf9, 0x21, 0xa7, 0xf3, 0x87, 0xb8, 0x57, 0x6d, 0x20,
+	0x13, 0x53, 0x4c, 0xb3, 0xef, 0x95, 0x9c, 0xa9, 0x80, 0xb9, 0x47, 0x45, 0x3c, 0xda, 0x82, 0x6b,
+	0xf9, 0x46, 0xde, 0x6b, 0xe4, 0x7c, 0x76, 0x27, 0x6f, 0x04, 0xe2, 0x6f, 0xfd, 0xa9, 0x03, 0xe4,
+	0xf3, 0x8b, 0xd6, 0xa0, 0xdc, 0x1f, 0x0f, 0x87, 0x2c, 0x4d, 0xc9, 0x12, 0x05, 0x58, 0xee, 0xa6,
+	0x5e, 0x27, 0x49, 0x88, 0x86, 0x32, 0xc8, 0xaf, 0xd3, 0xce, 0x73, 0x3f, 0xcd, 0x08, 0xc3, 0x2e,
+	0x90, 0xc8, 0x49, 0x2c, 0xc1, 0x33, 0x14, 0x1d, 0x2f, 0x10, 0x27, 0x98, 0x80, 0x3c, 0x54, 0x54,
+	0x7d, 0xbc, 0x22, 0xd5, 0x39, 0xa7, 0x0a, 0x12, 0xe6, 0xb8, 0x13, 0xde, 0x1a, 0xc4, 0x2f, 0x92,
+	0x87, 0xa3, 0x6c, 0x42, 0xbe, 0x45, 0x9e, 0x69, 0x10, 0x87, 0x2e, 0x68, 0x03, 0x40, 0x39, 0x25,
+	0x09, 0x09, 0x28, 0x85, 0x86, 0xa4, 0x91, 0xdf, 0xae, 0x24, 0xc4, 0xbb, 0x38, 0x61, 0xcc, 0x15,
+	0xbc, 0x11, 0x96, 0xa8, 0xaa, 0x39, 0x0a, 0x02, 0xe6, 0x39, 0x01, 0x89, 0x11, 0xcc, 0x3b, 0x6d,
+	0xdf, 0xf1, 0x03, 0x97, 0x8c, 0x10, 0x9c, 0x76, 0x14, 0x62, 0xcc, 0x25, 0x4f, 0x31, 0x83, 0xf8,
+	0x3e, 0x38, 0x89, 0xb3, 0xfd, 0x78, 0x1c, 0xb9, 0x24, 0xc1, 0xc2, 0x0e, 0xba, 0xed, 0xd0, 0x9d,
+	0x42, 0xe9, 0x14, 0xea, 0x39, 0x89, 0x13, 0x62, 0x6d, 0x38, 0x5d, 0xea, 0x1c, 0xea, 0x3c, 0x67,
+	0x43, 0x44, 0xc6, 0x78, 0x99, 0xc5, 0x1b, 0x96, 0x39, 0x9e, 0x6d, 0xdd, 0x81, 0x0a, 0x8e, 0x49,
+	0xfe, 0x1f, 0xd6, 0x84, 0x1a, 0xae, 0xbb, 0x71, 0x84, 0xcf, 0x8a, 0x2c, 0xe1, 0x91, 0x11, 0x10,
+	0x45, 0x10, 0x6d, 0xeb, 0x47, 0x1d, 0xe0, 0xd4, 0x49, 0x3c, 0x26, 0xfc, 0x1b, 0xca, 0x92, 0x8f,
+	0xb5, 0x09, 0xb5, 0x4e, 0xc4, 0xc2, 0x49, 0xdf, 0x8f, 0xbc, 0x80, 0x11, 0x0d, 0xdf, 0x4a, 0x01,
+	0xd8, 0x4f, 0xe2, 0x28, 0x23, 0x3a, 0x3e, 0xb7, 0x02, 0xba, 0xc7, 0xce, 0xfd, 0xc8, 0x25, 0x06,
+	0x3e, 0x7c, 0x0e, 0xef, 0x06, 0x01, 0x29, 0xe1, 0xa1, 0xb8, 0xc5, 0x83, 0x10, 0x32, 0x51, 0x0e,
+	0x0e, 0x89, 0x08, 0xc4, 0x96, 0xf3, 0x12, 0xfa, 0x2c, 0x38, 0x23, 0xc0, 0x2f, 0x29, 0x08, 0x54,
+	0x05, 0x35, 0xde, 0x24, 0x53, 0x5b, 0x14, 0x50, 0xc7, 0xb2, 0x72, 0x50, 0xe6, 0x5f, 0xc1, 0xd6,
+	0x43, 0x14, 0x79, 0x1b, 0xa2, 0x47, 0x82, 0x3c, 0x7b, 0x13, 0x0b, 0x42, 0x24, 0x4f, 0x4e, 0xb6,
+	0x9e, 0x40, 0x05, 0x9f, 0x19, 0xd7, 0x82, 0x40, 0x5d, 0xad, 0xa5, 0x1a, 0x14, 0x1a, 0xf9, 0x97,
+	0x3d, 0xee, 0x11, 0x0d, 0xfb, 0x63, 0xfa, 0xb9, 0x4e, 0x74, 0x21, 0xf8, 0xf4, 0x7b, 0x9b, 0x18,
+	0xb8, 0xdf, 0x79, 0x3a, 0xf6, 0x47, 0xdc, 0x2c, 0x6d, 0xd9, 0x50, 0x7e, 0x34, 0x76, 0x02, 0x3f,
+	0x9b, 0xa0, 0xab, 0x5c, 0x4a, 0xfa, 0x2a, 0x98, 0x8f, 0xcf, 0xfd, 0x0c, 0x65, 0xae, 0x82, 0x79,
+	0x90, 0x30, 0x16, 0x11, 0x9d, 0x56, 0xa0, 0xb4, 0x17, 0x8c, 0x19, 0x31, 0xf0, 0xf1, 0xf4, 0xc6,
+	0xc9, 0x28, 0x60, 0xa4, 0x84, 0xeb, 0xcf, 0x13, 0x27, 0xf2, 0x18, 0x31, 0xb7, 0x3e, 0x2d, 0x7e,
+	0xf3, 0xf0, 0xd2, 0x69, 0x11, 0x91, 0xec, 0x35, 0x28, 0x23, 0xb6, 0xeb, 0xba, 0x44, 0x53, 0xc6,
+	0x67, 0x2c, 0x20, 0xfa, 0xde, 0xed, 0x5f, 0x5e, 0x6e, 0x68, 0x2f, 0x5e, 0x6e, 0x68, 0xbf, 0xbf,
+	0xdc, 0xd0, 0x7e, 0x7a, 0xb5, 0xb1, 0xf4, 0xe2, 0xd5, 0xc6, 0xd2, 0x6f, 0xaf, 0x36, 0x96, 0xbe,
+	0xac, 0x6e, 0xbf, 0x27, 0xff, 0x0d, 0xbe, 0x59, 0xe6, 0x3f, 0x1f, 0xfc, 0x15, 0x00, 0x00, 0xff,
+	0xff, 0x80, 0x7c, 0x77, 0x61, 0xfe, 0x0e, 0x00, 0x00,
 }
 
 func (m *RegisterREQ) Marshal() (dAtA []byte, err error) {
@@ -2148,6 +2715,386 @@ func (m *ItemUpdatePUSH) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	return len(dAtA) - i, nil
 }
 
+func (m *CreateBattleREQ) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *CreateBattleREQ) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *CreateBattleREQ) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.LevelId != 0 {
+		i = encodeVarintMsg(dAtA, i, uint64(m.LevelId))
+		i--
+		dAtA[i] = 0x8
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *CreateBattleACK) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *CreateBattleACK) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *CreateBattleACK) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Ret != 0 {
+		i = encodeVarintMsg(dAtA, i, uint64(m.Ret))
+		i--
+		dAtA[i] = 0x8
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *BattleUint) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *BattleUint) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *BattleUint) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.MaxHP != 0 {
+		i = encodeVarintMsg(dAtA, i, uint64(m.MaxHP))
+		i--
+		dAtA[i] = 0x38
+	}
+	if m.HP != 0 {
+		i = encodeVarintMsg(dAtA, i, uint64(m.HP))
+		i--
+		dAtA[i] = 0x30
+	}
+	if m.Position != 0 {
+		i = encodeVarintMsg(dAtA, i, uint64(m.Position))
+		i--
+		dAtA[i] = 0x28
+	}
+	if m.Team != 0 {
+		i = encodeVarintMsg(dAtA, i, uint64(m.Team))
+		i--
+		dAtA[i] = 0x20
+	}
+	if len(m.Name) > 0 {
+		i -= len(m.Name)
+		copy(dAtA[i:], m.Name)
+		i = encodeVarintMsg(dAtA, i, uint64(len(m.Name)))
+		i--
+		dAtA[i] = 0x1a
+	}
+	if m.Uid != 0 {
+		i = encodeVarintMsg(dAtA, i, uint64(m.Uid))
+		i--
+		dAtA[i] = 0x10
+	}
+	if m.Id != 0 {
+		i = encodeVarintMsg(dAtA, i, uint64(m.Id))
+		i--
+		dAtA[i] = 0x8
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *BattleInfoPUSH) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *BattleInfoPUSH) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *BattleInfoPUSH) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.Units) > 0 {
+		for iNdEx := len(m.Units) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.Units[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintMsg(dAtA, i, uint64(size))
+			}
+			i--
+			dAtA[i] = 0x1a
+		}
+	}
+	if m.LevelId != 0 {
+		i = encodeVarintMsg(dAtA, i, uint64(m.LevelId))
+		i--
+		dAtA[i] = 0x10
+	}
+	if m.BattleId != 0 {
+		i = encodeVarintMsg(dAtA, i, uint64(m.BattleId))
+		i--
+		dAtA[i] = 0x8
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *BattleStartPUSH) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *BattleStartPUSH) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *BattleStartPUSH) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.BattleId != 0 {
+		i = encodeVarintMsg(dAtA, i, uint64(m.BattleId))
+		i--
+		dAtA[i] = 0x8
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *BattleSkillStart) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *BattleSkillStart) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *BattleSkillStart) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.Tar) > 0 {
+		dAtA6 := make([]byte, len(m.Tar)*10)
+		var j5 int
+		for _, num1 := range m.Tar {
+			num := uint64(num1)
+			for num >= 1<<7 {
+				dAtA6[j5] = uint8(uint64(num)&0x7f | 0x80)
+				num >>= 7
+				j5++
+			}
+			dAtA6[j5] = uint8(num)
+			j5++
+		}
+		i -= j5
+		copy(dAtA[i:], dAtA6[:j5])
+		i = encodeVarintMsg(dAtA, i, uint64(j5))
+		i--
+		dAtA[i] = 0x1a
+	}
+	if m.SkillId != 0 {
+		i = encodeVarintMsg(dAtA, i, uint64(m.SkillId))
+		i--
+		dAtA[i] = 0x10
+	}
+	if m.Src != 0 {
+		i = encodeVarintMsg(dAtA, i, uint64(m.Src))
+		i--
+		dAtA[i] = 0x8
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *BattleSkillEffect) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *BattleSkillEffect) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *BattleSkillEffect) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Value != 0 {
+		i = encodeVarintMsg(dAtA, i, uint64(m.Value))
+		i--
+		dAtA[i] = 0x28
+	}
+	if m.IsHeal {
+		i--
+		if m.IsHeal {
+			dAtA[i] = 1
+		} else {
+			dAtA[i] = 0
+		}
+		i--
+		dAtA[i] = 0x20
+	}
+	if m.Tar != 0 {
+		i = encodeVarintMsg(dAtA, i, uint64(m.Tar))
+		i--
+		dAtA[i] = 0x18
+	}
+	if m.SkillId != 0 {
+		i = encodeVarintMsg(dAtA, i, uint64(m.SkillId))
+		i--
+		dAtA[i] = 0x10
+	}
+	if m.Src != 0 {
+		i = encodeVarintMsg(dAtA, i, uint64(m.Src))
+		i--
+		dAtA[i] = 0x8
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *BattleActionPUSH) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *BattleActionPUSH) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *BattleActionPUSH) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.Skills) > 0 {
+		for iNdEx := len(m.Skills) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.Skills[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintMsg(dAtA, i, uint64(size))
+			}
+			i--
+			dAtA[i] = 0x12
+		}
+	}
+	if len(m.Effects) > 0 {
+		for iNdEx := len(m.Effects) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.Effects[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintMsg(dAtA, i, uint64(size))
+			}
+			i--
+			dAtA[i] = 0xa
+		}
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *BattleFinishPUSH) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *BattleFinishPUSH) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *BattleFinishPUSH) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Win {
+		i--
+		if m.Win {
+			dAtA[i] = 1
+		} else {
+			dAtA[i] = 0
+		}
+		i--
+		dAtA[i] = 0x8
+	}
+	return len(dAtA) - i, nil
+}
+
 func encodeVarintMsg(dAtA []byte, offset int, v uint64) int {
 	offset -= sovMsg(v)
 	base := offset
@@ -2468,6 +3415,173 @@ func (m *ItemUpdatePUSH) Size() (n int) {
 			l = e.Size()
 			n += 1 + l + sovMsg(uint64(l))
 		}
+	}
+	return n
+}
+
+func (m *CreateBattleREQ) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.LevelId != 0 {
+		n += 1 + sovMsg(uint64(m.LevelId))
+	}
+	return n
+}
+
+func (m *CreateBattleACK) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Ret != 0 {
+		n += 1 + sovMsg(uint64(m.Ret))
+	}
+	return n
+}
+
+func (m *BattleUint) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Id != 0 {
+		n += 1 + sovMsg(uint64(m.Id))
+	}
+	if m.Uid != 0 {
+		n += 1 + sovMsg(uint64(m.Uid))
+	}
+	l = len(m.Name)
+	if l > 0 {
+		n += 1 + l + sovMsg(uint64(l))
+	}
+	if m.Team != 0 {
+		n += 1 + sovMsg(uint64(m.Team))
+	}
+	if m.Position != 0 {
+		n += 1 + sovMsg(uint64(m.Position))
+	}
+	if m.HP != 0 {
+		n += 1 + sovMsg(uint64(m.HP))
+	}
+	if m.MaxHP != 0 {
+		n += 1 + sovMsg(uint64(m.MaxHP))
+	}
+	return n
+}
+
+func (m *BattleInfoPUSH) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.BattleId != 0 {
+		n += 1 + sovMsg(uint64(m.BattleId))
+	}
+	if m.LevelId != 0 {
+		n += 1 + sovMsg(uint64(m.LevelId))
+	}
+	if len(m.Units) > 0 {
+		for _, e := range m.Units {
+			l = e.Size()
+			n += 1 + l + sovMsg(uint64(l))
+		}
+	}
+	return n
+}
+
+func (m *BattleStartPUSH) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.BattleId != 0 {
+		n += 1 + sovMsg(uint64(m.BattleId))
+	}
+	return n
+}
+
+func (m *BattleSkillStart) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Src != 0 {
+		n += 1 + sovMsg(uint64(m.Src))
+	}
+	if m.SkillId != 0 {
+		n += 1 + sovMsg(uint64(m.SkillId))
+	}
+	if len(m.Tar) > 0 {
+		l = 0
+		for _, e := range m.Tar {
+			l += sovMsg(uint64(e))
+		}
+		n += 1 + sovMsg(uint64(l)) + l
+	}
+	return n
+}
+
+func (m *BattleSkillEffect) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Src != 0 {
+		n += 1 + sovMsg(uint64(m.Src))
+	}
+	if m.SkillId != 0 {
+		n += 1 + sovMsg(uint64(m.SkillId))
+	}
+	if m.Tar != 0 {
+		n += 1 + sovMsg(uint64(m.Tar))
+	}
+	if m.IsHeal {
+		n += 2
+	}
+	if m.Value != 0 {
+		n += 1 + sovMsg(uint64(m.Value))
+	}
+	return n
+}
+
+func (m *BattleActionPUSH) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if len(m.Effects) > 0 {
+		for _, e := range m.Effects {
+			l = e.Size()
+			n += 1 + l + sovMsg(uint64(l))
+		}
+	}
+	if len(m.Skills) > 0 {
+		for _, e := range m.Skills {
+			l = e.Size()
+			n += 1 + l + sovMsg(uint64(l))
+		}
+	}
+	return n
+}
+
+func (m *BattleFinishPUSH) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Win {
+		n += 2
 	}
 	return n
 }
@@ -4498,6 +5612,1029 @@ func (m *ItemUpdatePUSH) Unmarshal(dAtA []byte) error {
 				return err
 			}
 			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipMsg(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthMsg
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *CreateBattleREQ) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowMsg
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: CreateBattleREQ: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: CreateBattleREQ: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field LevelId", wireType)
+			}
+			m.LevelId = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowMsg
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.LevelId |= int32(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		default:
+			iNdEx = preIndex
+			skippy, err := skipMsg(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthMsg
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *CreateBattleACK) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowMsg
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: CreateBattleACK: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: CreateBattleACK: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Ret", wireType)
+			}
+			m.Ret = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowMsg
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Ret |= ResultCode(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		default:
+			iNdEx = preIndex
+			skippy, err := skipMsg(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthMsg
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *BattleUint) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowMsg
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: BattleUint: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: BattleUint: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+			}
+			m.Id = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowMsg
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Id |= int32(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 2:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Uid", wireType)
+			}
+			m.Uid = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowMsg
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Uid |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Name", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowMsg
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthMsg
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthMsg
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Name = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 4:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Team", wireType)
+			}
+			m.Team = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowMsg
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Team |= int32(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 5:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Position", wireType)
+			}
+			m.Position = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowMsg
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Position |= int32(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 6:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field HP", wireType)
+			}
+			m.HP = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowMsg
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.HP |= int64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 7:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field MaxHP", wireType)
+			}
+			m.MaxHP = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowMsg
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.MaxHP |= int64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		default:
+			iNdEx = preIndex
+			skippy, err := skipMsg(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthMsg
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *BattleInfoPUSH) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowMsg
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: BattleInfoPUSH: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: BattleInfoPUSH: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field BattleId", wireType)
+			}
+			m.BattleId = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowMsg
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.BattleId |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 2:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field LevelId", wireType)
+			}
+			m.LevelId = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowMsg
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.LevelId |= int32(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Units", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowMsg
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthMsg
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthMsg
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Units = append(m.Units, &BattleUint{})
+			if err := m.Units[len(m.Units)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipMsg(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthMsg
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *BattleStartPUSH) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowMsg
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: BattleStartPUSH: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: BattleStartPUSH: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field BattleId", wireType)
+			}
+			m.BattleId = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowMsg
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.BattleId |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		default:
+			iNdEx = preIndex
+			skippy, err := skipMsg(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthMsg
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *BattleSkillStart) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowMsg
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: BattleSkillStart: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: BattleSkillStart: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Src", wireType)
+			}
+			m.Src = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowMsg
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Src |= int32(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 2:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SkillId", wireType)
+			}
+			m.SkillId = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowMsg
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.SkillId |= int32(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 3:
+			if wireType == 0 {
+				var v int32
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return ErrIntOverflowMsg
+					}
+					if iNdEx >= l {
+						return io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					v |= int32(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				m.Tar = append(m.Tar, v)
+			} else if wireType == 2 {
+				var packedLen int
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return ErrIntOverflowMsg
+					}
+					if iNdEx >= l {
+						return io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					packedLen |= int(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				if packedLen < 0 {
+					return ErrInvalidLengthMsg
+				}
+				postIndex := iNdEx + packedLen
+				if postIndex < 0 {
+					return ErrInvalidLengthMsg
+				}
+				if postIndex > l {
+					return io.ErrUnexpectedEOF
+				}
+				var elementCount int
+				var count int
+				for _, integer := range dAtA[iNdEx:postIndex] {
+					if integer < 128 {
+						count++
+					}
+				}
+				elementCount = count
+				if elementCount != 0 && len(m.Tar) == 0 {
+					m.Tar = make([]int32, 0, elementCount)
+				}
+				for iNdEx < postIndex {
+					var v int32
+					for shift := uint(0); ; shift += 7 {
+						if shift >= 64 {
+							return ErrIntOverflowMsg
+						}
+						if iNdEx >= l {
+							return io.ErrUnexpectedEOF
+						}
+						b := dAtA[iNdEx]
+						iNdEx++
+						v |= int32(b&0x7F) << shift
+						if b < 0x80 {
+							break
+						}
+					}
+					m.Tar = append(m.Tar, v)
+				}
+			} else {
+				return fmt.Errorf("proto: wrong wireType = %d for field Tar", wireType)
+			}
+		default:
+			iNdEx = preIndex
+			skippy, err := skipMsg(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthMsg
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *BattleSkillEffect) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowMsg
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: BattleSkillEffect: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: BattleSkillEffect: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Src", wireType)
+			}
+			m.Src = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowMsg
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Src |= int32(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 2:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SkillId", wireType)
+			}
+			m.SkillId = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowMsg
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.SkillId |= int32(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 3:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Tar", wireType)
+			}
+			m.Tar = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowMsg
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Tar |= int32(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 4:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field IsHeal", wireType)
+			}
+			var v int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowMsg
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				v |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			m.IsHeal = bool(v != 0)
+		case 5:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Value", wireType)
+			}
+			m.Value = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowMsg
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Value |= int64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		default:
+			iNdEx = preIndex
+			skippy, err := skipMsg(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthMsg
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *BattleActionPUSH) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowMsg
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: BattleActionPUSH: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: BattleActionPUSH: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Effects", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowMsg
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthMsg
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthMsg
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Effects = append(m.Effects, &BattleSkillEffect{})
+			if err := m.Effects[len(m.Effects)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Skills", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowMsg
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthMsg
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthMsg
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Skills = append(m.Skills, &BattleSkillStart{})
+			if err := m.Skills[len(m.Skills)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipMsg(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthMsg
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *BattleFinishPUSH) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowMsg
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: BattleFinishPUSH: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: BattleFinishPUSH: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Win", wireType)
+			}
+			var v int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowMsg
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				v |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			m.Win = bool(v != 0)
 		default:
 			iNdEx = preIndex
 			skippy, err := skipMsg(dAtA[iNdEx:])

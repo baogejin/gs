@@ -1,15 +1,6 @@
 package main
 
-import (
-	"fmt"
-	"gs/game/battle"
-)
-
 func main() {
-	b := battle.CreateBattle()
-	fmt.Println(b.BattleId)
-	b1 := battle.CreateBattle()
-	fmt.Println(b1.BattleId)
 	// b := &battle.Battle{
 	// 	CreateAt: time.Now().UnixMilli(),
 	// 	StartAt:  time.Now().UnixMilli(),

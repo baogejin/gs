@@ -73,3 +73,15 @@ func (this *Unit) SendMsg(msgid myproto.MsgId, msg myproto.MyMsg) {
 	}
 	myrpc.GetInstance().SendMsg(this.NotifyAddr, this.Uid, msgid, define.NodeGateway, data)
 }
+
+func (this *Unit) Proto() *myproto.BattleUint {
+	return &myproto.BattleUint{
+		Id:       this.Id,
+		Uid:      this.Uid,
+		Name:     this.Name,
+		Team:     this.Team,
+		Position: this.Position,
+		HP:       this.HP,
+		MaxHP:    this.MaxHP,
+	}
+}

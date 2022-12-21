@@ -7,18 +7,13 @@ import (
 )
 
 //添加action列表时提前计算指定的单体技能目标的unitid，群体技能返回0
-func (this *Battle) getSkillTargetUnitId(targetType int32, src *Unit) int32 {
-	switch myproto.TargetType(targetType) {
-	case myproto.TargetType_TargetSelf:
-		return src.Id
-	case myproto.TargetType_EnemySingle, myproto.TargetType_EnemySingleFront, myproto.TargetType_EnemySingleBehind,
-		myproto.TargetType_AllySingle, myproto.TargetType_AllySingleFront, myproto.TargetType_AllySingleBehind:
-		units := this.getSkillTargetUnits(targetType, src)
-		if len(units) == 1 {
-			return units[0].Id
-		}
+func (this *Battle) getSkillTargetUnitId(targetType int32, src *Unit) []int32 {
+	tar := []int32{}
+	units := this.getSkillTargetUnits(targetType, src)
+	for _, v := range units {
+		tar = append(tar, v.Id)
 	}
-	return 0
+	return tar
 }
 
 func (this *Battle) getSkillTargetUnits(targetType int32, src *Unit) []*Unit {

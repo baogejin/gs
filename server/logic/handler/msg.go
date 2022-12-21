@@ -4,12 +4,14 @@ import (
 	"encoding/json"
 	"gs/data/gencode"
 	"gs/define"
+	"gs/game/battle"
 	"gs/game/player_info"
 	"gs/lib/mylog"
 	"gs/lib/myredis"
 	"gs/lib/myrpc"
 	"gs/lib/myutil"
 	"gs/proto/myproto"
+	"gs/server/logic/battle_manager"
 	"gs/server/logic/player_manager"
 	"strconv"
 	"strings"
@@ -189,4 +191,24 @@ func handGM(uid uint64, data []byte) *myproto.GMACK {
 	default:
 		return &myproto.GMACK{Ret: myproto.ResultCode_GMCmdNotFound}
 	}
+}
+
+func handCreateBattle(uid uint64, data []byte) *myproto.CreateBattleACK {
+	player := player_manager.GetMgr().GetPlayer(uid)
+	if player == nil {
+		return &myproto.CreateBattleACK{Ret: myproto.ResultCode_PlayerNotFound}
+	}
+	req := &myproto.CreateBattleREQ{}
+	err := req.Unmarshal(data)
+	if err != nil {
+		return &myproto.CreateBattleACK{Ret: myproto.ResultCode_MsgErr}
+	}
+	b := battle.CreatePveBattle(req.LevelId, player.GenBattleUnit())
+	if b == nil {
+		return &myproto.CreateBattleACK{Ret: myproto.ResultCode_CreateBattleFailed}
+	}
+	b.BattleInfoNotify()
+	battle_manager.GetMgr().AddBattle(b)
+	b.Start()
+	return &myproto.CreateBattleACK{}
 }

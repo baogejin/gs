@@ -23,6 +23,13 @@ enum MsgId{
     Msg_GMREQ=15;
     Msg_GMACK=16;
     Msg_ItemUpdatePUSH=17;
+
+    Msg_CreateBattleREQ=100;
+    Msg_CreateBattleACK=101;
+    Msg_BattleInfoPUSH=102;
+    Msg_BattleStartPUSH=103;
+    Msg_BattleActionPUSH=104;
+    Msg_BattleFinishPUSH=105;
 }
 
 enum ResultCode{
@@ -45,6 +52,7 @@ enum ResultCode{
     GMCmdNotFound=115;
     GMCmdParamErr=116;
     GMCmdExecErr=117;
+    CreateBattleFailed=118;
 }
 
 message RegisterREQ{
@@ -184,4 +192,55 @@ enum ItemUpdateType{
 message ItemUpdatePUSH{
     ItemUpdateType UpdateType=1;
     repeated Item Items=2;
+}
+
+message CreateBattleREQ{
+    int32 LevelId=1;
+}
+
+message CreateBattleACK{
+    ResultCode Ret=1;
+}
+
+message BattleUint{
+    int32 Id=1;
+    uint64 Uid=2;
+    string Name=3;
+    int32 Team=4;
+    int32 Position=5;
+    int64 HP=6;
+    int64 MaxHP=7;
+}
+
+message BattleInfoPUSH{
+    uint64 BattleId=1;
+    int32 LevelId=2;
+    repeated BattleUint Units=3;
+}
+
+message BattleStartPUSH{
+    uint64 BattleId=1;
+}
+
+message BattleSkillStart{
+    int32 Src=1;
+    int32 SkillId=2;
+    repeated int32 Tar=3;
+}
+
+message BattleSkillEffect{
+    int32 Src=1;
+    int32 SkillId=2;
+    int32 Tar=3;
+    bool IsHeal=4;
+    int64 Value=5;
+}
+
+message BattleActionPUSH{
+    repeated BattleSkillEffect Effects=1;
+    repeated BattleSkillStart Skills=2;
+}
+
+message BattleFinishPUSH{
+    bool Win=1;
 }

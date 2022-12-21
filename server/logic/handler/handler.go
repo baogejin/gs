@@ -27,6 +27,8 @@ func ProcessMsg(uid uint64, msgId uint32, data []byte, notifyAddr string) (mypro
 		return myproto.MsgId_Msg_ChatACK, handChat(uid, data)
 	case myproto.MsgId_Msg_GMREQ:
 		return myproto.MsgId_Msg_GMACK, handGM(uid, data)
+	case myproto.MsgId_Msg_CreateBattleREQ:
+		return myproto.MsgId_Msg_CreateBattleACK, handCreateBattle(uid, data)
 	default:
 		mylog.Error("msg id ", msgId, " not handle")
 	}

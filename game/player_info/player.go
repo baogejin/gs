@@ -87,15 +87,13 @@ func (this *Player) ProcessNotify(msgId myproto.MsgId, data []byte) {
 //临时生成战斗单位
 func (this *Player) GenBattleUnit() *battle.Unit {
 	return &battle.Unit{
-		Uid:          this.Uid,
-		Name:         this.Name,
-		Team:         0,
-		Position:     2,
-		UnitType:     myproto.UnitType_UnitPlayer,
-		WeaponSkill:  1,
-		SkillUseTime: make(map[int32]int64),
-		HP:           100,
-		MaxHP:        100,
-		NotifyAddr:   this.NotifyAddr,
+		Uid:         this.Uid,
+		Name:        this.Name,
+		Position:    1,
+		UnitType:    myproto.UnitType_UnitPlayer,
+		WeaponSkill: 1,
+		HP:          100,
+		MaxHP:       100,
+		NotifyAddr:  this.NotifyAddr,
 	}
 }
