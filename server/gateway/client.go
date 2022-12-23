@@ -49,7 +49,7 @@ func (this *Client) Start() {
 		for recvBuf.Len() > 4 {
 			needLen := binary.LittleEndian.Uint32(recvBuf.Bytes())
 			if recvBuf.Len() >= int(needLen) {
-				msg := UnpackMsg(recvBuf.Bytes()[4:])
+				msg := UnpackMsg(recvBuf.Bytes()[4:needLen])
 				this.seq++
 				if this.seq != msg.Seq {
 					//TODO 序列不对

@@ -46,6 +46,6 @@ func (this *RpcProtocol) Unpack(buf []byte) (xtcp.Packet, int, error) {
 	uid := binary.LittleEndian.Uint64(buf[4:])
 	msgId := binary.LittleEndian.Uint32(buf[12:])
 	node := binary.LittleEndian.Uint32(buf[16:])
-	data := buf[20:]
+	data := buf[20:length]
 	return &RpcPacket{Uid: uid, MsgId: msgId, Node: int32(node), Data: data}, int(length), nil
 }
