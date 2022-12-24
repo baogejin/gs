@@ -204,7 +204,7 @@ message CreateBattleACK{
     ResultCode Ret=1;
 }
 
-message BattleUint{
+message BattleUnit{
     int32 Id=1;
     uint64 Uid=2;
     string Name=3;
@@ -217,7 +217,7 @@ message BattleUint{
 message BattleInfoPUSH{
     uint64 BattleId=1;
     int32 LevelId=2;
-    repeated BattleUint Units=3;
+    repeated BattleUnit Units=3;
 }
 
 message BattleStartPUSH{
