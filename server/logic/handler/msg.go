@@ -209,6 +209,23 @@ func handCreateBattle(uid uint64, data []byte) *myproto.CreateBattleACK {
 	}
 	b.BattleInfoNotify()
 	battle_manager.GetMgr().AddBattle(b)
-	b.Start()
+	// b.Start()
 	return &myproto.CreateBattleACK{}
+}
+
+func handBattleStart(uid uint64, data []byte) *myproto.BattleStartACK {
+	player := player_manager.GetMgr().GetPlayer(uid)
+	if player == nil {
+		return &myproto.BattleStartACK{Ret: myproto.ResultCode_PlayerNotFound}
+	}
+	req := &myproto.BattleStartREQ{}
+	err := req.Unmarshal(data)
+	if err != nil {
+		return &myproto.BattleStartACK{Ret: myproto.ResultCode_MsgErr}
+	}
+	b := battle_manager.GetMgr().GetBattle(req.BattleId)
+	if b != nil {
+		b.Start()
+	}
+	return &myproto.BattleStartACK{}
 }

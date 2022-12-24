@@ -93,6 +93,9 @@ func (this *Battle) genUnitId() int32 {
 }
 
 func (this *Battle) Start() {
+	if this.StartAt > 0 {
+		return
+	}
 	this.StartAt = time.Now().UnixMilli()
 	push := &myproto.BattleStartPUSH{}
 	data, err := push.Marshal()
@@ -129,8 +132,9 @@ func (this *Battle) BattleTick() {
 	//信息打包发送战斗内所有玩家
 	if len(effects) > 0 || len(skills) > 0 {
 		push := &myproto.BattleActionPUSH{
-			Effects: effects,
-			Skills:  skills,
+			BattleId: this.BattleId,
+			Effects:  effects,
+			Skills:   skills,
 		}
 		data, err := push.Marshal()
 		if err != nil {
@@ -158,7 +162,8 @@ func (this *Battle) checkEnd() bool {
 			winTeam = 0
 		}
 		winPush := &myproto.BattleFinishPUSH{
-			Win: true,
+			BattleId: this.BattleId,
+			Win:      true,
 		}
 		winData, err := winPush.Marshal()
 		if err != nil {
@@ -171,7 +176,8 @@ func (this *Battle) checkEnd() bool {
 			}
 		}
 		losePush := &myproto.BattleFinishPUSH{
-			Win: false,
+			BattleId: this.BattleId,
+			Win:      false,
 		}
 		loseData, err := losePush.Marshal()
 		if err != nil {
