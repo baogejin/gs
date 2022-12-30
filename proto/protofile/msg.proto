@@ -32,6 +32,8 @@ enum MsgId{
     Msg_BattleFinishPUSH=105;
     Msg_BattleStartREQ=106;
     Msg_BattleStartACK=107;
+    Msg_BattleSkillREQ=108;
+    Msg_BattleSkillACK=109;
 }
 
 enum ResultCode{
@@ -254,5 +256,14 @@ message BattleStartREQ{
 }
 
 message BattleStartACK{
+    ResultCode Ret=1;
+}
+
+message BattleSkillREQ{
+    uint64 BattleId=1;
+    int32 SkillId=2;
+}
+
+message BattleSkillACK{
     ResultCode Ret=1;
 }
